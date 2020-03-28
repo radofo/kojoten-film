@@ -6,7 +6,7 @@ name: Deploy to Integration
 # events but only for the master branch
 on:
   push:
-    branches: [ integration ]
+    branches: [integration]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -45,6 +45,6 @@ jobs:
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting[default] #replace with production in other Workflow
+          args: deploy --only hosting:[default] #replace with production in other Workflow
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
