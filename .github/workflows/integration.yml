@@ -45,6 +45,6 @@ jobs:
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting:default #replace with production in other Workflow
+          args: deploy -P default
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
