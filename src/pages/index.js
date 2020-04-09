@@ -12,8 +12,9 @@ const Home = () => {
           node {
             titel
             id
+            url
             poster {
-              fixed(width: 200) {
+              fixed(width: 800) {
                 width
                 height
                 src
