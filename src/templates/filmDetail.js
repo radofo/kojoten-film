@@ -1,5 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
+import Layout from "../components/layout"
 
 export const query = graphql`
   query($slug: String!) {
@@ -15,9 +16,9 @@ export const query = graphql`
 // The result from the query will (magically) be available as props.data in the component
 const FilmDetail = props => {
   return (
-    <div>
+    <Layout transparent>
       <h1>{props.data.contentfulFilm.titel}</h1>
-    </div>
+    </Layout>
   )
 }
 

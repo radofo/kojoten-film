@@ -3,6 +3,7 @@ import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 // Components
 import FilmPoster from "../components/filmPoster"
+import Layout from "../components/layout"
 
 const Home = () => {
   const data = useStaticQuery(graphql`
@@ -14,7 +15,7 @@ const Home = () => {
             id
             url
             poster {
-              fixed(width: 800) {
+              fixed(width: 200) {
                 width
                 height
                 src
@@ -27,7 +28,7 @@ const Home = () => {
   `)
 
   return (
-    <div>
+    <Layout>
       <ul>
         {data.allContentfulFilm.edges.map(edge => {
           return (
@@ -37,7 +38,7 @@ const Home = () => {
           )
         })}
       </ul>
-    </div>
+    </Layout>
   )
 }
 
