@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import styled, { createGlobalStyle } from "styled-components"
 import logo from "../media/kojoten_logo.svg"
 
@@ -41,6 +41,7 @@ const Header = styled.header`
   top: 0;
   width: 100%;
 `
+const BurgerMenu = styled.div``
 const Body = styled.main`
   margin-top: ${props => {
     return props.transparent ? 0 : "var(--header-height)"
@@ -49,12 +50,26 @@ const Body = styled.main`
 
 // ============== React Component ==============
 const Layout = ({ children, transparent }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const handleClick = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
   return (
     <CSSVariables>
       <GlobalStyle />
       <Header transparent={transparent}>
         <img src={logo} alt="Kojoten Film" />
-        <div>Test</div>
+        <BurgerMenu
+          className={`hamburger hamburger--squeeze ${
+            isMenuOpen ? "is-active" : ""
+          }`}
+          onClick={handleClick}
+        >
+          <span className="hamburger-box">
+            <span className="hamburger-inner"></span>
+          </span>
+        </BurgerMenu>
       </Header>
       <Body transparent={transparent}>{children}</Body>
     </CSSVariables>
