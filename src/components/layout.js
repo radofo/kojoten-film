@@ -1,6 +1,8 @@
+// Libraries
 import React, { useState } from "react"
 import styled, { createGlobalStyle } from "styled-components"
-import logo from "../media/kojoten_logo.svg"
+// Children
+import Header from "./header"
 
 // ============== Global Styles & Variables ==============
 const CSSVariables = styled.div`
@@ -25,31 +27,15 @@ const GlobalStyle = createGlobalStyle`
 `
 
 // ============== Styled Components ==============
-const Header = styled.header`
-  background-color: ${props => {
-    return props.transparent
-      ? "var(--header-bgcolor-transparent)"
-      : "var(--header-bgcolor)"
-  }};
-  color: var(--text-color);
-  padding: 0 var(--padding-sides);
-  height: var(--header-height);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  width: 100%;
-`
-const BurgerMenu = styled.div``
+
 const Body = styled.main`
   margin-top: ${props => {
     return props.transparent ? 0 : "var(--header-height)"
   }};
 `
 
-// ============== React Component ==============
-const Layout = ({ children, transparent }) => {
+// ============== Layout Component ==============
+const Layout = ({ children, transparentHeader }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const handleClick = () => {
@@ -58,20 +44,12 @@ const Layout = ({ children, transparent }) => {
   return (
     <CSSVariables>
       <GlobalStyle />
-      <Header transparent={transparent}>
-        <img src={logo} alt="Kojoten Film" />
-        <BurgerMenu
-          className={`hamburger hamburger--squeeze ${
-            isMenuOpen ? "is-active" : ""
-          }`}
-          onClick={handleClick}
-        >
-          <span className="hamburger-box">
-            <span className="hamburger-inner"></span>
-          </span>
-        </BurgerMenu>
-      </Header>
-      <Body transparent={transparent}>{children}</Body>
+      <Header
+        handleClick={handleClick}
+        isMenuOpen={isMenuOpen}
+        transparentHeader={transparentHeader}
+      />
+      <Body transparentHeader={transparentHeader}>{children}</Body>
     </CSSVariables>
   )
 }
