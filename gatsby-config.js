@@ -15,5 +15,6 @@ module.exports = {
         host: `preview.contentful.com`,
       },
     },
+    `gatsby-plugin-styled-components`,
   ],
 }
