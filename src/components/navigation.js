@@ -5,22 +5,13 @@ import { screenSizes } from "../utils/mediaqueries"
 const NavigationContainer = styled.nav`
   display: none;
   @media ${screenSizes.tablet} {
-    display: initial;
+    display: flex;
+    flex-direction: row;
   }
 `
 
-const NavigationList = styled.ul`
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-`
-
 const Navigation = ({ children }) => {
-  return (
-    <NavigationContainer>
-      <NavigationList>{children}</NavigationList>
-    </NavigationContainer>
-  )
+  return <NavigationContainer>{children}</NavigationContainer>
 }
 
 export default Navigation

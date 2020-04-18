@@ -46,11 +46,11 @@ const Header = ({ isMenuOpen, handleClick, transparentHeader }) => {
         </span>
       </BurgerMenu>
       <Navigation>
-        <NavItem link="/">News</NavItem>
+        <NavItem link="/news">News</NavItem>
         <NavItem link="/">Film</NavItem>
-        <NavItem link="/">Commercial</NavItem>
-        <NavItem link="/">Team</NavItem>
-        <NavItem link="/">Contact</NavItem>
+        <NavItem link="/commercial">Commercial</NavItem>
+        <NavItem link="/team">Team</NavItem>
+        <NavItem link="/contact">Contact</NavItem>
       </Navigation>
     </HeaderContainer>
   )

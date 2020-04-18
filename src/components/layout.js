@@ -11,6 +11,7 @@ const CSSVariables = styled.div`
   --header-bgcolor: #000;
   --header-bgcolor-transparent: rgba(0, 0, 0, 0);
   --header-height: 70px;
+  --active-route: #ffd600;
 `
 const GlobalStyle = createGlobalStyle`
   * {
