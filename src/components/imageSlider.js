@@ -34,27 +34,40 @@ const ImageContainer = styled.div`
   transform: translateX(0);
 `
 
-const ToggleButton = styled.button`
-  position: absolute;
-  top: 40%;
-  left: 40%;
-`
-
 const ImageSlider = ({ batch, batchWidth }) => {
   const [play, setPlay] = useState(true)
+  const [toggleCounter, _setToggleCounter] = useState(0)
+
+  // Refs
+  const counterRef = useRef(toggleCounter)
   const viewPortRef = useRef(null)
 
   // Hooks
   useEffect(() => {
     const currentRef = viewPortRef.current
     if (currentRef) {
+      currentRef.addEventListener("scroll", stopAnimation)
+      window.addEventListener("resize", stopAnimation)
       currentRef.scrollLeft = batchWidth
+    }
+    return () => {
+      currentRef.removeEventListener("scroll", stopAnimation)
+      window.removeEventListener("resize", stopAnimation)
     }
   }, [])
 
   // Methods
-  const togglePlay = () => {
-    setPlay(!play)
+  const setToggleCounter = newValue => {
+    counterRef.current = newValue
+    _setToggleCounter(newValue)
+  }
+
+  const stopAnimation = event => {
+    console.log("event: ", event)
+    setToggleCounter(counterRef.current + 1)
+    if (counterRef.current > 1) {
+      setPlay(false)
+    }
   }
 
   // Render
@@ -71,7 +84,6 @@ const ImageSlider = ({ batch, batchWidth }) => {
           return <FilmPoster key={index + 100} node={edge.node} index={index} />
         })}
       </ImageContainer>
-      <ToggleButton onClick={togglePlay}>Play/Stop</ToggleButton>
     </ViewPortContainer>
   )
 }
