@@ -21,6 +21,7 @@ const HeaderContainer = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 99;
 `
 
 const BurgerMenu = styled.div`

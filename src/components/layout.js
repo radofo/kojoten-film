@@ -3,6 +3,8 @@ import React, { useState } from "react"
 import styled, { createGlobalStyle } from "styled-components"
 // Children
 import Header from "./header"
+// Utils
+import { headerHeight } from "../utils/window"
 
 // ============== Global Styles & Variables ==============
 const CSSVariables = styled.div`
@@ -10,7 +12,8 @@ const CSSVariables = styled.div`
   --text-color: #fff;
   --header-bgcolor: #000;
   --header-bgcolor-transparent: rgba(0, 0, 0, 0);
-  --header-height: 70px;
+  --header-height: ${headerHeight}px;
+  --slider-speed-factor: 160;
   --active-route: #ffd600;
 `
 const GlobalStyle = createGlobalStyle`
@@ -29,11 +32,7 @@ const GlobalStyle = createGlobalStyle`
 
 // ============== Styled Components ==============
 
-const Body = styled.main`
-  margin-top: ${props => {
-    return props.transparent ? 0 : "var(--header-height)"
-  }};
-`
+const Body = styled.main``
 
 // ============== Layout Component ==============
 const Layout = ({ children, transparentHeader }) => {
