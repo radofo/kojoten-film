@@ -7,12 +7,13 @@ const PendingContainer = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 20px;
+  color: white;
 `
 
 const Pending = ({ children }) => {
   return (
     <PendingContainer>
-      🚧 {children} page still under development 🚧
+      🚧 {children} page currently under development 🚧
     </PendingContainer>
   )
 }

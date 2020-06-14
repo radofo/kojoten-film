@@ -17,10 +17,8 @@ const Home = () => {
             id
             url
             poster {
-              fixed(width: 200) {
-                width
-                height
-                src
+              fixed {
+                ...GatsbyContentfulFixed
               }
             }
           }

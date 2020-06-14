@@ -1,1 +1,1 @@
-export const sliderSpeedFactor = 160
+export const sliderSpeedFactor = 140

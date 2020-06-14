@@ -1,5 +1,4 @@
 import React from "react"
-import { Link } from "gatsby"
 import styled from "styled-components"
 
 const FilmPosterContainer = styled.div`
@@ -7,23 +6,20 @@ const FilmPosterContainer = styled.div`
   position: relative;
 `
 
-const PosterReplacement = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 50px;
-`
-
 const PosterImage = styled.img`
   height: 100%;
 `
 
-const FilmPoster = ({ node, index }) => {
+const FilmPoster = ({ node, index, firstBatch }) => {
+  const poster = node.poster.fixed
   return (
     <FilmPosterContainer>
-      {/* <PosterReplacement>{index}</PosterReplacement> */}
-      <PosterImage src={node.poster.fixed.src} alt={node.url} />
+      <PosterImage
+        className={firstBatch ? `firstBatchNode` : ""}
+        srcSet={poster.srcSet}
+        src={poster.src}
+        alt={node.url}
+      />
     </FilmPosterContainer>
   )
 }
