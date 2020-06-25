@@ -3,27 +3,22 @@ import Layout from "../components/layout"
 import PendingContainer from "../components/pending"
 
 import { graphql } from "gatsby"
-import Img from "gatsby-image"
 
 import styled from "styled-components"
 
-const ArrayContainer = styled.div`
+const VPContainer = styled.div`
+  border: 1px solid red;
+  padding-top: var(--header-height);
+  position: absolute;
   height: 100%;
-  display: flex;
-`
-
-const ImageBounds = styled.div`
-  height: 100vh;
+  left: 0;
+  top: 0;
 `
 
 const Commercial = ({ data }) => {
   return (
     <Layout>
-      <ArrayContainer>
-        {data.allContentfulFilm.edges.map(edge => {
-          return <Img fixed={edge.node.poster.fixed} />
-        })}
-      </ArrayContainer>
+      <VPContainer></VPContainer>
     </Layout>
   )
 }

@@ -1,26 +1,22 @@
 import React from "react"
 import styled from "styled-components"
-
-const FilmPosterContainer = styled.div`
-  height: 100%;
-  position: relative;
-`
+import { minImageHeight } from "../utils/window"
 
 const PosterImage = styled.img`
-  height: 100%;
+  height: 100vh;
+  height: ${props => props.posterHeight}px;
+  padding-top: var(--header-height);
 `
 
-const FilmPoster = ({ node, index, firstBatch }) => {
+const FilmPoster = ({ node, posterHeight }) => {
   const poster = node.poster.fixed
   return (
-    <FilmPosterContainer>
-      <PosterImage
-        className={firstBatch ? `firstBatchNode` : ""}
-        srcSet={poster.srcSet}
-        src={poster.src}
-        alt={node.url}
-      />
-    </FilmPosterContainer>
+    <PosterImage
+      posterHeight={posterHeight}
+      srcSet={poster.srcSet}
+      src={poster.src}
+      alt={node.url}
+    />
   )
 }
 
