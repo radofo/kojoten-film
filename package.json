@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf .cache && gatsby build",
+    "build": "gatsby clean && gatsby build",
     "develop": "gatsby develop",
     "mobile": "gatsby develop -H 192.168.178.20 -p 8000",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",

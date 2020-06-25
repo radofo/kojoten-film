@@ -22,6 +22,10 @@ jobs:
         uses: actions/checkout@master
         with:
           ref: integration
+      - name: Use Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "13"
       - name: Install Dependencies
         run: npm install
       - name: Build
