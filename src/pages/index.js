@@ -1,5 +1,5 @@
 // Gatsby/React
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 // Components
 import Layout from "../components/layout"
@@ -27,7 +27,16 @@ const Home = () => {
     }
   `)
 
-  const [batch, batchWidth] = getBatch(data.allContentfulFilm.edges)
+  const [batch, setBatch] = useState([])
+  const [batchWidth, setBatchWidth] = useState(0)
+
+  useEffect(() => {
+    const [contentfulBatch, contentfulBatchWidth] = getBatch(
+      data.allContentfulFilm.edges
+    )
+    setBatch(contentfulBatch)
+    setBatchWidth(contentfulBatchWidth)
+  }, [])
 
   return (
     <Layout>
