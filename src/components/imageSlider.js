@@ -40,12 +40,13 @@ const ImageSlider = ({ batch, batchWidth }) => {
   const [play, setPlay] = useState(false)
   const [toggleCounter, _setToggleCounter] = useState(0)
   const [animationWidth, setAnimationWidth] = useState(batchWidth)
-  const [sliderHeight, setSliderHeight] = useState(window.innerHeight)
+  const [sliderHeight, setSliderHeight] = useState(0)
   const counterRef = useRef(toggleCounter)
   const imageContainerRef = useRef(null)
 
   useEffect(() => {
     const imageContainerNode = imageContainerRef.current
+    setSliderHeight(window.innerHeight)
     window.addEventListener("scroll", handleScroll)
     window.addEventListener("resize", handleResize)
     window.setTimeout(function() {
@@ -66,7 +67,7 @@ const ImageSlider = ({ batch, batchWidth }) => {
       window.removeEventListener("scroll", handleScroll)
       window.removeEventListener("resize", handleResize)
     }
-  }, [])
+  }, [batch])
 
   const handleResize = event => {
     setSliderHeight(window.innerHeight)
