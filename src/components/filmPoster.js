@@ -1,30 +1,22 @@
 import React from "react"
-import { Link } from "gatsby"
 import styled from "styled-components"
-
-const FilmPosterContainer = styled.div`
-  height: 100%;
-  position: relative;
-`
-
-const PosterReplacement = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 50px;
-`
+import { minImageHeight } from "../utils/window"
 
 const PosterImage = styled.img`
-  height: 100%;
+  height: 100vh;
+  height: ${props => props.posterHeight}px;
+  padding-top: var(--header-height);
 `
 
-const FilmPoster = ({ node, index }) => {
+const FilmPoster = ({ node, posterHeight }) => {
+  const poster = node.poster.fixed
   return (
-    <FilmPosterContainer>
-      {/* <PosterReplacement>{index}</PosterReplacement> */}
-      <PosterImage src={node.poster.fixed.src} alt={node.url} />
-    </FilmPosterContainer>
+    <PosterImage
+      posterHeight={posterHeight}
+      srcSet={poster.srcSet}
+      src={poster.src}
+      alt={node.url}
+    />
   )
 }
 

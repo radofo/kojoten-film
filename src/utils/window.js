@@ -19,9 +19,9 @@ export const debounce = (func, wait, immediate) => {
 
 export const getBatch = images => {
   // eslint-disable-next-line no-restricted-globals
-  const screenHeight = screen.height
+  const screenHeight = window.screen.height
   // eslint-disable-next-line no-restricted-globals
-  const screenWidth = screen.width
+  const screenWidth = window.screen.width
 
   const worstCaseScreenWidth = Math.max(screenHeight, screenWidth)
   const worstCaseContentAreaHeight = minImageHeight

@@ -7,6 +7,7 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
+    "mobile": "gatsby develop -H 192.168.178.20 -p 8000",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
@@ -18,8 +19,11 @@
     "animejs": "^3.2.0",
     "babel-plugin-styled-components": "^1.10.7",
     "gatsby": "^2.19.45",
+    "gatsby-image": "^2.4.5",
+    "gatsby-plugin-sharp": "^2.6.9",
     "gatsby-plugin-styled-components": "^3.2.1",
     "gatsby-source-contentful": "^2.2.5",
+    "gatsby-transformer-sharp": "^2.5.3",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "styled-components": "^5.1.0"

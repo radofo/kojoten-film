@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
     Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: bold;
-    background-color: #eee;
+    background-color: black;
   }
 `
 

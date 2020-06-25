@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef } from "react"
 import FilmPoster from "../components/filmPoster"
 import styled, { keyframes } from "styled-components"
-import { sliderSpeedFactor } from "../utils/slider"
+import { sliderSpeedFactor, getNodeListWidth } from "../utils/slider"
 
+// Styled Components
 const ViewPortContainer = styled.div`
-  width: 100vw;
   overflow-y: hidden;
   overflow-x: scroll;
 `
-
 const animateBatch = batchWidth => keyframes`
   0% {
     transform: translateX(0);
@@ -17,74 +16,116 @@ const animateBatch = batchWidth => keyframes`
     transform: translateX(-${batchWidth}px);
   }
 `
-
 const ImageContainer = styled.div`
-  padding-top: var(--header-height);
-  height: 100vh;
-  max-height: 100vh;
-  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-flex;
   flex-direction: row;
-  justify-content: flex-start;
+  align-items: flex-start;
+  transform: translateX(0);
   animation: ${props => animateBatch(props.batchWidth)}
-    ${props => props.batchWidth / sliderSpeedFactor}s linear infinite;
+    ${props => {
+      return props.batchWidth / sliderSpeedFactor
+    }}s
+    linear infinite;
   animation-fill-mode: forwards;
   animation-play-state: ${props => {
     return props.play ? "play" : "paused"
   }};
-  transform: translateX(0);
 `
 
+// React Component
 const ImageSlider = ({ batch, batchWidth }) => {
-  const [play, setPlay] = useState(true)
+  const [play, setPlay] = useState(false)
   const [toggleCounter, _setToggleCounter] = useState(0)
-
-  // Refs
+  const [animationWidth, setAnimationWidth] = useState(batchWidth)
+  const [sliderHeight, setSliderHeight] = useState(window.innerHeight)
   const counterRef = useRef(toggleCounter)
-  const viewPortRef = useRef(null)
+  const imageContainerRef = useRef(null)
 
-  // Hooks
   useEffect(() => {
-    const currentRef = viewPortRef.current
-    if (currentRef) {
-      currentRef.addEventListener("scroll", stopAnimation)
-      window.addEventListener("resize", stopAnimation)
-      currentRef.scrollLeft = batchWidth
-    }
+    const imageContainerNode = imageContainerRef.current
+    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("resize", handleResize)
+    window.setTimeout(function() {
+      window.requestAnimationFrame(() => {
+        const firstBatchNodes = Array.from(imageContainerNode.childNodes).slice(
+          0,
+          batch.length
+        )
+        const firstBatchWidth = getNodeListWidth(firstBatchNodes)
+        const scrollStartPosition =
+          firstBatchWidth !== 0 ? firstBatchWidth : batchWidth
+        setAnimationWidth(scrollStartPosition)
+        window.scrollTo(scrollStartPosition, 0)
+        setPlay(true)
+      })
+    }, 100)
     return () => {
-      currentRef.removeEventListener("scroll", stopAnimation)
-      window.removeEventListener("resize", stopAnimation)
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("resize", handleResize)
     }
   }, [])
 
-  // Methods
-  const setToggleCounter = newValue => {
-    counterRef.current = newValue
-    _setToggleCounter(newValue)
+  const handleResize = event => {
+    setSliderHeight(window.innerHeight)
+    stopAnimation()
   }
 
-  const stopAnimation = event => {
-    console.log("event: ", event)
+  const handleScroll = event => {
+    stopAnimation()
+  }
+
+  const stopAnimation = () => {
     setToggleCounter(counterRef.current + 1)
     if (counterRef.current > 1) {
       setPlay(false)
     }
   }
 
-  // Render
+  const setToggleCounter = newValue => {
+    counterRef.current = newValue
+    _setToggleCounter(newValue)
+  }
+
   return (
-    <ViewPortContainer ref={viewPortRef}>
-      <ImageContainer play={play} batchWidth={batchWidth}>
-        {batch.map((edge, index) => {
-          return <FilmPoster key={index} node={edge.node} index={index} />
-        })}
-        {batch.map((edge, index) => {
-          return <FilmPoster key={index + 50} node={edge.node} index={index} />
-        })}
-        {batch.map((edge, index) => {
-          return <FilmPoster key={index + 100} node={edge.node} index={index} />
-        })}
-      </ImageContainer>
-    </ViewPortContainer>
+    <ImageContainer
+      play={play}
+      batchWidth={animationWidth}
+      ref={imageContainerRef}
+    >
+      {batch.map((edge, index) => {
+        return (
+          <FilmPoster
+            posterHeight={sliderHeight}
+            key={index}
+            node={edge.node}
+            index={index}
+          />
+        )
+      })}
+      {batch.map((edge, index) => {
+        return (
+          <FilmPoster
+            posterHeight={sliderHeight}
+            key={index}
+            node={edge.node}
+            index={index}
+          />
+        )
+      })}
+      {batch.map((edge, index) => {
+        return (
+          <FilmPoster
+            posterHeight={sliderHeight}
+            key={index}
+            node={edge.node}
+            index={index}
+          />
+        )
+      })}
+    </ImageContainer>
   )
 }
 
