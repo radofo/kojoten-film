@@ -29,7 +29,7 @@ jobs:
       - name: Update Node
         run: npm update
       - name: Clean cache
-        run: gatsby clean && rm -rf node_modules && rm package-lock.json
+        run: rm -rf node_modules && rm package-lock.json
       - name: Install Dependencies
         run: npm install
       - name: Build
