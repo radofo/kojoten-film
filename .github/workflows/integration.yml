@@ -44,10 +44,15 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
+      - name: Display structure of downloaded files before
+        run: ls
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
           name: public
+          path: public
+      - name: Display structure of downloaded files
+        run: ls -R
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
