@@ -1,6 +1,10 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import kojotenlogo from "../media/kojoten_logo.svg"
+import { graphql, useStaticQuery } from "gatsby"
+
+// Components
+import MediaContainer from "./mediaContainer"
 
 const VideoCover = styled.div`
   position: fixed;
@@ -15,7 +19,7 @@ const VideoCover = styled.div`
   transform: ${props => {
     return props.show ? "translateY(0)" : "translateY(-100%)"
   }};
-  transition: transform 0.4s ease-out;
+  transition: transform 0.5s linear;
 `
 
 const ToggleButton = styled.button`
@@ -24,6 +28,7 @@ const ToggleButton = styled.button`
   left: 50%;
   transform: translateX(-50%);
   border: none;
+  background-color: rgba(0, 0, 0, 0);
 
   &:focus {
     outline: none;
@@ -34,7 +39,6 @@ const ToggleButton = styled.button`
 `
 const ChevronDown = styled.i`
   font-size: 30px;
-  background: black;
   color: white;
 `
 
@@ -46,12 +50,45 @@ const KojotenLogo = styled.img`
 `
 
 const LpCover = ({ overlayVisible, toggleOverlay }) => {
+  const data = useStaticQuery(graphql`
+    query {
+      allContentfulCoverMedia {
+        edges {
+          node {
+            horizontalVideo {
+              file {
+                url
+              }
+            }
+            horizontalImage {
+              fixed {
+                src
+              }
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  const [coverMedia, setCoverMedia] = useState({})
+
+  useEffect(() => {
+    const mediaNode = data.allContentfulCoverMedia.edges[0].node
+    setCoverMedia({
+      horizontalVideo: mediaNode.horizontalVideo.file.url,
+      horizontalImage: mediaNode.horizontalImage.fixed.src,
+    })
+  }, [])
+
   return (
     <VideoCover show={overlayVisible}>
-      <KojotenLogo src={kojotenlogo} alt="Kojoten Film" />
-      <ToggleButton onClick={toggleOverlay}>
-        <ChevronDown className="fas fa-chevron-down"></ChevronDown>
-      </ToggleButton>
+      <MediaContainer media={coverMedia}>
+        <KojotenLogo src={kojotenlogo} alt="Kojoten Film" />
+        <ToggleButton onClick={toggleOverlay}>
+          <ChevronDown className="fas fa-chevron-down"></ChevronDown>
+        </ToggleButton>
+      </MediaContainer>
     </VideoCover>
   )
 }
