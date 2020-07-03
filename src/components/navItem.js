@@ -15,7 +15,12 @@ const NavigationItem = styled(props => <Link {...props} />)`
 
 const NavItem = ({ children, link }) => {
   return (
-    <NavigationItem exact="true" to={`${link}`} activeClassName="active">
+    <NavigationItem
+      state={{ modal: false }}
+      exact="true"
+      to={`${link}`}
+      activeClassName="active"
+    >
       {children}
     </NavigationItem>
   )
