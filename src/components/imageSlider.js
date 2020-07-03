@@ -4,10 +4,6 @@ import styled, { keyframes } from "styled-components"
 import { sliderSpeedFactor, getNodeListWidth } from "../utils/slider"
 
 // Styled Components
-const ViewPortContainer = styled.div`
-  overflow-y: hidden;
-  overflow-x: scroll;
-`
 const animateBatch = batchWidth => keyframes`
   0% {
     transform: translateX(0);
@@ -36,7 +32,7 @@ const ImageContainer = styled.div`
 `
 
 // React Component
-const ImageSlider = ({ batch, batchWidth }) => {
+const ImageSlider = ({ batch, batchWidth, overlayVisible }) => {
   const [play, setPlay] = useState(false)
   const [toggleCounter, _setToggleCounter] = useState(0)
   const [animationWidth, setAnimationWidth] = useState(batchWidth)
@@ -45,8 +41,21 @@ const ImageSlider = ({ batch, batchWidth }) => {
   const imageContainerRef = useRef(null)
 
   useEffect(() => {
+    if (overlayVisible) {
+      document.body.style.overflow = "hidden"
+      setPlay(false)
+    } else {
+      document.body.style.overflow = ""
+      setTimeout(() => {
+        setPlay(true)
+      }, 1000)
+    }
+  }, [overlayVisible])
+
+  useEffect(() => {
     const imageContainerNode = imageContainerRef.current
     setSliderHeight(window.innerHeight)
+
     window.addEventListener("scroll", handleScroll)
     window.addEventListener("resize", handleResize)
     window.setTimeout(function() {
@@ -60,7 +69,6 @@ const ImageSlider = ({ batch, batchWidth }) => {
           firstBatchWidth !== 0 ? firstBatchWidth : batchWidth
         setAnimationWidth(scrollStartPosition)
         window.scrollTo(scrollStartPosition, 0)
-        setPlay(true)
       })
     }, 100)
     return () => {

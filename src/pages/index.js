@@ -1,13 +1,15 @@
 // Gatsby/React
 import React, { useEffect, useState } from "react"
 import { graphql, useStaticQuery } from "gatsby"
+import { Helmet } from "react-helmet"
 // Components
 import Layout from "../components/layout"
 import ImageSlider from "../components/imageSlider"
+import LpCover from "../components/lpCover"
 // Utils
 import { getBatch } from "../utils/window"
 
-const Home = () => {
+const Home = ({ location }) => {
   const data = useStaticQuery(graphql`
     query {
       allContentfulFilm(sort: { fields: position, order: DESC }) {
@@ -26,9 +28,12 @@ const Home = () => {
       }
     }
   `)
+  const { state } = location
+  const modal = state ? state.modal : true
 
   const [batch, setBatch] = useState([])
   const [batchWidth, setBatchWidth] = useState(0)
+  const [overlayVisible, setOverlayVisible] = useState(modal)
 
   useEffect(() => {
     const [contentfulBatch, contentfulBatchWidth] = getBatch(
@@ -38,9 +43,23 @@ const Home = () => {
     setBatchWidth(contentfulBatchWidth)
   }, [])
 
+  const toggleOverlay = () => {
+    setOverlayVisible(false)
+  }
+
   return (
     <Layout>
-      <ImageSlider batch={batch} batchWidth={batchWidth} />
+      <Helmet>
+        <title>Kojoten - Film</title>
+        <meta name="description" content="Helmet application" />
+        <link href="/fontawesome/css/all.css" rel="stylesheet"></link>
+      </Helmet>
+      <LpCover overlayVisible={overlayVisible} toggleOverlay={toggleOverlay} />
+      <ImageSlider
+        overlayVisible={overlayVisible}
+        batch={batch}
+        batchWidth={batchWidth}
+      />
     </Layout>
   )
 }
