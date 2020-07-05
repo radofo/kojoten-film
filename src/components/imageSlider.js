@@ -89,6 +89,8 @@ const ImageSlider = ({ batch, batchWidth, overlayVisible }) => {
   const stopAnimation = () => {
     setToggleCounter(counterRef.current + 1)
     if (counterRef.current > 1) {
+      const hamburger = document.querySelector(".hamburger--squeeze")
+      hamburger.focus()
       setPlay(false)
     }
   }
