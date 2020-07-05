@@ -13,12 +13,10 @@ const Video = styled.video`
 `
 
 const MediaContainer = ({ children, media }) => {
-  useEffect(() => {
-    console.log("media: ", media)
-  }, [media])
+  useEffect(() => {}, [media])
   return (
     <MediaContainerStyles>
-      <Video autoPlay muted loop key={media.horizontalVideo}>
+      <Video autoPlay muted loop playsInline key={media.horizontalVideo}>
         <source src={media.horizontalVideo} type="video/mp4"></source>
       </Video>
       {children}

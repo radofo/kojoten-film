@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import kojotenlogo from "../media/kojoten_logo.svg"
 import { graphql, useStaticQuery } from "gatsby"
+import { screenSizes } from "../utils/mediaqueries"
 
 // Components
 import MediaContainer from "./mediaContainer"
@@ -19,7 +20,7 @@ const VideoCover = styled.div`
   transform: ${props => {
     return props.show ? "translateY(0)" : "translateY(-100%)"
   }};
-  transition: transform 0.5s linear;
+  transition: transform 0.5s ease-in;
 `
 
 const ToggleButton = styled.button`
@@ -45,8 +46,12 @@ const ChevronDown = styled.i`
 const KojotenLogo = styled.img`
   position: absolute;
   bottom: 50px;
-  left: 50px;
-  width: 150px;
+  left: 10px;
+  width: 100px;
+  @media ${screenSizes.tablet} {
+    left: 50px;
+    width: 150px;
+  }
 `
 
 const LpCover = ({ overlayVisible, toggleOverlay }) => {
