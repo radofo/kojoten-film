@@ -3,6 +3,7 @@ import styled from "styled-components"
 import Layout from "../components/layout"
 import MediaContainer from "../components/mediaContainer"
 import { graphql, useStaticQuery } from "gatsby"
+import { screenSizes } from "../utils/mediaqueries"
 
 const TeamContainer = styled.div`
   position: fixed;
@@ -16,11 +17,19 @@ const TeamContainer = styled.div`
 
 const TeamDescription = styled.p`
   position: absolute;
-  bottom: calc(var(--padding-sides) * 1.5);
-  left: calc(var(--padding-sides) * 1.5);
   color: var(--highlight-color);
   font-weight: normal;
-  max-width: 50%;
+  top: 0;
+  left: 0;
+  padding: calc(var(--header-height) * 1.5) calc(var(--padding-sides) * 1)
+    calc(var(--padding-sides) * 1);
+  max-width: 100%;
+  @media ${screenSizes.tablet} {
+    padding: 0 0 calc(var(--padding-sides) * 1) calc(var(--padding-sides) * 1);
+    bottom: 0;
+    top: initial;
+    max-width: 50%;
+  }
 `
 
 const Team = () => {
