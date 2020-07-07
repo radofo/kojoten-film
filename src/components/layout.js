@@ -15,6 +15,7 @@ const CSSVariables = styled.div`
   --header-height: ${headerHeight}px;
   --slider-speed-factor: 160;
   --active-route: #ffd600;
+  --highlight-color: #ffd600;
 `
 const GlobalStyle = createGlobalStyle`
   * {
