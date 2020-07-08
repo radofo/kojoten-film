@@ -12,13 +12,27 @@ const Video = styled.video`
   height: 100%;
 `
 
+const Image = styled.img`
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+`
+
 const MediaContainer = ({ children, media }) => {
-  useEffect(() => {}, [media])
   return (
     <MediaContainerStyles>
-      <Video autoPlay muted loop playsInline key={media.horizontalVideo}>
-        <source src={media.horizontalVideo} type="video/mp4"></source>
-      </Video>
+      {media.horizontalVideo ? (
+        <Video autoPlay muted loop playsInline key={media.horizontalVideo}>
+          <source src={media.horizontalVideo} type="video/mp4"></source>
+        </Video>
+      ) : (
+        <Image
+          src={media && media.horizontalImage && media.horizontalImage.src}
+          srcSet={
+            media && media.horizontalImage && media.horizontalImage.srcSet
+          }
+        />
+      )}
       {children}
     </MediaContainerStyles>
   )

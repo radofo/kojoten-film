@@ -82,7 +82,9 @@ const LpCover = ({ overlayVisible, toggleOverlay }) => {
     const mediaNode = data.allContentfulCoverMedia.edges[0].node
     setCoverMedia({
       horizontalVideo: mediaNode.horizontalVideo.file.url,
-      horizontalImage: mediaNode.horizontalImage.fixed.src,
+      horizontalImage: {
+        src: mediaNode.horizontalImage.fixed.src,
+      },
     })
   }, [])
 
