@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import styled from "styled-components"
+import { Helmet } from "react-helmet"
 
 import Layout from "../components/layout"
 import ContactAdress from "../components/contactAdress"
@@ -11,13 +12,11 @@ import { screenSizes } from "../utils/mediaqueries"
 const ContactContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 75px;
+  padding: 50px var(--padding-sides);
   margin-top: var(--header-height);
-  border: 1px solid red;
   @media ${screenSizes.tablet} {
     flex-direction: row;
-    padding-top: 150px;
-    padding-left: 100px;
+    padding: 150px 0 0 100px;
   }
 `
 
@@ -30,6 +29,10 @@ const Contact = () => {
 
   return (
     <Layout>
+      <Helmet>
+        <title>Kojoten - Contact</title>
+        <meta name="description" content="Helmet application" />
+      </Helmet>
       <ContactContainer>
         <ContactNavigation
           handleTabChange={handleTabChange}

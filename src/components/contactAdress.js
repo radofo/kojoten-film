@@ -1,34 +1,80 @@
 import React from "react"
+import styled from "styled-components"
+import { graphql, useStaticQuery } from "gatsby"
+import { screenSizes } from "../utils/mediaqueries"
 
-const contactAdress = () => {
+const ContactAdressContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media ${screenSizes.tablet} {
+    flex-direction: row;
+    width: 100%;
+  }
+`
+
+const ContactAdressText = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0 25px;
+  @media ${screenSizes.tablet} {
+    align-items: flex-start;
+    margin-right: 50px;
+  }
+`
+
+const ContactAdressTextLine = styled.p`
+  color: white;
+`
+
+const MapContainer = styled.iframe`
+  border: 0;
+  width: 100%;
+  height: 300px;
+  @media ${screenSizes.tablet} {
+    height: 450px;
+    max-width: 600px;
+  }
+`
+
+const ContactAdress = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      allContentfulAdresse {
+        edges {
+          node {
+            straeUndHausnummer
+            firmenname
+            plzUndStadt
+            email
+            mapsUrl {
+              mapsUrl
+            }
+          }
+        }
+      }
+    }
+  `)
+  const adressNode = data.allContentfulAdresse.edges[0].node
+
   return (
-    <div style={{ color: "white" }}>
-      Adress
-      {/* <div
-        style={{
-          display: "flex",
-          height: "100vh",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          opacity: 0.7,
-        }}
-      >
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5259.360735299667!2d9.1557032100525!3d48.768899955080514!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4799db5cd56401db%3A0xe10d78fd5e05c7dd!2sReinsburgstra%C3%9Fe%20108%2C%2070197%20Stuttgart!5e0!3m2!1sde!2sde!4v1594467080276!5m2!1sde!2sde"
-          frameBorder="0"
-          style={{
-            border: 0,
-            borderRadius: "10px",
-            width: "600px",
-            height: "400px",
-          }}
-          allowFullScreen=""
-          tabIndex="0"
-        ></iframe>
-      </div> */}
-    </div>
+    <ContactAdressContainer>
+      <ContactAdressText>
+        <ContactAdressTextLine>{adressNode.firmenname}</ContactAdressTextLine>
+        <ContactAdressTextLine>
+          {adressNode.straeUndHausnummer}
+        </ContactAdressTextLine>
+        <ContactAdressTextLine>{adressNode.plzUndStadt}</ContactAdressTextLine>
+        <ContactAdressTextLine>{adressNode.email}</ContactAdressTextLine>
+      </ContactAdressText>
+      <MapContainer
+        src={adressNode.mapsUrl.mapsUrl}
+        frameBorder="0"
+        allowFullScreen=""
+        tabIndex="0"
+      ></MapContainer>
+    </ContactAdressContainer>
   )
 }
 
-export default contactAdress
+export default ContactAdress
