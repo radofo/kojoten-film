@@ -5,6 +5,8 @@ const client = contentful.createClient({
   host: "preview.contentful.com",
 })
 
-export const getAllEntries = contentType => {
-  return client.getEntries({ content_type: contentType })
+export const defaultLocale = "en-US"
+
+export const getAllEntries = (contentType, locale = "en-US") => {
+  return client.getEntries({ content_type: contentType, locale: locale })
 }

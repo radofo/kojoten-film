@@ -1,7 +1,9 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import * as fetchContentful from "../utils/fetch"
+
 import styled from "styled-components"
-import { graphql, useStaticQuery } from "gatsby"
 import { screenSizes } from "../utils/mediaqueries"
+import { defaultLocale } from "../utils/fetch"
 
 const ContactAdressContainer = styled.div`
   display: flex;
@@ -38,37 +40,35 @@ const MapContainer = styled.iframe`
 `
 
 const ContactAdress = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      allContentfulAdresse {
-        edges {
-          node {
-            straeUndHausnummer
-            firmenname
-            plzUndStadt
-            email
-            mapsUrl {
-              mapsUrl
-            }
-          }
-        }
-      }
+  const [address, setAddress] = useState({})
+  const [locale, setLocale] = useState(defaultLocale)
+
+  useEffect(() => {
+    fetchContentful.getAllEntries("adresse", locale).then(data => {
+      setAddress(data.items[0].fields)
+    })
+  }, [locale])
+
+  const changeLocale = newLocale => {
+    if (newLocale !== locale) {
+      setLocale(newLocale)
     }
-  `)
-  const adressNode = data.allContentfulAdresse.edges[0].node
+  }
 
   return (
     <ContactAdressContainer>
       <ContactAdressText>
-        <ContactAdressTextLine>{adressNode.firmenname}</ContactAdressTextLine>
+        <ContactAdressTextLine>{address.firmenname}</ContactAdressTextLine>
         <ContactAdressTextLine>
-          {adressNode.straeUndHausnummer}
+          {address.straeUndHausnummer}
         </ContactAdressTextLine>
-        <ContactAdressTextLine>{adressNode.plzUndStadt}</ContactAdressTextLine>
-        <ContactAdressTextLine>{adressNode.email}</ContactAdressTextLine>
+        <ContactAdressTextLine>{address.plzUndStadt}</ContactAdressTextLine>
+        <ContactAdressTextLine>{address.email}</ContactAdressTextLine>
+        <button onClick={() => changeLocale("de")}>DE</button>
+        <button onClick={() => changeLocale("en-US")}>EN</button>
       </ContactAdressText>
       <MapContainer
-        src={adressNode.mapsUrl.mapsUrl}
+        src={address.mapsUrl}
         frameBorder="0"
         allowFullScreen=""
         tabIndex="0"
