@@ -1,6 +1,9 @@
 // Libraries
 import React, { useState } from "react"
 import styled, { createGlobalStyle } from "styled-components"
+import { Helmet } from "react-helmet"
+import favicon from "../media/favicon.svg"
+
 // Children
 import Header from "./header"
 // Utils
@@ -45,6 +48,11 @@ const Layout = ({ children, transparentHeader }) => {
   }
   return (
     <CSSVariables>
+      <Helmet>
+        <link rel="icon" href={favicon} />
+        <link href="/fontawesome/css/all.css" rel="stylesheet"></link>
+        <title>Kojoten Filmproduktion</title>
+      </Helmet>
       <GlobalStyle />
       <Header
         handleClick={handleClick}

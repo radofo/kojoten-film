@@ -1,5 +1,6 @@
 // Gatsby/React
 import React, { useEffect, useState } from "react"
+import * as fetchContentful from "../utils/fetch"
 import { graphql, useStaticQuery } from "gatsby"
 import { Helmet } from "react-helmet"
 // Components
@@ -8,6 +9,7 @@ import ImageSlider from "../components/imageSlider"
 import LpCover from "../components/lpCover"
 // Utils
 import { getBatch } from "../utils/window"
+import { defaultLocale } from "../utils/fetch"
 
 const Home = ({ location }) => {
   const data = useStaticQuery(graphql`
@@ -34,13 +36,20 @@ const Home = ({ location }) => {
   const [batch, setBatch] = useState([])
   const [batchWidth, setBatchWidth] = useState(0)
   const [overlayVisible, setOverlayVisible] = useState(modal)
+  const [locale, setLocale] = useState(defaultLocale)
 
   useEffect(() => {
-    const [contentfulBatch, contentfulBatchWidth] = getBatch(
-      data.allContentfulFilm.edges
+    console.log(
+      "data: ",
+      data.allContentfulFilm.edges[0].node.poster.fixed.srcSet
     )
-    setBatch(contentfulBatch)
-    setBatchWidth(contentfulBatchWidth)
+    fetchContentful
+      .getAllEntries({ content_type: "film", locale: locale })
+      .then(apidata => {
+        const [contentfulBatch, contentfulBatchWidth] = getBatch(apidata.items)
+        setBatch(contentfulBatch)
+        setBatchWidth(contentfulBatchWidth)
+      })
   }, [])
 
   const toggleOverlay = () => {
@@ -52,7 +61,6 @@ const Home = ({ location }) => {
       <Helmet>
         <title>Kojoten - Film</title>
         <meta name="description" content="Helmet application" />
-        <link href="/fontawesome/css/all.css" rel="stylesheet"></link>
       </Helmet>
       <LpCover overlayVisible={overlayVisible} toggleOverlay={toggleOverlay} />
       <ImageSlider
@@ -65,16 +73,3 @@ const Home = ({ location }) => {
 }
 
 export default Home
-
-// import { debounce } from "../utils/window"
-
-// const ResetButton = styled.button`
-//   position: absolute;
-//   top: 60%;
-//   left: 60%;
-// `
-// const [sliderKey, setSliderKey] = useState(0)
-// const resetClicked = debounce(function() {
-//   const newKey = sliderKey + 1
-//   setSliderKey(newKey)
-// }, 750)

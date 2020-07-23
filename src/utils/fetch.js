@@ -7,6 +7,6 @@ const client = contentful.createClient({
 
 export const defaultLocale = "en-US"
 
-export const getAllEntries = (contentType, locale = "en-US") => {
-  return client.getEntries({ content_type: contentType, locale: locale })
+export const getAllEntries = params => {
+  return client.getEntries(params)
 }

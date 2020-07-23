@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { minImageHeight } from "../utils/window"
+import { Link } from "gatsby"
 
 const PosterImage = styled.img`
   height: 100vh;
@@ -8,20 +8,20 @@ const PosterImage = styled.img`
   padding-top: var(--header-height);
 `
 
-const FilmPoster = ({ node, posterHeight }) => {
-  const poster = node.poster.fixed
+const FilmPoster = ({ project, posterHeight }) => {
+  const poster = project.fields.poster.fields
+  const posterSrc = `${poster.file.url}?q=50`
+  const posterSrcSet = `${poster.file.url}?q=50 1x, ${poster.file.url}?q=50 1.5x, ${poster.file.url}?q=50 2x`
   return (
-    <PosterImage
-      posterHeight={posterHeight}
-      srcSet={poster.srcSet}
-      src={poster.src}
-      alt={node.url}
-    />
+    <Link to="/commercial">
+      <PosterImage
+        posterHeight={posterHeight}
+        srcSet={posterSrcSet}
+        src={posterSrc}
+        alt={poster.title}
+      />
+    </Link>
   )
 }
 
 export default FilmPoster
-
-// <h1>
-//   <Link to={`/${node.url}`}>{node.titel}</Link>
-// </h1>

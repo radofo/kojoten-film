@@ -106,32 +106,32 @@ const ImageSlider = ({ batch, batchWidth, overlayVisible }) => {
       batchWidth={animationWidth}
       ref={imageContainerRef}
     >
-      {batch.map((edge, index) => {
+      {batch.map((project, index) => {
         return (
           <FilmPoster
             posterHeight={sliderHeight}
             key={index}
-            node={edge.node}
+            project={project}
             index={index}
           />
         )
       })}
-      {batch.map((edge, index) => {
+      {batch.map((project, index) => {
         return (
           <FilmPoster
             posterHeight={sliderHeight}
             key={index}
-            node={edge.node}
+            project={project}
             index={index}
           />
         )
       })}
-      {batch.map((edge, index) => {
+      {batch.map((project, index) => {
         return (
           <FilmPoster
             posterHeight={sliderHeight}
             key={index}
-            node={edge.node}
+            project={project}
             index={index}
           />
         )

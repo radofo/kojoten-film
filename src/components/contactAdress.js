@@ -44,9 +44,11 @@ const ContactAdress = () => {
   const [locale, setLocale] = useState(defaultLocale)
 
   useEffect(() => {
-    fetchContentful.getAllEntries("adresse", locale).then(data => {
-      setAddress(data.items[0].fields)
-    })
+    fetchContentful
+      .getAllEntries({ content_type: "adresse", locale: locale })
+      .then(data => {
+        setAddress(data.items[0].fields)
+      })
   }, [locale])
 
   const changeLocale = newLocale => {
