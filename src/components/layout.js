@@ -16,6 +16,7 @@ const CSSVariables = styled.div`
   --slider-speed-factor: 160;
   --active-route: #ffd600;
   --highlight-color: #ffd600;
+  --default-font-size: 16px;
 `
 const GlobalStyle = createGlobalStyle`
   * {
