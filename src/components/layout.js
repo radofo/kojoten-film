@@ -40,7 +40,7 @@ const GlobalStyle = createGlobalStyle`
 const Body = styled.main``
 
 // ============== Layout Component ==============
-const Layout = ({ children, transparentHeader }) => {
+const Layout = ({ children, transparentHeader, backButton }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const handleClick = () => {
@@ -58,6 +58,7 @@ const Layout = ({ children, transparentHeader }) => {
         handleClick={handleClick}
         isMenuOpen={isMenuOpen}
         transparentHeader={transparentHeader}
+        backButton={backButton}
       />
       <Body transparentHeader={transparentHeader}>{children}</Body>
     </CSSVariables>

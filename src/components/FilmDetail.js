@@ -26,6 +26,7 @@ const FilmDetail = ({ location }) => {
   const [locale, setLocale] = useState(defaultLocale)
   const [filmMedia, setFilmMedia] = useState({})
 
+  console.log("slug: ", slug)
   useEffect(() => {
     fetchContentful
       .getAllEntries({
@@ -34,22 +35,24 @@ const FilmDetail = ({ location }) => {
         "fields.url": slug,
       })
       .then(data => {
-        const [src, srcSet] = createSrcSet(
-          data.items[0].fields.hintergrundBild.fields.file.url
-        )
-        setFilmDetails(data.items[0].fields)
-        setFilmMedia({
-          horizontalImage: {
-            src,
-            srcSet,
-          },
-          filters: "",
-        })
+        if (data.items[0].fields.hintergrundBild) {
+          const [src, srcSet] = createSrcSet(
+            data.items[0].fields.hintergrundBild.fields.file.url
+          )
+          setFilmDetails(data.items[0].fields)
+          setFilmMedia({
+            horizontalImage: {
+              src,
+              srcSet,
+            },
+            filters: "",
+          })
+        }
       })
   }, [locale])
 
   return (
-    <Layout>
+    <Layout transparentHeader backButton>
       <Helmet>
         <title>{`Kojoten - ${filmDetails.titel || "Film Details"}`}</title>
         <meta name="description" content="Helmet application" />

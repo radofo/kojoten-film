@@ -30,11 +30,23 @@ const BurgerMenu = styled.div`
   }
 `
 
+const BackButton = styled.i`
+  &:hover {
+    cursor: pointer;
+  }
+`
+
 // ================ Header React Component ================
-const Header = ({ isMenuOpen, handleClick, transparentHeader }) => {
+const Header = ({ isMenuOpen, handleClick, transparentHeader, backButton }) => {
+  const headerImage = backButton ? (
+    <BackButton className="fa fa-arrow-left fa-2x" alt="Back" />
+  ) : (
+    <img src={kojotenlogo} alt="Kojoten Film" />
+  )
   return (
     <HeaderContainer transparentHeader={transparentHeader}>
-      <img src={kojotenlogo} alt="Kojoten Film" />
+      {headerImage}
+
       <BurgerMenu
         className={`hamburger hamburger--squeeze ${
           isMenuOpen ? "is-active" : ""
