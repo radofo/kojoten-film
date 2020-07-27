@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
+import { createSrcSet } from "../utils/fetch"
 
 const PosterImage = styled.img`
   height: 100vh;
@@ -10,8 +11,7 @@ const PosterImage = styled.img`
 
 const FilmPoster = ({ project, posterHeight }) => {
   const poster = project.fields.poster.fields
-  const posterSrc = `${poster.file.url}?q=50`
-  const posterSrcSet = `${poster.file.url}?q=50 1x, ${poster.file.url}?q=50 1.5x, ${poster.file.url}?q=50 2x`
+  const [posterSrc, posterSrcSet] = createSrcSet(poster.file.url)
   return (
     <Link to={`/film/${project.fields.url}`} state={{ project: project }}>
       <PosterImage
