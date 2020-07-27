@@ -13,7 +13,7 @@ const FilmPoster = ({ project, posterHeight }) => {
   const posterSrc = `${poster.file.url}?q=50`
   const posterSrcSet = `${poster.file.url}?q=50 1x, ${poster.file.url}?q=50 1.5x, ${poster.file.url}?q=50 2x`
   return (
-    <Link to="/commercial">
+    <Link to={`/film/${project.fields.url}`} state={{ project: project }}>
       <PosterImage
         posterHeight={posterHeight}
         srcSet={posterSrcSet}
