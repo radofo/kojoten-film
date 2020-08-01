@@ -4,6 +4,7 @@ import kojotenlogo from "../media/kojoten_logo.svg"
 import { screenSizes } from "../utils/mediaqueries"
 import Navigation from "./navigation"
 import NavItem from "./navItem"
+import { Link } from "gatsby"
 
 // ================ Styled Components ================
 const HeaderContainer = styled.header`
@@ -31,6 +32,7 @@ const BurgerMenu = styled.div`
 `
 
 const BackButton = styled.i`
+  color: var(--text-color);
   &:hover {
     cursor: pointer;
   }
@@ -39,7 +41,9 @@ const BackButton = styled.i`
 // ================ Header React Component ================
 const Header = ({ isMenuOpen, handleClick, transparentHeader, backButton }) => {
   const headerImage = backButton ? (
-    <BackButton className="fa fa-arrow-left fa-2x" alt="Back" />
+    <Link to="/">
+      <BackButton className="fa fa-arrow-left fa-2x" alt="Back"></BackButton>
+    </Link>
   ) : (
     <img src={kojotenlogo} alt="Kojoten Film" />
   )

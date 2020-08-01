@@ -5,6 +5,7 @@ import styled from "styled-components"
 // Components
 import Layout from "../components/layout"
 import FilmDetailCover from "../components/FilmDetailCover"
+import FilmDetailInfo from "../components/FilmDetailInfo"
 // Utils
 import { screenSizes } from "../utils/mediaqueries"
 import { defaultLocale, createSrcSet } from "../utils/fetch"
@@ -27,10 +28,23 @@ const FilmDetailToggle = styled.i`
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 999;
   color: white;
   &:hover {
     cursor: pointer;
   }
+`
+
+const FilmDetailOverlay = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  display: ${props => {
+    return props.infosOpen ? "block" : "none"
+  }};
+  top: 0;
+  left: 0;
 `
 
 const FilmDetail = ({ location }) => {
@@ -48,6 +62,7 @@ const FilmDetail = ({ location }) => {
         "fields.url": slug,
       })
       .then(data => {
+        console.log("data: ", data)
         if (data.items[0].fields.hintergrundBild) {
           const [src, srcSet] = createSrcSet(
             data.items[0].fields.hintergrundBild.fields.file.url
@@ -58,13 +73,17 @@ const FilmDetail = ({ location }) => {
               src,
               srcSet,
             },
-            filters: "",
+            filters: "0",
           })
         }
       })
   }, [locale])
 
   const toggleInfosOpen = () => {
+    setFilmMedia({
+      ...filmMedia,
+      filters: infosOpen ? "" : "blur(3px)",
+    })
     setInfosOpen(!infosOpen)
   }
 
@@ -74,9 +93,11 @@ const FilmDetail = ({ location }) => {
         <title>{`Kojoten | ${filmDetails.titel || "Film Details"}`}</title>
         <meta name="description" content="Helmet application" />
       </Helmet>
-      <FilmDetailContainer>
+      <FilmDetailContainer infosOpen={infosOpen}>
         <MediaContainer media={filmMedia}>
-          <FilmDetailCover details={filmDetails} />
+          <FilmDetailOverlay infosOpen={infosOpen} />
+          <FilmDetailInfo infosOpen={infosOpen} details={filmDetails} />
+          <FilmDetailCover infosOpen={infosOpen} details={filmDetails} />
           <FilmDetailToggle
             onClick={toggleInfosOpen}
             className={`fa fa-${infosOpen ? "times" : "chevron-down"} fa-2x`}

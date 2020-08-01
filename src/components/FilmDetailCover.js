@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import styled from "styled-components"
+
+import FilmBasicInfo from "./FilmBasicInfo"
 
 const FilmDetailCoverContainer = styled.div`
   position: absolute;
@@ -11,50 +13,19 @@ const FilmDetailCoverContainer = styled.div`
   width: 100%;
   height: 100%;
   color: white;
-  padding: var(--header-height) var(--padding-sides);
+  padding: calc(var(--header-height) + 20px) calc(var(--padding-sides) + 20px);
+  margin-bottom: 20px;
+  opacity: ${props => {
+    return props.infosOpen ? "0" : "1"
+  }};
+  }
+  transition: all .25s ease-out;
 `
 
-const FilmDetailHeader = styled.h1``
-const FilmDetailDirector = styled.p`
-  margin-bottom: 15px;
-  font-size: 14px;
-`
-const FilmDetailGenres = styled.p`
-  font-size: 14px;
-  text-transform: uppercase;
-`
-const FilmDetailPlaytime = styled.p`
-  font-size: 14px;
-`
-
-const FilmDetailCover = ({ details }) => {
-  console.log("details: ", details)
+const FilmDetailCover = ({ details, infosOpen }) => {
   return (
-    <FilmDetailCoverContainer>
-      <FilmDetailHeader>{details.titel}</FilmDetailHeader>
-      <FilmDetailDirector>
-        {details.director &&
-          details.director.map((director, index) => {
-            return (
-              <span key={index}>
-                {index > 0 ? ", " : ""}
-                {director}
-              </span>
-            )
-          })}
-      </FilmDetailDirector>
-      <FilmDetailGenres>
-        {details.genres &&
-          details.genres.map((genre, index) => {
-            return (
-              <span key={index}>
-                {index > 0 ? ", " : ""}
-                {genre}
-              </span>
-            )
-          })}
-      </FilmDetailGenres>
-      <FilmDetailPlaytime>{details.lngeInMinuten} Min.</FilmDetailPlaytime>
+    <FilmDetailCoverContainer infosOpen={infosOpen}>
+      <FilmBasicInfo details={details} />
     </FilmDetailCoverContainer>
   )
 }
