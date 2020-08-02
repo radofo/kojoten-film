@@ -10,14 +10,15 @@ import { screenSizes } from "../utils/mediaqueries"
 
 const FilmDetailInfoContainer = styled.div`
   width: 100%;
-  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
+  bottom: 0;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
-  padding: calc(var(--header-height) + 20px) var(--padding-sides) 0
-    calc(var(--padding-sides) + 20px);
+  padding: 20px var(--padding-sides) 0;
+  margin: var(--header-height) 0 0;
   opacity: ${props => {
     return props.infosOpen ? "1" : "0"
   }};
@@ -59,7 +60,12 @@ const FilmDetailLeft = styled.div`
   }
 `
 
-const FilmDetailCredits = styled.div``
+const FilmDetailCredits = styled.div`
+  margin: 20px 0;
+  @media ${screenSizes.desktop} {
+    margin: 5px;
+  }
+`
 
 const FilmDetailInfo = ({ infosOpen, details }) => {
   console.log("details: ", details)

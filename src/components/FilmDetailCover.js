@@ -13,7 +13,7 @@ const FilmDetailCoverContainer = styled.div`
   width: 100%;
   height: 100%;
   color: white;
-  padding: calc(var(--header-height) + 20px) calc(var(--padding-sides) + 20px);
+  padding: calc(var(--header-height) + 20px) var(--padding-sides);
   margin-bottom: 20px;
   opacity: ${props => {
     return props.infosOpen ? "0" : "1"
