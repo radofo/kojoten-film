@@ -10,35 +10,78 @@ const VimeoControlsContainer = styled.div`
   padding-bottom: 30px;
   display: flex;
   justify-content: center;
+  align-items: center;
   color: white;
 `
 
 const VideoSlider = styled.div`
   width: 50%;
-  height: 3px;
-  background: white;
+  padding: 10px;
+  position: relative;
   &:hover {
-    height: 4px;
     cursor: pointer;
   }
   &:hover > * {
     height: 4px;
   }
-  transition: height 0.5s ease-out;
+`
+
+const VideoBar = styled.div`
+  height: 2px;
+  width: 100%;
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  border-radius: 5px;
+
+  transform: translateY(-50%);
+  z-index: 9;
 `
 
 const VideoProgress = styled.div`
   width: ${props => {
     return props.progress
   }}%;
-  height: 3px;
+  height: 2px;
   background-color: #ffd600;
-  transition: width 0.3s ease-out, height 0.5s ease-out;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 99;
+  border-radius: 5px;
+`
+
+const Play = styled.i`
+  color: white;
+  z-index: 999;
+  &:hover {
+    cursor: pointer;
+  }
+`
+const Expand = styled.i`
+  color: white;
+  margin-left: 20px;
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+const Volume = styled.i`
+  color: white;
+  font-size: 18px;
+  margin-right: 20px;
+  margin-left: 20px;
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 const VimeoControls = ({ player }) => {
   const [playtime, setPlaytime] = useState(0)
   const [duration, setDuration] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(false)
   const sliderRef = useRef(null)
   useEffect(() => {
     if (player) {
@@ -47,12 +90,16 @@ const VimeoControls = ({ player }) => {
         setPlaytime(newTime)
       })
       player.on("play", function(time) {
+        setIsPlaying(true)
         player
           .getDuration()
           .then(function(d) {
             setDuration(d)
           })
           .catch(function(error) {})
+      })
+      player.on("pause", function(time) {
+        setIsPlaying(false)
       })
     }
   }, [player])
@@ -80,11 +127,45 @@ const VimeoControls = ({ player }) => {
         }
       })
   }
+
+  const togglePlay = () => {
+    player
+      .getPaused()
+      .then(function(paused) {
+        if (paused) {
+          player.play()
+        } else {
+          player.pause()
+        }
+      })
+      .catch(function(error) {
+        // an error occurred
+      })
+  }
+
+  const toggleFullscreen = () => {
+    player
+      .requestFullscreen()
+      .then(function() {
+        // the player entered fullscreen
+      })
+      .catch(function(error) {
+        // an error occurred
+      })
+  }
+
   return (
     <VimeoControlsContainer>
+      <Play
+        onClick={togglePlay}
+        className={`fas fa-${isPlaying ? "pause" : "play"}`}
+      ></Play>
+      <Volume className={`fas fa-volume-mute`}></Volume>
       <VideoSlider ref={sliderRef} onClick={changeProgress}>
+        <VideoBar />
         <VideoProgress progress={playtime}></VideoProgress>
       </VideoSlider>
+      <Expand onClick={toggleFullscreen} className={`fas fa-expand`} />
     </VimeoControlsContainer>
   )
 }

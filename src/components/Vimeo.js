@@ -61,6 +61,7 @@ const Vimeo = () => {
       <GlobalStyle />
       <Helmet>
         <title>Kojoten | Media</title>
+        <link href="/fontawesome/css/all.css" rel="stylesheet"></link>
         <meta name="description" content="Helmet application" />
       </Helmet>
       <VimeoAnchor id="made-in-ny">
