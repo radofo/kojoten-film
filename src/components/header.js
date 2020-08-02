@@ -4,6 +4,7 @@ import kojotenlogo from "../media/kojoten_logo.svg"
 import { screenSizes } from "../utils/mediaqueries"
 import Navigation from "./navigation"
 import NavItem from "./navItem"
+import { Link } from "gatsby"
 
 // ================ Styled Components ================
 const HeaderContainer = styled.header`
@@ -30,11 +31,26 @@ const BurgerMenu = styled.div`
   }
 `
 
+const BackButton = styled.i`
+  color: var(--text-color);
+  &:hover {
+    cursor: pointer;
+  }
+`
+
 // ================ Header React Component ================
-const Header = ({ isMenuOpen, handleClick, transparentHeader }) => {
+const Header = ({ isMenuOpen, handleClick, transparentHeader, backButton }) => {
+  const headerImage = backButton ? (
+    <Link to="/">
+      <BackButton className="fa fa-arrow-left fa-2x" alt="Back"></BackButton>
+    </Link>
+  ) : (
+    <img src={kojotenlogo} alt="Kojoten Film" />
+  )
   return (
     <HeaderContainer transparentHeader={transparentHeader}>
-      <img src={kojotenlogo} alt="Kojoten Film" />
+      {headerImage}
+
       <BurgerMenu
         className={`hamburger hamburger--squeeze ${
           isMenuOpen ? "is-active" : ""

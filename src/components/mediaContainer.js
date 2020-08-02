@@ -16,6 +16,7 @@ const Image = styled.img`
   object-fit: cover;
   width: 100%;
   height: 100%;
+  filter: ${props => props.filters};
 `
 
 const MediaContainer = ({ children, media }) => {
@@ -31,6 +32,7 @@ const MediaContainer = ({ children, media }) => {
           srcSet={
             media && media.horizontalImage && media.horizontalImage.srcSet
           }
+          filters={media.filters}
         />
       )}
       {children}

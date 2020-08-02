@@ -1,22 +1,6 @@
 export const headerHeight = "70"
 export const minImageHeight = headerHeight * 3
 
-export const debounce = (func, wait, immediate) => {
-  var timeout
-  return function() {
-    var context = this,
-      args = arguments
-    var later = function() {
-      timeout = null
-      if (!immediate) func.apply(context, args)
-    }
-    var callNow = immediate && !timeout
-    clearTimeout(timeout)
-    timeout = setTimeout(later, wait)
-    if (callNow) func.apply(context, args)
-  }
-}
-
 export const getBatch = images => {
   // eslint-disable-next-line no-restricted-globals
   const screenHeight = window.screen.height
@@ -29,8 +13,8 @@ export const getBatch = images => {
   // Calculate the estimated width of one images array in the worst case
   const worstCaseImagesWidth = images.reduce((total, currentValue) => {
     const imageAspectRatio =
-      currentValue.node.poster.fixed.height /
-      currentValue.node.poster.fixed.width
+      currentValue.fields.poster.fields.file.details.image.height /
+      currentValue.fields.poster.fields.file.details.image.width
     const estimatedImageWidth = worstCaseContentAreaHeight / imageAspectRatio
     return total + estimatedImageWidth
   }, 0)
@@ -49,8 +33,8 @@ export const getBatch = images => {
   // Calculate the Batch width
   const batchWidth = batch.reduce((total, currentValue) => {
     const imageAspectRatio =
-      currentValue.node.poster.fixed.height /
-      currentValue.node.poster.fixed.width
+      currentValue.fields.poster.fields.file.details.image.height /
+      currentValue.fields.poster.fields.file.details.image.width
     const estimatedImageWidth =
       (window.innerHeight - headerHeight) / imageAspectRatio
     return total + estimatedImageWidth

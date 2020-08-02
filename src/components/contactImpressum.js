@@ -17,10 +17,12 @@ const ContactImpressum = () => {
   const [impressumContent, setImpressumContent] = useState("")
 
   useEffect(() => {
-    fetchContentful.getAllEntries("impressum").then(data => {
-      const raw = data.items[0].fields.impressum
-      setImpressumContent(documentToReactComponents(raw, renderOptions))
-    })
+    fetchContentful
+      .getAllEntries({ content_type: "impressum", locale: "en-US" })
+      .then(data => {
+        const raw = data.items[0].fields.impressum
+        setImpressumContent(documentToReactComponents(raw, renderOptions))
+      })
   }, [])
   return <MarkdownContainer>{impressumContent}</MarkdownContainer>
 }

@@ -1,6 +1,9 @@
 // Libraries
 import React, { useState } from "react"
 import styled, { createGlobalStyle } from "styled-components"
+import { Helmet } from "react-helmet"
+import favicon from "../media/favicon.svg"
+
 // Children
 import Header from "./header"
 // Utils
@@ -37,7 +40,7 @@ const GlobalStyle = createGlobalStyle`
 const Body = styled.main``
 
 // ============== Layout Component ==============
-const Layout = ({ children, transparentHeader }) => {
+const Layout = ({ children, transparentHeader, backButton }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const handleClick = () => {
@@ -45,11 +48,17 @@ const Layout = ({ children, transparentHeader }) => {
   }
   return (
     <CSSVariables>
+      <Helmet>
+        <link rel="icon" href={favicon} />
+        <link href="/fontawesome/css/all.css" rel="stylesheet"></link>
+        <title>Kojoten Filmproduktion</title>
+      </Helmet>
       <GlobalStyle />
       <Header
         handleClick={handleClick}
         isMenuOpen={isMenuOpen}
         transparentHeader={transparentHeader}
+        backButton={backButton}
       />
       <Body transparentHeader={transparentHeader}>{children}</Body>
     </CSSVariables>

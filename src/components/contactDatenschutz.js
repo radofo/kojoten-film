@@ -17,10 +17,12 @@ const ContactDatenschutz = () => {
   const [datenschutzContent, setDatenschutzContent] = useState("")
 
   useEffect(() => {
-    fetchContentful.getAllEntries("datenschutz").then(data => {
-      const raw = data.items[0].fields.datenschutzText
-      setDatenschutzContent(documentToReactComponents(raw, renderOptions))
-    })
+    fetchContentful
+      .getAllEntries({ content_type: "datenschutz", locale: "en-US" })
+      .then(data => {
+        const raw = data.items[0].fields.datenschutzText
+        setDatenschutzContent(documentToReactComponents(raw, renderOptions))
+      })
   }, [])
   return <MarkdownContainer>{datenschutzContent}</MarkdownContainer>
 }
