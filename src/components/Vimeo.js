@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet"
 import styled, { createGlobalStyle } from "styled-components"
 import VimeoControls from "./VimeoControls"
 import { defaultLocale } from "../utils/fetch"
+import { Link } from "gatsby"
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -33,10 +34,23 @@ const VimeoAnchor = styled.div`
   position: relative;
 `
 
+const BackButton = styled.i`
+  color: white;
+  position: fixed;
+  top: 50px;
+  left: 50px;
+  z-index: 999;
+  &:hover {
+    cursor: pointer;
+  }
+`
+
 const Vimeo = ({ location }) => {
   const slug = location.pathname.split("/")[2]
   const [locale, setLocale] = useState(defaultLocale)
   const [vimeoPlayer, setVimeoPlayer] = useState(null)
+  const [details, setDetails] = useState({})
+
   useEffect(() => {
     fetchContentful
       .getAllEntries({
@@ -46,6 +60,7 @@ const Vimeo = ({ location }) => {
       })
       .then(data => {
         const details = data.items[0].fields
+        setDetails(details)
         var options = {
           id: details.vimeoId,
           controls: false,
@@ -70,11 +85,14 @@ const Vimeo = ({ location }) => {
     <VimeoContainer>
       <GlobalStyle />
       <Helmet>
-        <title>Kojoten | Media</title>
+        <title>Kojoten | {details.titel || "Media"}</title>
         <link href="/fontawesome/css/all.css" rel="stylesheet"></link>
         <meta name="description" content="Helmet application" />
       </Helmet>
       <VimeoAnchor id="vimeo-container">
+        <Link to={`/film/${details.url}`}>
+          <BackButton className="fa fa-arrow-left fa-2x"></BackButton>
+        </Link>
         <VimeoControls player={vimeoPlayer} onClick={enterFullScreen} />
       </VimeoAnchor>
     </VimeoContainer>
