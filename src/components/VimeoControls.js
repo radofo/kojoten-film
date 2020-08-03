@@ -7,7 +7,7 @@ const VimeoControlsContainer = styled.div`
   bottom: 0;
   width: 100%;
   z-index: 999;
-  padding-bottom: 30px;
+  padding: 0 30px 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,7 +15,8 @@ const VimeoControlsContainer = styled.div`
 `
 
 const VideoSlider = styled.div`
-  width: 50%;
+  max-width: 800px;
+  flex-grow: 1;
   padding: 10px;
   position: relative;
   &:hover {
