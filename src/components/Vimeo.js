@@ -6,6 +6,7 @@ import styled, { createGlobalStyle } from "styled-components"
 import VimeoControls from "./VimeoControls"
 import { defaultLocale } from "../utils/fetch"
 import { Link } from "gatsby"
+import { headerHeight } from "../utils/window"
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -36,13 +37,21 @@ const VimeoAnchor = styled.div`
 
 const BackButton = styled.i`
   color: white;
-  position: fixed;
-  top: 50px;
-  left: 50px;
-  z-index: 999;
   &:hover {
     cursor: pointer;
   }
+`
+
+const TopRow = styled.div`
+  padding: 0 3%;
+  height: ${headerHeight}px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99;
 `
 
 const Vimeo = ({ location }) => {
@@ -90,9 +99,11 @@ const Vimeo = ({ location }) => {
         <meta name="description" content="Helmet application" />
       </Helmet>
       <VimeoAnchor id="vimeo-container">
-        <Link to={`/film/${details.url}`}>
-          <BackButton className="fa fa-arrow-left fa-2x"></BackButton>
-        </Link>
+        <TopRow>
+          <Link to={`/film/${details.url}`}>
+            <BackButton className="fa fa-arrow-left fa-2x"></BackButton>
+          </Link>
+        </TopRow>
         <VimeoControls player={vimeoPlayer} onClick={enterFullScreen} />
       </VimeoAnchor>
     </VimeoContainer>
