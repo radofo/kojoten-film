@@ -42,7 +42,6 @@ const Vimeo = () => {
     }
     var player = new Player("made-in-ny", options)
     setVimeoPlayer(player)
-    player.setVolume(0)
 
     return () => {}
   }, [])

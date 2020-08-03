@@ -73,15 +73,29 @@ const Volume = styled.i`
   font-size: 18px;
   margin-right: 20px;
   margin-left: 20px;
+  position: relative;
   &:hover {
     cursor: pointer;
   }
+`
+
+const VolumeBar = styled.div`
+  position: absolute;
+  height: 50px;
+  width: 5px;
+  background: white;
+  border-radius: 5px;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -110%);
+  display: none;
 `
 
 const VimeoControls = ({ player }) => {
   const [playtime, setPlaytime] = useState(0)
   const [duration, setDuration] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [volume, setVolume] = useState(0.5)
   const sliderRef = useRef(null)
   useEffect(() => {
     if (player) {
@@ -101,6 +115,7 @@ const VimeoControls = ({ player }) => {
       player.on("pause", function(time) {
         setIsPlaying(false)
       })
+      player.setVolume(volume)
     }
   }, [player])
 
@@ -154,13 +169,24 @@ const VimeoControls = ({ player }) => {
       })
   }
 
+  const toggleVolume = () => {
+    const newVolume = volume > 0 ? 0 : 0.5
+    setVolume(newVolume)
+    player.setVolume(newVolume)
+  }
+
   return (
     <VimeoControlsContainer>
       <Play
         onClick={togglePlay}
         className={`fas fa-${isPlaying ? "pause" : "play"}`}
       ></Play>
-      <Volume className={`fas fa-volume-mute`}></Volume>
+      <Volume
+        onClick={toggleVolume}
+        className={`fas fa-${volume > 0 ? "volume-up" : "volume-mute"}`}
+      >
+        <VolumeBar></VolumeBar>
+      </Volume>
       <VideoSlider ref={sliderRef} onClick={changeProgress}>
         <VideoBar />
         <VideoProgress progress={playtime}></VideoProgress>
