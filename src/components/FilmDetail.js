@@ -62,7 +62,6 @@ const FilmDetail = ({ location }) => {
         "fields.url": slug,
       })
       .then(data => {
-        console.log("data: ", data)
         if (data.items[0].fields.hintergrundBild) {
           const [src, srcSet] = createSrcSet(
             data.items[0].fields.hintergrundBild.fields.file.url
