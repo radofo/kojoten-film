@@ -52,6 +52,7 @@ const VideoProgress = styled.div`
   transform: translateY(-50%);
   z-index: 99;
   border-radius: 5px;
+  transition: width 0.5s linear;
 `
 
 const Play = styled.i`

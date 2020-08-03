@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { Link } from "gatsby"
 
 import FilmBasicInfo from "./FilmBasicInfo"
 
@@ -18,14 +19,29 @@ const FilmDetailCoverContainer = styled.div`
   opacity: ${props => {
     return props.infosOpen ? "0" : "1"
   }};
+  transition: all 0.25s ease-out;
+`
+
+const PlayButton = styled.i`
+  font-size: 80px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 255, 255, 0.5);
+  &:hover {
+    cursor: pointer;
+    color: rgba(255, 255, 255, 1);
   }
-  transition: all .25s ease-out;
 `
 
 const FilmDetailCover = ({ details, infosOpen }) => {
   return (
     <FilmDetailCoverContainer infosOpen={infosOpen}>
       <FilmBasicInfo details={details} />
+      <Link to={`/media/${details.url}`}>
+        <PlayButton className={`far fa-play-circle`}></PlayButton>
+      </Link>
     </FilmDetailCoverContainer>
   )
 }
