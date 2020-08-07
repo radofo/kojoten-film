@@ -26,7 +26,9 @@ const VimeoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: ${props => {
+    return props.vh
+  }};
   overflow: hidden;
 `
 
@@ -59,15 +61,18 @@ const Vimeo = ({ location }) => {
   const [locale, setLocale] = useState(defaultLocale)
   const [vimeoPlayer, setVimeoPlayer] = useState(null)
   const [details, setDetails] = useState({})
+  const [vh, setVh] = useState("100vh")
 
   useEffect(() => {
+    setVh(`${window.innerHeight}px` || "100vh")
     fetchContentful
       .getAllEntries({
-        content_type: "film",
+        content_type: "commercial",
         locale: locale,
         "fields.url": slug,
       })
       .then(data => {
+        console.log("data: ", data)
         const details = data.items[0].fields
         setDetails(details)
         var options = {
@@ -91,7 +96,7 @@ const Vimeo = ({ location }) => {
   }
 
   return (
-    <VimeoContainer>
+    <VimeoContainer vh={vh}>
       <GlobalStyle />
       <Helmet>
         <title>Kojoten | {details.titel || "Media"}</title>
