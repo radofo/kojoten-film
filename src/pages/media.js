@@ -5,7 +5,8 @@ import Vimeo from "../components/Vimeo"
 const Media = () => {
   return (
     <Router basepath="/media">
-      <Vimeo path="/:id" />
+      <Vimeo path="/f/:id" />
+      <Vimeo path="/c/:id" />
       <MediaOverview path="/" />
     </Router>
   )

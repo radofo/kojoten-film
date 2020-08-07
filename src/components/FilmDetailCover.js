@@ -39,7 +39,7 @@ const FilmDetailCover = ({ details, infosOpen }) => {
   return (
     <FilmDetailCoverContainer infosOpen={infosOpen}>
       <FilmBasicInfo details={details} />
-      <Link to={`/media/${details.url}`}>
+      <Link to={`/media/f/${details.url}`}>
         <PlayButton className={`far fa-play-circle`}></PlayButton>
       </Link>
     </FilmDetailCoverContainer>
