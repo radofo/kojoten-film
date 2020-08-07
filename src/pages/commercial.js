@@ -4,35 +4,43 @@ import * as fetchContentful from "../utils/fetch"
 import styled from "styled-components"
 import { Link } from "gatsby"
 import MediaContainer from "../components/mediaContainer"
+import CommercialBasicInfo from "../components/CommercialBasicInfo"
 
 import { defaultLocale } from "../utils/fetch"
+import { screenSizes } from "../utils/mediaqueries"
 
 // 3rd Party
-import SwiperCore, { Navigation, Mousewheel, Autoplay } from "swiper"
+import SwiperCore, { Navigation } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/swiper-bundle.min.css"
 import "../styles/swiper.css"
 
-SwiperCore.use([Navigation, Autoplay, Mousewheel])
+SwiperCore.use([Navigation])
 
 const PlayButton = styled.i`
-  font-size: 80px;
-  color: rgba(255, 255, 255, 0.3);
+  font-size: 60px;
+  color: rgba(255, 255, 255, 0.2);
   &:hover {
     cursor: pointer;
     color: rgba(255, 255, 255, 1);
+  }
+  @media ${screenSizes.desktop} {
+    font-size: 80px;
   }
 `
 
 const NavButton = styled.button`
   color: rgba(255, 255, 255, 0.3);
   outline: none;
-  font-size: 3em;
+  font-size: 2em;
   background: rgba(0, 0, 0, 0);
   border: 0px solid rgba(0, 0, 0, 0);
   &:hover {
     cursor: pointer;
     color: rgba(255, 255, 255, 0.8);
+  }
+  @media ${screenSizes.desktop} {
+    font-size: 2.5em;
   }
 `
 
@@ -49,18 +57,26 @@ const NavRow = styled.div`
 `
 
 const Commercial = ({ data }) => {
-  const [slideSpeed, setSlideSpeed] = useState(0)
   const [commercials, setCommercials] = useState(null)
   const [vh, setVh] = useState("100vh")
 
   useEffect(() => {
-    setVh(`${window.innerHeight}px` || "100vh")
+    setVh(window.innerHeight || "100vh")
     fetchContentful
       .getAllEntries({ content_type: "commercial", locale: defaultLocale })
       .then(apidata => {
         setCommercials(apidata)
       })
+    window.addEventListener("resize", handleResize)
+
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
   }, [])
+
+  const handleResize = () => {
+    setVh(window.innerHeight || "100vh")
+  }
 
   return (
     <Layout transparentHeader>
@@ -88,15 +104,7 @@ const Commercial = ({ data }) => {
             return (
               <SwiperSlide key={index}>
                 <MediaContainer media={commercialMedia}></MediaContainer>
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: "50px",
-                    left: "100px",
-                  }}
-                >
-                  {commercial.fields.name}
-                </div>
+                <CommercialBasicInfo details={commercial.fields} />
                 <NavRow>
                   <NavButton>
                     <i className="fa fa-chevron-left swiper-prev"></i>
