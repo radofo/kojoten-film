@@ -22,13 +22,10 @@ const VideoSlider = styled.div`
   &:hover {
     cursor: pointer;
   }
-  &:hover > * {
-    height: 4px;
-  }
 `
 
 const VideoBar = styled.div`
-  height: 2px;
+  height: 4px;
   width: 100%;
   background: white;
   position: absolute;
@@ -44,7 +41,7 @@ const VideoProgress = styled.div`
   width: ${props => {
     return props.progress
   }}%;
-  height: 2px;
+  height: 4px;
   background-color: #ffd600;
   position: absolute;
   top: 50%;

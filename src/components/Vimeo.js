@@ -57,7 +57,9 @@ const TopRow = styled.div`
 `
 
 const Vimeo = ({ location }) => {
-  const slug = location.pathname.split("/")[2]
+  const slug = location.pathname.split("/")[3]
+  const section =
+    location.pathname.split("/")[2] === "f" ? "film" : "commercial"
   const [locale, setLocale] = useState(defaultLocale)
   const [vimeoPlayer, setVimeoPlayer] = useState(null)
   const [details, setDetails] = useState({})
@@ -67,7 +69,7 @@ const Vimeo = ({ location }) => {
     setVh(`${window.innerHeight}px` || "100vh")
     fetchContentful
       .getAllEntries({
-        content_type: "commercial",
+        content_type: section,
         locale: locale,
         "fields.url": slug,
       })
@@ -105,7 +107,7 @@ const Vimeo = ({ location }) => {
       </Helmet>
       <VimeoAnchor id="vimeo-container">
         <TopRow>
-          <Link to={`/film/${details.url}`}>
+          <Link to={`/${section === "film" ? `film/${details.url}` : section}`}>
             <BackButton className="fa fa-arrow-left fa-2x"></BackButton>
           </Link>
         </TopRow>

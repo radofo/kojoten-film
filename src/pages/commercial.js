@@ -109,7 +109,7 @@ const Commercial = ({ data }) => {
                   <NavButton>
                     <i className="fa fa-chevron-left swiper-prev"></i>
                   </NavButton>
-                  <Link to={`/media/${commercial.fields.url}`}>
+                  <Link to={`/media/c/${commercial.fields.url}`}>
                     <PlayButton className={`far fa-play-circle`}></PlayButton>
                   </Link>
                   <NavButton>
