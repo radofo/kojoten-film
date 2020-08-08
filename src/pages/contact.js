@@ -10,10 +10,12 @@ import ContactNavigation from "../components/contactNavigation"
 import { screenSizes } from "../utils/mediaqueries"
 
 const ContactContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 50px var(--padding-sides);
   margin-top: var(--header-height);
+  z-index: 9;
   @media ${screenSizes.tablet} {
     flex-direction: row;
     padding: 150px 0 0 100px;
