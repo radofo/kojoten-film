@@ -16,7 +16,7 @@ const VideoCover = styled.div`
   width: 100%;
   height: 100%;
   background: black;
-  z-index: 999;
+  z-index: 999999;
   transform: ${props => {
     return props.show ? "translateY(0)" : "translateY(-100%)"
   }};

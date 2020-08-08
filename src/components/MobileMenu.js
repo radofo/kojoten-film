@@ -53,18 +53,19 @@ const SocialIcon = styled.i`
 `
 
 const NavigationItem = styled(props => <Link {...props} />)`
-  text-decoration: none;
-  color: var(--text-color);
   font-size: 20px;
+  text-decoration: none;
+  color: ${props => {
+    return props.currentPath ? "var(--active-route)" : "var(--text-color)"
+  }};
   &:not(:last-child) {
     margin-bottom: 20px;
-  }
-  &.active {
-    color: var(--active-route);
   }
 `
 
 const MobileMenu = ({ isMenuOpen }) => {
+  const currentPath = window.location.pathname.split("/")[1]
+
   return (
     <MobileMenuContainer isMenuOpen={isMenuOpen}>
       <NavigationRow>
@@ -73,6 +74,7 @@ const MobileMenu = ({ isMenuOpen }) => {
           exact="true"
           to="/news"
           activeClassName="active"
+          currentPath={currentPath === "news"}
         >
           News
         </NavigationItem>
@@ -81,6 +83,7 @@ const MobileMenu = ({ isMenuOpen }) => {
           exact="true"
           to="/"
           activeClassName="active"
+          currentPath={currentPath === "film" || currentPath === ""}
         >
           Film
         </NavigationItem>
@@ -89,6 +92,7 @@ const MobileMenu = ({ isMenuOpen }) => {
           exact="true"
           to="/commercial"
           activeClassName="active"
+          currentPath={currentPath === "commercial"}
         >
           Commercial
         </NavigationItem>
@@ -97,6 +101,7 @@ const MobileMenu = ({ isMenuOpen }) => {
           exact="true"
           to="/team"
           activeClassName="active"
+          currentPath={currentPath === "team"}
         >
           Team
         </NavigationItem>
@@ -105,6 +110,7 @@ const MobileMenu = ({ isMenuOpen }) => {
           exact="true"
           to="/contact"
           activeClassName="active"
+          currentPath={currentPath === "contact"}
         >
           Contact
         </NavigationItem>
