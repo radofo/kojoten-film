@@ -7,6 +7,8 @@ import NewsItem from "../components/NewsItem"
 
 const NewsContainer = styled.div`
   padding: var(--header-height) var(--padding-sides);
+  position: relative;
+  z-index: 9;
 `
 
 const News = () => {

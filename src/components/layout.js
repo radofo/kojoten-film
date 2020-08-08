@@ -1,11 +1,12 @@
 // Libraries
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled, { createGlobalStyle } from "styled-components"
 import { Helmet } from "react-helmet"
 import favicon from "../media/favicon.svg"
 
 // Children
 import Header from "./header"
+import MobileMenu from "./MobileMenu"
 // Utils
 import { headerHeight } from "../utils/window"
 
@@ -43,9 +44,18 @@ const Body = styled.main``
 const Layout = ({ children, transparentHeader, backButton }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+  useEffect(() => {
+    document.body.style.overflow = "initial"
+  }, [])
   const handleClick = () => {
+    if (!isMenuOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = "initial"
+    }
     setIsMenuOpen(!isMenuOpen)
   }
+
   return (
     <CSSVariables>
       <Helmet>
@@ -60,7 +70,10 @@ const Layout = ({ children, transparentHeader, backButton }) => {
         transparentHeader={transparentHeader}
         backButton={backButton}
       />
-      <Body transparentHeader={transparentHeader}>{children}</Body>
+      <MobileMenu isMenuOpen={isMenuOpen} />
+      <Body isMenuOpen={isMenuOpen} transparentHeader={transparentHeader}>
+        {children}
+      </Body>
     </CSSVariables>
   )
 }
