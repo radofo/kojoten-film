@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { Helmet } from "react-helmet"
 import Layout from "../components/layout"
 import * as fetchContentful from "../utils/fetch"
 import styled from "styled-components"
@@ -80,9 +81,11 @@ const Commercial = ({ data }) => {
 
   return (
     <Layout transparentHeader>
+      <Helmet>
+        <title>Kojoten - Commercial</title>
+        <meta name="description" content="Helmet application" />
+      </Helmet>
       <Swiper
-        onSlideChange={swiper => console.log(swiper.activeIndex)}
-        onSwiper={swiper => console.log(swiper)}
         style={{ height: vh }}
         initialSlide={0}
         navigation={{
@@ -95,7 +98,6 @@ const Commercial = ({ data }) => {
       >
         {commercials &&
           commercials.items.map((commercial, index) => {
-            console.log("commercial: ", commercial)
             const commercialMedia = {
               horizontalImage: {
                 src: commercial.fields.poster.fields.file.url,

@@ -68,7 +68,6 @@ const FilmDetailCredits = styled.div`
 `
 
 const FilmDetailInfo = ({ infosOpen, details }) => {
-  console.log("details: ", details)
   return (
     <FilmDetailInfoContainer infosOpen={infosOpen}>
       <FilmDetailLeft>

@@ -26,7 +26,7 @@ const HeaderContainer = styled.header`
 `
 
 const BurgerMenu = styled.div`
-  @media ${screenSizes.tablet} {
+  @media ${screenSizes.desktop} {
     display: none;
   }
 `

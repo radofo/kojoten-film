@@ -16,5 +16,8 @@ export const getEntry = (id, params) => {
 }
 
 export const createSrcSet = src => {
-  return [`${src}?q=50`, `${src}?q=50 1x, ${src}?q=50 1.5x, ${src}?q=50 2x`]
+  return [
+    `${src}?fm=jpg&fl=progressive`,
+    `${src}?fm=jpg&fl=progressive 1x, ${src}?fm=jpg&fl=progressive 1.5x, ${src}?fm=jpg&fl=progressive 2x`,
+  ]
 }

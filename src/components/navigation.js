@@ -4,7 +4,7 @@ import { screenSizes } from "../utils/mediaqueries"
 
 const NavigationContainer = styled.nav`
   display: none;
-  @media ${screenSizes.tablet} {
+  @media ${screenSizes.desktop} {
     display: flex;
     flex-direction: row;
   }

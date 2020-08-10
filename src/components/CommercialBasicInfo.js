@@ -5,9 +5,12 @@ import { screenSizes } from "../utils/mediaqueries"
 const CommercialBasicInfoContainer = styled.div`
   position: absolute;
   left: 0;
-  bottom: 50px;
+  bottom: 10px;
   padding: 0 calc(var(--padding-sides) + 20px);
   color: white;
+  @media ${screenSizes.desktop} {
+    bottom: 50px;
+  }
 `
 
 const CommercialDetailHeader = styled.h1`
