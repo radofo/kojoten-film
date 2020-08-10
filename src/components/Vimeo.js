@@ -74,7 +74,6 @@ const Vimeo = ({ location }) => {
         "fields.url": slug,
       })
       .then(data => {
-        console.log("data: ", data)
         const details = data.items[0].fields
         setDetails(details)
         var options = {

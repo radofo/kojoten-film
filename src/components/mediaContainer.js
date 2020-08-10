@@ -1,5 +1,6 @@
 import React, { useEffect } from "react"
 import styled from "styled-components"
+import { createSrcSet } from "../utils/fetch"
 
 const MediaContainerStyles = styled.div`
   height: 100%;
@@ -28,9 +29,15 @@ const MediaContainer = ({ children, media }) => {
         </Video>
       ) : (
         <Image
-          src={media && media.horizontalImage && media.horizontalImage.src}
+          src={
+            media &&
+            media.horizontalImage &&
+            createSrcSet(media.horizontalImage.src)[0]
+          }
           srcSet={
-            media && media.horizontalImage && media.horizontalImage.srcSet
+            media &&
+            media.horizontalImage &&
+            createSrcSet(media.horizontalImage.src)[1]
           }
           filters={media.filters}
         />

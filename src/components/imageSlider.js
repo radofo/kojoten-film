@@ -2,6 +2,14 @@ import React, { useState, useEffect, useRef } from "react"
 import FilmPoster from "../components/filmPoster"
 import styled, { keyframes } from "styled-components"
 import { sliderSpeedFactor, getNodeListWidth } from "../utils/slider"
+import { screenSizes } from "../utils/mediaqueries"
+// 3rd Party
+import SwiperCore, { Navigation, Mousewheel, Scrollbar, Autoplay } from "swiper"
+import { Swiper, SwiperSlide } from "swiper/react"
+import "swiper/swiper-bundle.css"
+import "../styles/swiper.css"
+
+SwiperCore.use([Navigation, Mousewheel, Scrollbar, Autoplay])
 
 // Styled Components
 const animateBatch = batchWidth => keyframes`
@@ -31,112 +39,98 @@ const ImageContainer = styled.div`
   }};
 `
 
+const NavButton = styled.button`
+  color: rgba(255, 255, 255, 0.3);
+  outline: none;
+  font-size: 2em;
+  background: rgba(0, 0, 0, 0);
+  border: 0px solid rgba(0, 0, 0, 0);
+  &:hover {
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  @media ${screenSizes.desktop} {
+    font-size: 2.5em;
+  }
+  z-index: 9999;
+  position: fixed;
+  left: ${props => {
+    return props.left ? 0 : "initial"
+  }};
+  right: ${props => {
+    return props.right ? 0 : "initial"
+  }};
+  top: 50%;
+  transform: translateY(-50%);
+  padding: var(--padding-sides);
+`
+
 // React Component
-const ImageSlider = ({ batch, batchWidth, overlayVisible }) => {
-  const [play, setPlay] = useState(false)
-  const [toggleCounter, _setToggleCounter] = useState(0)
-  const [animationWidth, setAnimationWidth] = useState(batchWidth)
-  const [sliderHeight, setSliderHeight] = useState(0)
-  const counterRef = useRef(toggleCounter)
-  const imageContainerRef = useRef(null)
+const ImageSlider = ({ films, overlayVisible }) => {
+  const [vh, setVh] = useState("100vh")
+  const [swiperRef, setSwiperRef] = useState(null)
 
   useEffect(() => {
-    if (overlayVisible) {
-      document.body.style.overflow = "hidden"
-      setPlay(false)
-    } else {
-      document.body.style.overflow = ""
-      setTimeout(() => {
-        setPlay(true)
-      }, 1000)
-    }
-  }, [overlayVisible])
-
-  useEffect(() => {
-    const imageContainerNode = imageContainerRef.current
-    setSliderHeight(window.innerHeight)
-
-    window.addEventListener("scroll", handleScroll)
+    setVh(window.innerHeight || "100vh")
     window.addEventListener("resize", handleResize)
-    window.setTimeout(function() {
-      window.requestAnimationFrame(() => {
-        const firstBatchNodes = Array.from(imageContainerNode.childNodes).slice(
-          0,
-          batch.length
-        )
-        const firstBatchWidth = getNodeListWidth(firstBatchNodes)
-        const scrollStartPosition =
-          firstBatchWidth !== 0 ? firstBatchWidth : batchWidth
-        setAnimationWidth(scrollStartPosition)
-        window.scrollTo(scrollStartPosition, 0)
-      })
-    }, 100)
+    // const wrapper = document.getElementsByClassName("swiper-wrapper")[0]
+    // if (wrapper) {
+    //   wrapper.classList.add("swiperCustomWrapper")
+    // }
     return () => {
-      window.removeEventListener("scroll", handleScroll)
       window.removeEventListener("resize", handleResize)
     }
-  }, [batch])
+  }, [films])
 
-  const handleResize = event => {
-    setSliderHeight(window.innerHeight)
-    stopAnimation()
+  const handleResize = () => {
+    setVh(window.innerHeight || "100vh")
   }
 
-  const handleScroll = event => {
-    stopAnimation()
+  const handleClick = () => {
+    swiperRef.autoplay.running
+      ? swiperRef.autoplay.stop()
+      : swiperRef.autoplay.start()
   }
 
-  const stopAnimation = () => {
-    setToggleCounter(counterRef.current + 1)
-    if (counterRef.current > 1) {
-      const hamburger = document.querySelector(".hamburger--squeeze")
-      hamburger.focus()
-      setPlay(false)
-    }
-  }
-
-  const setToggleCounter = newValue => {
-    counterRef.current = newValue
-    _setToggleCounter(newValue)
-  }
-
-  return (
-    <ImageContainer
-      play={play}
-      batchWidth={animationWidth}
-      ref={imageContainerRef}
-    >
-      {batch.map((project, index) => {
-        return (
-          <FilmPoster
-            posterHeight={sliderHeight}
-            key={index}
-            project={project}
-            index={index}
-          />
-        )
-      })}
-      {batch.map((project, index) => {
-        return (
-          <FilmPoster
-            posterHeight={sliderHeight}
-            key={index}
-            project={project}
-            index={index}
-          />
-        )
-      })}
-      {batch.map((project, index) => {
-        return (
-          <FilmPoster
-            posterHeight={sliderHeight}
-            key={index}
-            project={project}
-            index={index}
-          />
-        )
-      })}
-    </ImageContainer>
+  return films.length > 0 ? (
+    <div id="imageSlider">
+      <Swiper
+        onSwiper={setSwiperRef}
+        style={{ height: vh }}
+        initialSlide={0}
+        slidesPerView="auto"
+        freeMode
+        spaceBetween={0}
+        autoplay={{ delay: 3000 }}
+        loop
+        mousewheel
+        watchSlidesVisibility
+        loopedSlides={5}
+        freeModeMomentumRatio={0.5}
+        followFinger={true}
+        navigation={{
+          nextEl: ".swiper-next",
+          prevEl: ".swiper-prev",
+        }}
+        speed={400}
+      >
+        {films.map((film, index) => {
+          return (
+            <SwiperSlide key={index}>
+              <FilmPoster film={film}></FilmPoster>
+            </SwiperSlide>
+          )
+        })}
+        <NavButton left>
+          <i className="fa fa-chevron-left swiper-prev"></i>
+        </NavButton>
+        <NavButton right>
+          <i className="fa fa-chevron-right swiper-next"></i>
+        </NavButton>
+      </Swiper>
+    </div>
+  ) : (
+    <div></div>
   )
 }
 

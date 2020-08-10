@@ -14,8 +14,7 @@ const Home = ({ location }) => {
   const { state } = location
   const modal = state ? state.modal : true
 
-  const [batch, setBatch] = useState([])
-  const [batchWidth, setBatchWidth] = useState(0)
+  const [films, setFilms] = useState([])
   const [overlayVisible, setOverlayVisible] = useState(modal)
   const [locale, setLocale] = useState(defaultLocale)
 
@@ -23,9 +22,7 @@ const Home = ({ location }) => {
     fetchContentful
       .getAllEntries({ content_type: "film", locale: locale })
       .then(apidata => {
-        const [contentfulBatch, contentfulBatchWidth] = getBatch(apidata.items)
-        setBatch(contentfulBatch)
-        setBatchWidth(contentfulBatchWidth)
+        setFilms(apidata.items)
       })
   }, [])
 
@@ -40,11 +37,7 @@ const Home = ({ location }) => {
         <meta name="description" content="Helmet application" />
       </Helmet>
       <LpCover overlayVisible={overlayVisible} toggleOverlay={toggleOverlay} />
-      <ImageSlider
-        overlayVisible={overlayVisible}
-        batch={batch}
-        batchWidth={batchWidth}
-      />
+      <ImageSlider overlayVisible={overlayVisible} films={films} />
     </Layout>
   )
 }

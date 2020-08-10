@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { screenSizes } from "../utils/mediaqueries"
 import { Link } from "gatsby"
@@ -23,7 +23,7 @@ const MobileMenuContainer = styled.div`
   z-index: ${props => {
     return props.isMenuOpen ? "9999" : "0"
   }};
-  @media ${screenSizes.tablet} {
+  @media ${screenSizes.desktop} {
     display: none;
   }
 `
@@ -56,7 +56,7 @@ const NavigationItem = styled(props => <Link {...props} />)`
   font-size: 20px;
   text-decoration: none;
   color: ${props => {
-    return props.currentPath ? "var(--active-route)" : "var(--text-color)"
+    return props.currentpath ? "var(--active-route)" : "var(--text-color)"
   }};
   &:not(:last-child) {
     margin-bottom: 20px;
@@ -64,7 +64,11 @@ const NavigationItem = styled(props => <Link {...props} />)`
 `
 
 const MobileMenu = ({ isMenuOpen }) => {
-  const currentPath = window.location.pathname.split("/")[1]
+  const [currentpath, setCurrentPath] = useState(null)
+
+  useEffect(() => {
+    setCurrentPath(window.location.pathname.split("/")[1])
+  }, [])
 
   return (
     <MobileMenuContainer isMenuOpen={isMenuOpen}>
@@ -74,7 +78,7 @@ const MobileMenu = ({ isMenuOpen }) => {
           exact="true"
           to="/news"
           activeClassName="active"
-          currentPath={currentPath === "news"}
+          currentpath={currentpath === "news" ? 1 : 0}
         >
           News
         </NavigationItem>
@@ -82,8 +86,7 @@ const MobileMenu = ({ isMenuOpen }) => {
           state={{ modal: false }}
           exact="true"
           to="/"
-          activeClassName="active"
-          currentPath={currentPath === "film" || currentPath === ""}
+          currentpath={currentpath === "film" || currentpath === "" ? 1 : 0}
         >
           Film
         </NavigationItem>
@@ -91,8 +94,7 @@ const MobileMenu = ({ isMenuOpen }) => {
           state={{ modal: false }}
           exact="true"
           to="/commercial"
-          activeClassName="active"
-          currentPath={currentPath === "commercial"}
+          currentpath={currentpath === "commercial" ? 1 : 0}
         >
           Commercial
         </NavigationItem>
@@ -100,8 +102,7 @@ const MobileMenu = ({ isMenuOpen }) => {
           state={{ modal: false }}
           exact="true"
           to="/team"
-          activeClassName="active"
-          currentPath={currentPath === "team"}
+          currentpath={currentpath === "team" ? 1 : 0}
         >
           Team
         </NavigationItem>
@@ -109,8 +110,7 @@ const MobileMenu = ({ isMenuOpen }) => {
           state={{ modal: false }}
           exact="true"
           to="/contact"
-          activeClassName="active"
-          currentPath={currentPath === "contact"}
+          currentpath={currentpath === "contact" ? 1 : 0}
         >
           Contact
         </NavigationItem>
