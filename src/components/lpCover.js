@@ -17,14 +17,9 @@ const VideoCover = styled.div`
   width: 100%;
   height: 100%;
   background: black;
-  z-index: ${props => {
-    return props.show ? "999999" : "0"
-  }};
-  transform: ${props => {
-    console.log("props.show: ", props.show)
-    return props.show ? "translateY(0)" : "translateY(-100%)"
-  }};
-  transition: transform 0.5s ease-in, z-index 0.1s linear 1s;
+  z-index: 999999;
+  transform: ${props => props.transform};
+  transition: transform 0.5s ease-in;
 `
 
 const ToggleButton = styled.button`
@@ -60,6 +55,15 @@ const KojotenLogo = styled.img`
 
 const LpCover = ({ overlayVisible, toggleOverlay }) => {
   const [coverMedia, setCoverMedia] = useState({})
+  const [transform, setTransform] = useState("")
+
+  useEffect(() => {
+    if (overlayVisible) {
+      setTransform("translateY(0)")
+    } else {
+      setTransform("translateY(-100%)")
+    }
+  }, [overlayVisible])
 
   useEffect(() => {
     fetchContentful
@@ -76,7 +80,7 @@ const LpCover = ({ overlayVisible, toggleOverlay }) => {
   }, [])
 
   return (
-    <VideoCover show={overlayVisible ? 1 : 0}>
+    <VideoCover transform={transform}>
       <MediaContainer media={coverMedia}>
         <KojotenLogo src={kojotenlogo} alt="Kojoten Film" />
         <ToggleButton onClick={toggleOverlay}>
