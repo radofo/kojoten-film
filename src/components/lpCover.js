@@ -53,17 +53,15 @@ const KojotenLogo = styled.img`
   }
 `
 
-const LpCover = ({ overlayVisible, toggleOverlay }) => {
+const LpCover = ({ overlayOpen, toggleOverlay }) => {
   const [coverMedia, setCoverMedia] = useState({})
-  const [transform, setTransform] = useState("")
+  const [transform, setTransform] = useState("translateY(0)")
 
   useEffect(() => {
-    if (overlayVisible) {
-      setTransform("translateY(0)")
-    } else {
+    if (!overlayOpen) {
       setTransform("translateY(-100%)")
     }
-  }, [overlayVisible])
+  }, [overlayOpen])
 
   useEffect(() => {
     fetchContentful

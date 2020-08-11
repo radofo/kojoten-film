@@ -13,13 +13,16 @@ const Home = ({ location }) => {
   const { state } = location
   const modal = state ? state.modal : true
   console.log("modal: ", modal)
-  console.log("state: ", state)
 
   const [films, setFilms] = useState([])
-  const [overlayVisible, setOverlayVisible] = useState(modal)
+  const [overlayOpen, setOverlayOpen] = useState(true)
+  const [overlayExists, setOverlayExists] = useState(false)
   const [locale, setLocale] = useState(defaultLocale)
+  console.log("overlayOpen: ", overlayOpen)
 
   useEffect(() => {
+    console.log("overlayOpen useeffect: ", overlayOpen)
+    setOverlayExists(modal)
     fetchContentful
       .getAllEntries({ content_type: "film", locale: locale })
       .then(apidata => {
@@ -28,18 +31,24 @@ const Home = ({ location }) => {
   }, [])
 
   const toggleOverlay = () => {
-    console.log("Click registered")
-    setOverlayVisible(false)
+    console.log("overlayOpen toggle: ", overlayOpen)
+    setOverlayOpen(false)
+    setTimeout(() => {
+      setOverlayExists(false)
+    }, 1000)
   }
 
+  console.log("overlayExists: ", overlayExists)
   return (
     <Layout>
       <Helmet>
         <title>Kojoten | Film</title>
         <meta name="description" content="Helmet application" />
       </Helmet>
-      <LpCover overlayVisible={overlayVisible} toggleOverlay={toggleOverlay} />
-      <ImageSlider overlayVisible={overlayVisible} films={films} />
+      {overlayExists && (
+        <LpCover overlayOpen={overlayOpen} toggleOverlay={toggleOverlay} />
+      )}
+      <ImageSlider overlayOpen={overlayOpen} films={films} />
     </Layout>
   )
 }
