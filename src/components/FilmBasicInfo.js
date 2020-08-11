@@ -10,7 +10,7 @@ const FilmBasicInfoContainer = styled.div`
 
 const FilmDetailHeader = styled.h1`
   @media ${screenSizes.desktop} {
-    font-size: 2.8em;
+    font-size: 3em;
   }
 `
 const FilmDetailDirector = styled.p`

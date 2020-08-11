@@ -1,9 +1,12 @@
-import React from "react"
-import styled from "styled-components"
+import React, { useEffect, useState } from "react"
+import { Helmet } from "react-helmet"
 import Layout from "../components/layout"
+import * as fetchContentful from "../utils/fetch"
+import styled from "styled-components"
 import MediaContainer from "../components/mediaContainer"
 import { graphql, useStaticQuery } from "gatsby"
 import { screenSizes } from "../utils/mediaqueries"
+import { defaultLocale } from "../utils/fetch"
 
 const TeamContainer = styled.div`
   position: fixed;
@@ -33,40 +36,27 @@ const TeamDescription = styled.p`
 `
 
 const Team = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      allContentfulTeam {
-        edges {
-          node {
-            backgroundImage {
-              id
-              fixed {
-                src
-                srcSet
-              }
-            }
-            description {
-              description
-            }
-          }
-        }
-      }
-    }
-  `)
+  const [team, setTeam] = useState(null)
+  const [teamMedia, setTeamMedia] = useState({})
 
-  const node = data.allContentfulTeam.edges[0].node
-  const media = {
-    horizontalImage: {
-      src: node.backgroundImage.fixed.src,
-      srcSet: node.backgroundImage.fixed.srcSet,
-    },
-  }
+  useEffect(() => {
+    fetchContentful
+      .getAllEntries({ content_type: "team", locale: defaultLocale })
+      .then(apidata => {
+        setTeam(apidata.items[0].fields)
+        setTeamMedia({
+          horizontalImage: {
+            src: apidata.items[0].fields.backgroundImage.fields.file.url,
+          },
+        })
+      })
+  }, [])
 
   return (
     <Layout transparentHeader>
       <TeamContainer>
-        <MediaContainer media={media}>
-          <TeamDescription>{node.description.description}</TeamDescription>
+        <MediaContainer media={teamMedia}>
+          <TeamDescription>{team && team.description}</TeamDescription>
         </MediaContainer>
       </TeamContainer>
     </Layout>

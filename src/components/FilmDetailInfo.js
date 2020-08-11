@@ -80,7 +80,8 @@ const FilmDetailInfo = ({ infosOpen, details }) => {
             {details.auszeichnungen &&
               details.auszeichnungen.map((auszeichnung, index) => {
                 const [awardSrc, awardSrcSet] = createSrcSet(
-                  auszeichnung.fields.file.url
+                  auszeichnung.fields.file.url,
+                  "svg"
                 )
                 return (
                   <FilmDetailAward
