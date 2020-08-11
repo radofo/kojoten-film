@@ -104,6 +104,7 @@ const ImageSlider = ({ films, overlayVisible }) => {
         autoplay={{ delay: 3000 }}
         loop
         mousewheel
+        updateOnWindowResize
         watchSlidesVisibility
         loopedSlides={5}
         freeModeMomentumRatio={0.5}

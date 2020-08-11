@@ -6,7 +6,7 @@ const CommercialBasicInfoContainer = styled.div`
   position: absolute;
   left: 0;
   bottom: 10px;
-  padding: 0 calc(var(--padding-sides) + 20px);
+  padding: 0 calc(var(--padding-sides) + 10px);
   color: white;
   @media ${screenSizes.desktop} {
     bottom: 50px;
@@ -15,7 +15,7 @@ const CommercialBasicInfoContainer = styled.div`
 
 const CommercialDetailHeader = styled.h1`
   @media ${screenSizes.desktop} {
-    font-size: 2.8em;
+    font-size: 3em;
   }
 `
 const CommercialMoreDetails = styled.p`

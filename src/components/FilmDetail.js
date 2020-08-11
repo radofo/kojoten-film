@@ -63,14 +63,10 @@ const FilmDetail = ({ location }) => {
       })
       .then(data => {
         if (data.items[0].fields.hintergrundBild) {
-          const [src, srcSet] = createSrcSet(
-            data.items[0].fields.hintergrundBild.fields.file.url
-          )
           setFilmDetails(data.items[0].fields)
           setFilmMedia({
             horizontalImage: {
-              src,
-              srcSet,
+              src: data.items[0].fields.hintergrundBild.fields.file.url,
             },
             filters: "0",
           })

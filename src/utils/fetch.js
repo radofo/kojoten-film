@@ -15,9 +15,10 @@ export const getEntry = (id, params) => {
   return client.getEntry(id, params)
 }
 
-export const createSrcSet = src => {
+export const createSrcSet = (src, fileFormat = "png") => {
+  const params = fileFormat === "svg" ? "" : "?fm=jpg&fl=progressive"
   return [
-    `${src}?fm=jpg&fl=progressive`,
-    `${src}?fm=jpg&fl=progressive 1x, ${src}?fm=jpg&fl=progressive 1.5x, ${src}?fm=jpg&fl=progressive 2x`,
+    `${src}${params}`,
+    `${src}${params} 1x, ${src}${params} 1.5x, ${src}${params} 2x`,
   ]
 }

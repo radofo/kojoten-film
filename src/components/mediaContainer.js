@@ -17,6 +17,8 @@ const Image = styled.img`
   object-fit: cover;
   width: 100%;
   height: 100%;
+  background: black;
+  border: 1px solid black;
   filter: ${props => props.filters};
 `
 
@@ -39,6 +41,7 @@ const MediaContainer = ({ children, media }) => {
             media.horizontalImage &&
             createSrcSet(media.horizontalImage.src)[1]
           }
+          alt={`BG-image`}
           filters={media.filters}
         />
       )}
