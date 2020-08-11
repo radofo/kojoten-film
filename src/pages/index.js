@@ -7,12 +7,13 @@ import Layout from "../components/layout"
 import ImageSlider from "../components/imageSlider"
 import LpCover from "../components/lpCover"
 // Utils
-import { getBatch } from "../utils/window"
 import { defaultLocale } from "../utils/fetch"
 
 const Home = ({ location }) => {
   const { state } = location
   const modal = state ? state.modal : true
+  console.log("modal: ", modal)
+  console.log("state: ", state)
 
   const [films, setFilms] = useState([])
   const [overlayVisible, setOverlayVisible] = useState(modal)
@@ -27,6 +28,7 @@ const Home = ({ location }) => {
   }, [])
 
   const toggleOverlay = () => {
+    console.log("Click registered")
     setOverlayVisible(false)
   }
 
