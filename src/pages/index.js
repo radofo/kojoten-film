@@ -38,12 +38,7 @@ const Home = ({ location }) => {
         <title>Kojoten | Film</title>
         <meta name="description" content="Helmet application" />
       </Helmet>
-      {modal && (
-        <LpCover
-          overlayVisible={overlayVisible}
-          toggleOverlay={toggleOverlay}
-        />
-      )}
+      <LpCover overlayVisible={overlayVisible} toggleOverlay={toggleOverlay} />
       <ImageSlider overlayVisible={overlayVisible} films={films} />
     </Layout>
   )

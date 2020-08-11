@@ -64,6 +64,9 @@ const Layout = ({ children, transparentHeader, backButton }) => {
         <title>Kojoten Filmproduktion</title>
       </Helmet>
       <GlobalStyle />
+      <Body isMenuOpen={isMenuOpen} transparentHeader={transparentHeader}>
+        {children}
+      </Body>
       <Header
         handleClick={handleClick}
         isMenuOpen={isMenuOpen}
@@ -71,9 +74,6 @@ const Layout = ({ children, transparentHeader, backButton }) => {
         backButton={backButton}
       />
       <MobileMenu isMenuOpen={isMenuOpen} />
-      <Body isMenuOpen={isMenuOpen} transparentHeader={transparentHeader}>
-        {children}
-      </Body>
     </CSSVariables>
   )
 }
