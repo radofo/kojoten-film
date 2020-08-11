@@ -4,7 +4,6 @@ import Layout from "../components/layout"
 import * as fetchContentful from "../utils/fetch"
 import styled from "styled-components"
 import MediaContainer from "../components/mediaContainer"
-import { graphql, useStaticQuery } from "gatsby"
 import { screenSizes } from "../utils/mediaqueries"
 import { defaultLocale } from "../utils/fetch"
 
