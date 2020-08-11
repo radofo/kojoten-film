@@ -76,7 +76,7 @@ const LpCover = ({ overlayVisible, toggleOverlay }) => {
   }, [])
 
   return (
-    <VideoCover show={overlayVisible}>
+    <VideoCover show={overlayVisible ? 1 : 0}>
       <MediaContainer media={coverMedia}>
         <KojotenLogo src={kojotenlogo} alt="Kojoten Film" />
         <ToggleButton onClick={toggleOverlay}>
