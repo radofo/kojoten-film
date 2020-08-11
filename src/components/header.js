@@ -8,11 +8,6 @@ import { Link } from "gatsby"
 
 // ================ Styled Components ================
 const HeaderContainer = styled.header`
-  background-color: ${props => {
-    return props.transparentHeader
-      ? "var(--header-bgcolor-transparent)"
-      : "var(--header-bgcolor)"
-  }};
   color: var(--text-color);
   padding: 0 var(--padding-sides);
   height: var(--header-height);
@@ -23,6 +18,11 @@ const HeaderContainer = styled.header`
   top: 0;
   width: 100%;
   z-index: 99999;
+  background-color: ${props => {
+    return props.transparentHeader
+      ? "var(--header-bgcolor-transparent)"
+      : "var(--header-bgcolor)"
+  }};
 `
 
 const BurgerMenu = styled.div`
