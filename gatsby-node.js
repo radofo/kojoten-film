@@ -1,7 +1,3 @@
-const path = require("path")
-
-module.exports.createPages = async ({ graphql, actions }) => {}
-
 exports.onCreatePage = async ({ page, actions }) => {
   const { createPage } = actions
   if (page.path.match(/^\/film/)) {
