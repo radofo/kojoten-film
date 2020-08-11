@@ -33,7 +33,7 @@ const Home = ({ location }) => {
   return (
     <Layout>
       <Helmet>
-        <title>Kojoten - Film</title>
+        <title>Kojoten | Film</title>
         <meta name="description" content="Helmet application" />
       </Helmet>
       <LpCover overlayVisible={overlayVisible} toggleOverlay={toggleOverlay} />

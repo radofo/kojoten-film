@@ -53,6 +53,10 @@ const Team = () => {
 
   return (
     <Layout transparentHeader>
+      <Helmet>
+        <title>Kojoten | Team</title>
+        <meta name="description" content="Helmet application" />
+      </Helmet>
       <TeamContainer>
         <MediaContainer media={teamMedia}>
           <TeamDescription>{team && team.description}</TeamDescription>
