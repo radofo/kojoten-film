@@ -105,8 +105,15 @@ const ImageSlider = ({ films, overlayVisible }) => {
         loop
         mousewheel
         updateOnWindowResize
+        centeredSlides
         watchSlidesVisibility
         loopedSlides={5}
+        initialSlide={2}
+        breakpoints={{
+          700: {
+            centeredSlides: false,
+          },
+        }}
         freeModeMomentumRatio={0.5}
         followFinger={true}
         navigation={{
