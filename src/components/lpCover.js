@@ -17,12 +17,14 @@ const VideoCover = styled.div`
   width: 100%;
   height: 100%;
   background: black;
-  z-index: 999999;
+  z-index: ${props => {
+    return props.show ? "999999" : "0"
+  }};
   transform: ${props => {
     console.log("props.show: ", props.show)
     return props.show ? "translateY(0)" : "translateY(-100%)"
   }};
-  transition: transform 0.5s ease-in;
+  transition: transform 0.5s ease-in, z-index 0.1s linear 1s;
 `
 
 const ToggleButton = styled.button`
