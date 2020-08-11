@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import kojotenlogo from "../media/kojoten_logo.svg"
-import { graphql, useStaticQuery } from "gatsby"
 import { screenSizes } from "../utils/mediaqueries"
+import * as fetchContentful from "../utils/fetch"
+import { defaultLocale } from "../utils/fetch"
 
 // Components
 import MediaContainer from "./mediaContainer"
@@ -55,37 +56,20 @@ const KojotenLogo = styled.img`
 `
 
 const LpCover = ({ overlayVisible, toggleOverlay }) => {
-  const data = useStaticQuery(graphql`
-    query {
-      allContentfulCoverMedia {
-        edges {
-          node {
-            horizontalVideo {
-              file {
-                url
-              }
-            }
-            horizontalImage {
-              fixed {
-                src
-              }
-            }
-          }
-        }
-      }
-    }
-  `)
-
   const [coverMedia, setCoverMedia] = useState({})
 
   useEffect(() => {
-    const mediaNode = data.allContentfulCoverMedia.edges[0].node
-    setCoverMedia({
-      horizontalVideo: mediaNode.horizontalVideo.file.url,
-      horizontalImage: {
-        src: mediaNode.horizontalImage.fixed.src,
-      },
-    })
+    fetchContentful
+      .getAllEntries({ content_type: "coverMedia", locale: defaultLocale })
+      .then(apidata => {
+        setCoverMedia({
+          horizontalVideo:
+            apidata.items[0].fields.horizontalVideo.fields.file.url,
+          horizontalImage: {
+            src: apidata.items[0].fields.horizontalImage.fields.file.url,
+          },
+        })
+      })
   }, [])
 
   return (
