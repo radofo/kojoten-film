@@ -1,5 +1,5 @@
 .swiperCustomWrapper {
-  transition-timing-function: linear !important;
+  /* transition-timing-function: linear !important; */
 }
 
 #imageSlider .swiper-slide {
