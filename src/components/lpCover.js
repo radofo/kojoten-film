@@ -19,6 +19,7 @@ const VideoCover = styled.div`
   background: black;
   z-index: 999999;
   transform: ${props => {
+    console.log("props.show: ", props.show)
     return props.show ? "translateY(0)" : "translateY(-100%)"
   }};
   transition: transform 0.5s ease-in;
