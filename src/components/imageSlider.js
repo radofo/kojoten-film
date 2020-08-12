@@ -67,7 +67,7 @@ const NavButton = styled.button`
 
 // React Component
 const ImageSlider = ({ films, overlayVisible }) => {
-  const [vh, setVh] = useState("100vh")
+  const [vh, setVh] = useState("")
   const [swiperRef, setSwiperRef] = useState(null)
 
   useEffect(() => {

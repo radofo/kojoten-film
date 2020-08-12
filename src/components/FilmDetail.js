@@ -20,6 +20,7 @@ const FilmDetailContainer = styled.div`
   bottom: 0;
   width: 100%;
   height: 100%;
+  z-index: 9;
   background: black;
 `
 
@@ -68,7 +69,7 @@ const FilmDetail = ({ location }) => {
             horizontalImage: {
               src: data.items[0].fields.hintergrundBild.fields.file.url,
             },
-            filters: "0",
+            filters: "",
           })
         }
       })
@@ -77,7 +78,7 @@ const FilmDetail = ({ location }) => {
   const toggleInfosOpen = () => {
     setFilmMedia({
       ...filmMedia,
-      filters: infosOpen ? "" : "blur(3px)",
+      filters: infosOpen ? "" : "grayscale(80%) blur(2px)",
     })
     setInfosOpen(!infosOpen)
   }
