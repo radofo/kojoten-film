@@ -38,6 +38,10 @@ const BackButton = styled.i`
   }
 `
 
+const KojotenLogo = styled.img`
+  width: 120px;
+`
+
 // ================ Header React Component ================
 const Header = ({ isMenuOpen, handleClick, transparentHeader, backButton }) => {
   const headerImage = backButton ? (
@@ -45,7 +49,7 @@ const Header = ({ isMenuOpen, handleClick, transparentHeader, backButton }) => {
       <BackButton className="fa fa-arrow-left fa-2x" alt="Back"></BackButton>
     </Link>
   ) : (
-    <img src={kojotenlogo} alt="Kojoten Film" />
+    <KojotenLogo src={kojotenlogo} alt="Kojoten Film" />
   )
   return (
     <HeaderContainer transparentHeader={transparentHeader}>
