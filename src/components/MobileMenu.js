@@ -71,7 +71,7 @@ const MobileMenu = ({ isMenuOpen }) => {
   }, [])
 
   return (
-    <MobileMenuContainer isMenuOpen={isMenuOpen}>
+    <MobileMenuContainer isMenuOpen={isMenuOpen ? 1 : 0}>
       <NavigationRow>
         <NavigationItem
           state={{ modal: false }}

@@ -12,16 +12,13 @@ import { defaultLocale } from "../utils/fetch"
 const Home = ({ location }) => {
   const { state } = location
   const modal = state ? state.modal : true
-  console.log("modal: ", modal)
 
   const [films, setFilms] = useState([])
   const [overlayOpen, setOverlayOpen] = useState(true)
   const [overlayExists, setOverlayExists] = useState(false)
   const [locale, setLocale] = useState(defaultLocale)
-  console.log("overlayOpen: ", overlayOpen)
 
   useEffect(() => {
-    console.log("overlayOpen useeffect: ", overlayOpen)
     setOverlayExists(modal)
     fetchContentful
       .getAllEntries({ content_type: "film", locale: locale })
@@ -31,14 +28,12 @@ const Home = ({ location }) => {
   }, [])
 
   const toggleOverlay = () => {
-    console.log("overlayOpen toggle: ", overlayOpen)
     setOverlayOpen(false)
     setTimeout(() => {
       setOverlayExists(false)
     }, 1000)
   }
 
-  console.log("overlayExists: ", overlayExists)
   return (
     <Layout>
       <Helmet>
