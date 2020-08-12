@@ -49,7 +49,9 @@ const Header = ({ isMenuOpen, handleClick, transparentHeader, backButton }) => {
       <BackButton className="fa fa-arrow-left fa-2x" alt="Back"></BackButton>
     </Link>
   ) : (
-    <KojotenLogo src={kojotenlogo} alt="Kojoten Film" />
+    <Link to="/">
+      <KojotenLogo src={kojotenlogo} alt="Kojoten Film" />
+    </Link>
   )
   return (
     <HeaderContainer transparentHeader={transparentHeader}>
