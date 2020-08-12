@@ -4,12 +4,17 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { renderOptions } from "../utils/richText"
 import styled from "styled-components"
 
+import { screenSizes } from "../utils/mediaqueries"
+
 const MarkdownContainer = styled.div`
   color: white;
-  padding-right: 20px;
+  padding: 0 0 50px;
 
   & > :first-child {
     margin-top: 0;
+  }
+  @media ${screenSizes.tablet} {
+    padding: 0 40px 50px;
   }
 `
 

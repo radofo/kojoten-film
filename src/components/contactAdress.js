@@ -66,8 +66,8 @@ const ContactAdress = () => {
         </ContactAdressTextLine>
         <ContactAdressTextLine>{address.plzUndStadt}</ContactAdressTextLine>
         <ContactAdressTextLine>{address.email}</ContactAdressTextLine>
-        <button onClick={() => changeLocale("de")}>DE</button>
-        <button onClick={() => changeLocale("en-US")}>EN</button>
+        {/* <button onClick={() => changeLocale("de")}>DE</button>
+        <button onClick={() => changeLocale("en-US")}>EN</button> */}
       </ContactAdressText>
       <MapContainer
         src={address.mapsUrl}
