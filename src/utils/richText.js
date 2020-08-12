@@ -9,7 +9,9 @@ export const renderOptions = {
     ),
   },
   renderNode: {
-    [BLOCKS.PARAGRAPH]: (node, children) => <p>{children}</p>,
+    [BLOCKS.PARAGRAPH]: (node, children) => (
+      <p className={markdownStyles.markdownParagraph}>{children}</p>
+    ),
     [BLOCKS.HEADING_1]: (node, children) => (
       <h1
         className={`${markdownStyles.markdownHeader} ${markdownStyles.markdownH1}`}

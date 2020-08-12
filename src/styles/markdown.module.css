@@ -1,8 +1,13 @@
 .markdownHeader {
   margin: 20px 0 5px;
+  color: var(--text-color);
 }
 .markdownHighlight {
   color: var(--highlight-color);
+}
+
+.markdownParagraph {
+  margin-bottom: 8px;
 }
 
 .markdownH1 {
