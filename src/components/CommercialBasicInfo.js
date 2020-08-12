@@ -28,7 +28,7 @@ const CommercialBasicInfo = ({ details }) => {
     <CommercialBasicInfoContainer>
       <CommercialDetailHeader>{details.name}</CommercialDetailHeader>
       <CommercialMoreDetails>
-        {details.regisseur && `Regisseur | ${details.regisseur}`} <br />
+        {details.regisseur && `Regie | ${details.regisseur}`} <br />
         {details.kunde && `Kunde | ${details.kunde}`}
       </CommercialMoreDetails>
     </CommercialBasicInfoContainer>
