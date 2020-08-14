@@ -5,8 +5,8 @@ let contentfulAccessToken = process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN
 
 if (window) {
   const previewHosts = [
-    "192.168.178.20:8000",
-    "localhost:8000",
+    // "192.168.178.20:8000",
+    // "localhost:8000",
     "kojoten-film-integration.web.app",
   ]
   const currentHost = window.location.host
