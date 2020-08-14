@@ -3,7 +3,7 @@ import * as contentful from "contentful"
 let contentfulConnection = "cdn.contentful.com"
 let contentfulAccessToken = process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN
 
-if (window) {
+if (window !== undefined) {
   const previewHosts = [
     // "192.168.178.20:8000",
     // "localhost:8000",
@@ -15,7 +15,6 @@ if (window) {
     contentfulAccessToken = process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN_PREVIEW
   }
 }
-
 const client = contentful.createClient({
   space: process.env.GATSBY_CONTENTFUL_SPACE_ID,
   accessToken: contentfulAccessToken,
