@@ -8,6 +8,7 @@ import ImageSlider from "../components/imageSlider"
 import LpCover from "../components/lpCover"
 // Utils
 import { defaultLocale } from "../utils/fetch"
+import Pending from "../components/pending"
 
 const Home = ({ location }) => {
   const { state } = location
@@ -17,13 +18,18 @@ const Home = ({ location }) => {
   const [overlayOpen, setOverlayOpen] = useState(true)
   const [overlayExists, setOverlayExists] = useState(false)
   const [locale, setLocale] = useState(defaultLocale)
+  const [isComingSoon, setIsComingSoon] = useState(false)
 
   useEffect(() => {
     setOverlayExists(modal)
     fetchContentful
       .getAllEntries({ content_type: "film", locale: locale })
       .then(apidata => {
-        setFilms(apidata.items)
+        if (apidata.items.length > 0) {
+          setFilms(apidata.items)
+        } else {
+          setIsComingSoon(true)
+        }
       })
   }, [])
 
@@ -43,7 +49,11 @@ const Home = ({ location }) => {
       {overlayExists && (
         <LpCover overlayOpen={overlayOpen} toggleOverlay={toggleOverlay} />
       )}
-      <ImageSlider overlayOpen={overlayOpen} films={films} />
+      {isComingSoon ? (
+        <Pending emoji="🎥" subject="Films are" />
+      ) : (
+        <ImageSlider overlayOpen={overlayOpen} films={films} />
+      )}
     </Layout>
   )
 }
