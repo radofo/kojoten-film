@@ -1,0 +1,30 @@
+.markdownHeader {
+  margin: 20px 0 5px;
+  color: var(--text-color);
+}
+.markdownHighlight {
+  color: var(--highlight-color);
+}
+
+.markdownParagraph {
+  margin-bottom: 8px;
+}
+
+.markdownH1 {
+  font-size: calc(var(--default-font-size) + 10px);
+}
+.markdownH2 {
+  font-size: calc(var(--default-font-size) + 8px);
+}
+.markdownH3 {
+  font-size: calc(var(--default-font-size) + 6px);
+}
+.markdownH4 {
+  font-size: calc(var(--default-font-size) + 4px);
+}
+.markdownH5 {
+  font-size: calc(var(--default-font-size) + 2px);
+}
+.markdownH6 {
+  font-size: var(--default-font-size);
+}
