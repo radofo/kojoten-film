@@ -1,6 +1,6 @@
 {
   "projects": {
     "default": "kojoten-film-integration",
-    "production": "kojoten-film"
+    "production": "kojoten-film-website"
   }
 }
