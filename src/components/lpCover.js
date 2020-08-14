@@ -65,7 +65,10 @@ const LpCover = ({ overlayOpen, toggleOverlay }) => {
 
   useEffect(() => {
     fetchContentful
-      .getAllEntries({ content_type: "coverMedia", locale: defaultLocale })
+      .getAllEntries(
+        { content_type: "coverMedia", locale: defaultLocale },
+        window.location.host
+      )
       .then(apidata => {
         setCoverMedia({
           horizontalVideo:

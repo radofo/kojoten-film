@@ -65,7 +65,10 @@ const Commercial = () => {
   useEffect(() => {
     setVh(window.innerHeight || "100vh")
     fetchContentful
-      .getAllEntries({ content_type: "commercial", locale: defaultLocale })
+      .getAllEntries(
+        { content_type: "commercial", locale: defaultLocale },
+        window.location.host
+      )
       .then(apidata => {
         setCommercials(apidata)
       })

@@ -42,7 +42,10 @@ const Team = () => {
 
   useEffect(() => {
     fetchContentful
-      .getAllEntries({ content_type: "team", locale: defaultLocale })
+      .getAllEntries(
+        { content_type: "team", locale: defaultLocale },
+        window.location.host
+      )
       .then(apidata => {
         if (apidata.items.length > 0) {
           setTeam(apidata.items[0].fields)
