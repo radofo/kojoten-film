@@ -15,6 +15,7 @@ import SwiperCore, { Navigation } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/swiper-bundle.min.css"
 import "../styles/swiper.css"
+import Pending from "../components/pending"
 
 SwiperCore.use([Navigation])
 
@@ -57,14 +58,17 @@ const NavRow = styled.div`
   padding: var(--padding-sides);
 `
 
-const Commercial = ({ data }) => {
+const Commercial = () => {
   const [commercials, setCommercials] = useState(null)
   const [vh, setVh] = useState("100vh")
 
   useEffect(() => {
     setVh(window.innerHeight || "100vh")
     fetchContentful
-      .getAllEntries({ content_type: "commercial", locale: defaultLocale })
+      .getAllEntries(
+        { content_type: "commercial", locale: defaultLocale },
+        window.location.host
+      )
       .then(apidata => {
         setCommercials(apidata)
       })
@@ -82,46 +86,50 @@ const Commercial = ({ data }) => {
   return (
     <Layout transparentHeader>
       <Helmet>
-        <title>Kojoten - Commercial</title>
-        <meta name="description" content="Helmet application" />
+        <title>Kojoten | Commercial</title>
+        <meta name="description" content="Kojoten Film | Commercial" />
       </Helmet>
-      <Swiper
-        style={{ height: vh }}
-        initialSlide={0}
-        navigation={{
-          nextEl: ".swiper-next",
-          prevEl: ".swiper-prev",
-        }}
-        loop
-        followFinger={false}
-        speed={400}
-      >
-        {commercials &&
-          commercials.items.map((commercial, index) => {
-            const commercialMedia = {
-              horizontalImage: {
-                src: commercial.fields.poster.fields.file.url,
-              },
-            }
-            return (
-              <SwiperSlide key={index}>
-                <MediaContainer media={commercialMedia}></MediaContainer>
-                <CommercialBasicInfo details={commercial.fields} />
-                <NavRow>
-                  <NavButton>
-                    <i className="fa fa-chevron-left swiper-prev"></i>
-                  </NavButton>
-                  <Link to={`/media/c/${commercial.fields.url}`}>
-                    <PlayButton className={`far fa-play-circle`}></PlayButton>
-                  </Link>
-                  <NavButton>
-                    <i className="fa fa-chevron-right swiper-next"></i>
-                  </NavButton>
-                </NavRow>
-              </SwiperSlide>
-            )
-          })}
-      </Swiper>
+      {commercials && commercials.items.length === 0 ? (
+        <Pending emoji="🍿" subject="Commercials are" />
+      ) : (
+        <Swiper
+          style={{ height: vh }}
+          initialSlide={0}
+          navigation={{
+            nextEl: ".swiper-next",
+            prevEl: ".swiper-prev",
+          }}
+          loop
+          followFinger={false}
+          speed={400}
+        >
+          {commercials &&
+            commercials.items.map((commercial, index) => {
+              const commercialMedia = {
+                horizontalImage: {
+                  src: commercial.fields.poster.fields.file.url,
+                },
+              }
+              return (
+                <SwiperSlide key={index}>
+                  <MediaContainer media={commercialMedia}></MediaContainer>
+                  <CommercialBasicInfo details={commercial.fields} />
+                  <NavRow>
+                    <NavButton>
+                      <i className="fa fa-chevron-left swiper-prev"></i>
+                    </NavButton>
+                    <Link to={`/media/c/${commercial.fields.url}`}>
+                      <PlayButton className={`far fa-play-circle`}></PlayButton>
+                    </Link>
+                    <NavButton>
+                      <i className="fa fa-chevron-right swiper-next"></i>
+                    </NavButton>
+                  </NavRow>
+                </SwiperSlide>
+              )
+            })}
+        </Swiper>
+      )}
     </Layout>
   )
 }

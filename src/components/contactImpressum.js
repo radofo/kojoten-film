@@ -5,6 +5,7 @@ import { renderOptions } from "../utils/richText"
 import styled from "styled-components"
 
 import { screenSizes } from "../utils/mediaqueries"
+import Pending from "./pending"
 
 const MarkdownContainer = styled.div`
   color: white;
@@ -20,16 +21,32 @@ const MarkdownContainer = styled.div`
 
 const ContactImpressum = () => {
   const [impressumContent, setImpressumContent] = useState("")
+  const [pending, setPending] = useState(false)
 
   useEffect(() => {
     fetchContentful
-      .getAllEntries({ content_type: "impressum", locale: "en-US" })
+      .getAllEntries(
+        { content_type: "impressum", locale: "en-US" },
+        window.location.host
+      )
       .then(data => {
-        const raw = data.items[0].fields.impressum
-        setImpressumContent(documentToReactComponents(raw, renderOptions))
+        if (data.items.length > 0) {
+          const raw = data.items[0].fields.impressum
+          setImpressumContent(documentToReactComponents(raw, renderOptions))
+        } else {
+          setPending(true)
+        }
       })
   }, [])
-  return <MarkdownContainer>{impressumContent}</MarkdownContainer>
+  return (
+    <React.Fragment>
+      {pending ? (
+        <Pending emoji="" subject="Impress Information is" height="initial" />
+      ) : (
+        <MarkdownContainer>{impressumContent}</MarkdownContainer>
+      )}
+    </React.Fragment>
+  )
 }
 
 export default ContactImpressum

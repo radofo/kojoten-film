@@ -4,6 +4,7 @@ import * as fetchContentful from "../utils/fetch"
 import styled from "styled-components"
 import { defaultLocale } from "../utils/fetch"
 import NewsItem from "../components/NewsItem"
+import Pending from "../components/pending"
 
 const NewsContainer = styled.div`
   padding: var(--header-height) var(--padding-sides);
@@ -13,25 +14,37 @@ const NewsContainer = styled.div`
 
 const News = () => {
   const [news, setNews] = useState([])
+  const [comingSoon, setComingSoon] = useState(false)
   useEffect(() => {
     fetchContentful
-      .getAllEntries({
-        content_type: "news",
-        locale: defaultLocale,
-        order: "-fields.datum",
-      })
+      .getAllEntries(
+        {
+          content_type: "news",
+          locale: defaultLocale,
+          order: "-fields.datum",
+        },
+        window.location.host
+      )
       .then(apidata => {
-        setNews(apidata.items)
+        if (apidata.items.length > 0) {
+          setNews(apidata.items)
+        } else {
+          setComingSoon(true)
+        }
       })
   }, [])
 
   return (
     <Layout>
-      <NewsContainer>
-        {news.map((item, index) => {
-          return <NewsItem item={item} key={index} />
-        })}
-      </NewsContainer>
+      {comingSoon ? (
+        <Pending emoji="🗞" subject="News are" />
+      ) : (
+        <NewsContainer>
+          {news.map((item, index) => {
+            return <NewsItem item={item} key={index} />
+          })}
+        </NewsContainer>
+      )}
     </Layout>
   )
 }

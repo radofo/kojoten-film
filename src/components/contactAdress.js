@@ -4,6 +4,7 @@ import * as fetchContentful from "../utils/fetch"
 import styled from "styled-components"
 import { screenSizes } from "../utils/mediaqueries"
 import { defaultLocale } from "../utils/fetch"
+import Pending from "./pending"
 
 const ContactAdressContainer = styled.div`
   display: flex;
@@ -42,12 +43,20 @@ const MapContainer = styled.iframe`
 const ContactAdress = () => {
   const [address, setAddress] = useState({})
   const [locale, setLocale] = useState(defaultLocale)
+  const [pending, setPending] = useState(false)
 
   useEffect(() => {
     fetchContentful
-      .getAllEntries({ content_type: "adresse", locale: locale })
+      .getAllEntries(
+        { content_type: "adresse", locale: locale },
+        window.location.host
+      )
       .then(data => {
-        setAddress(data.items[0].fields)
+        if (data.items.length > 0) {
+          setAddress(data.items[0].fields)
+        } else {
+          setPending(true)
+        }
       })
   }, [locale])
 
@@ -59,22 +68,26 @@ const ContactAdress = () => {
 
   return (
     <ContactAdressContainer>
-      <ContactAdressText>
-        <ContactAdressTextLine>{address.firmenname}</ContactAdressTextLine>
-        <ContactAdressTextLine>
-          {address.straeUndHausnummer}
-        </ContactAdressTextLine>
-        <ContactAdressTextLine>{address.plzUndStadt}</ContactAdressTextLine>
-        <ContactAdressTextLine>{address.email}</ContactAdressTextLine>
-        {/* <button onClick={() => changeLocale("de")}>DE</button>
-        <button onClick={() => changeLocale("en-US")}>EN</button> */}
-      </ContactAdressText>
-      <MapContainer
-        src={address.mapsUrl}
-        frameBorder="0"
-        allowFullScreen=""
-        tabIndex="0"
-      ></MapContainer>
+      {pending ? (
+        <Pending emoji="" subject="Address Information is" height="initial" />
+      ) : (
+        <React.Fragment>
+          <ContactAdressText>
+            <ContactAdressTextLine>{address.firmenname}</ContactAdressTextLine>
+            <ContactAdressTextLine>
+              {address.straeUndHausnummer}
+            </ContactAdressTextLine>
+            <ContactAdressTextLine>{address.plzUndStadt}</ContactAdressTextLine>
+            <ContactAdressTextLine>{address.email}</ContactAdressTextLine>
+          </ContactAdressText>
+          <MapContainer
+            src={address.mapsUrl}
+            frameBorder="0"
+            allowFullScreen=""
+            tabIndex="0"
+          ></MapContainer>
+        </React.Fragment>
+      )}
     </ContactAdressContainer>
   )
 }

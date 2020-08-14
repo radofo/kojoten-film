@@ -6,6 +6,7 @@ import styled from "styled-components"
 import MediaContainer from "../components/mediaContainer"
 import { screenSizes } from "../utils/mediaqueries"
 import { defaultLocale } from "../utils/fetch"
+import Pending from "../components/pending"
 
 const TeamContainer = styled.div`
   position: fixed;
@@ -37,17 +38,25 @@ const TeamDescription = styled.p`
 const Team = () => {
   const [team, setTeam] = useState(null)
   const [teamMedia, setTeamMedia] = useState({})
+  const [isComingSoon, setIsComingSoon] = useState(false)
 
   useEffect(() => {
     fetchContentful
-      .getAllEntries({ content_type: "team", locale: defaultLocale })
+      .getAllEntries(
+        { content_type: "team", locale: defaultLocale },
+        window.location.host
+      )
       .then(apidata => {
-        setTeam(apidata.items[0].fields)
-        setTeamMedia({
-          horizontalImage: {
-            src: apidata.items[0].fields.backgroundImage.fields.file.url,
-          },
-        })
+        if (apidata.items.length > 0) {
+          setTeam(apidata.items[0].fields)
+          setTeamMedia({
+            horizontalImage: {
+              src: apidata.items[0].fields.backgroundImage.fields.file.url,
+            },
+          })
+        } else {
+          setIsComingSoon(true)
+        }
       })
   }, [])
 
@@ -57,11 +66,15 @@ const Team = () => {
         <title>Kojoten | Team</title>
         <meta name="description" content="Helmet application" />
       </Helmet>
-      <TeamContainer>
-        <MediaContainer media={teamMedia}>
-          <TeamDescription>{team && team.description}</TeamDescription>
-        </MediaContainer>
-      </TeamContainer>
+      {isComingSoon ? (
+        <Pending emoji="🐺" subject="Team Information is" />
+      ) : (
+        <TeamContainer>
+          <MediaContainer media={teamMedia}>
+            <TeamDescription>{team && team.description}</TeamDescription>
+          </MediaContainer>
+        </TeamContainer>
+      )}
     </Layout>
   )
 }

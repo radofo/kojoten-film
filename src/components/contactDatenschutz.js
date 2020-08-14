@@ -5,6 +5,7 @@ import { renderOptions } from "../utils/richText"
 import styled from "styled-components"
 
 import { screenSizes } from "../utils/mediaqueries"
+import Pending from "./pending"
 
 const MarkdownContainer = styled.div`
   color: white;
@@ -20,16 +21,36 @@ const MarkdownContainer = styled.div`
 
 const ContactDatenschutz = () => {
   const [datenschutzContent, setDatenschutzContent] = useState("")
+  const [pending, setPending] = useState(false)
 
   useEffect(() => {
     fetchContentful
-      .getAllEntries({ content_type: "datenschutz", locale: "en-US" })
+      .getAllEntries(
+        { content_type: "datenschutz", locale: "en-US" },
+        window.location.host
+      )
       .then(data => {
-        const raw = data.items[0].fields.datenschutzText
-        setDatenschutzContent(documentToReactComponents(raw, renderOptions))
+        if (data.items.length > 0) {
+          const raw = data.items[0].fields.datenschutzText
+          setDatenschutzContent(documentToReactComponents(raw, renderOptions))
+        } else {
+          setPending(true)
+        }
       })
   }, [])
-  return <MarkdownContainer>{datenschutzContent}</MarkdownContainer>
+  return (
+    <React.Fragment>
+      {pending ? (
+        <Pending
+          emoji=""
+          subject="Datenschutz Information is"
+          height="initial"
+        />
+      ) : (
+        <MarkdownContainer>{datenschutzContent}</MarkdownContainer>
+      )}
+    </React.Fragment>
+  )
 }
 
 export default ContactDatenschutz
