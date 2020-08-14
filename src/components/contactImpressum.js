@@ -25,7 +25,10 @@ const ContactImpressum = () => {
 
   useEffect(() => {
     fetchContentful
-      .getAllEntries({ content_type: "impressum", locale: "en-US" })
+      .getAllEntries(
+        { content_type: "impressum", locale: "en-US" },
+        window.location.host
+      )
       .then(data => {
         if (data.items.length > 0) {
           const raw = data.items[0].fields.impressum

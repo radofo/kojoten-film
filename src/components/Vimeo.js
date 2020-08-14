@@ -68,11 +68,14 @@ const Vimeo = ({ location }) => {
   useEffect(() => {
     setVh(`${window.innerHeight}px` || "100vh")
     fetchContentful
-      .getAllEntries({
-        content_type: section,
-        locale: locale,
-        "fields.url": slug,
-      })
+      .getAllEntries(
+        {
+          content_type: section,
+          locale: locale,
+          "fields.url": slug,
+        },
+        window.location.host
+      )
       .then(data => {
         const details = data.items[0].fields
         setDetails(details)

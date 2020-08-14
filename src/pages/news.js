@@ -17,11 +17,14 @@ const News = () => {
   const [comingSoon, setComingSoon] = useState(false)
   useEffect(() => {
     fetchContentful
-      .getAllEntries({
-        content_type: "news",
-        locale: defaultLocale,
-        order: "-fields.datum",
-      })
+      .getAllEntries(
+        {
+          content_type: "news",
+          locale: defaultLocale,
+          order: "-fields.datum",
+        },
+        window.location.host
+      )
       .then(apidata => {
         if (apidata.items.length > 0) {
           setNews(apidata.items)

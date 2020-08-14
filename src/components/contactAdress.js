@@ -43,15 +43,19 @@ const MapContainer = styled.iframe`
 const ContactAdress = () => {
   const [address, setAddress] = useState({})
   const [locale, setLocale] = useState(defaultLocale)
+  const [pending, setPending] = useState(false)
 
   useEffect(() => {
     fetchContentful
-      .getAllEntries({ content_type: "adresse", locale: locale })
+      .getAllEntries(
+        { content_type: "adresse", locale: locale },
+        window.location.host
+      )
       .then(data => {
         if (data.items.length > 0) {
           setAddress(data.items[0].fields)
         } else {
-          setAddress({})
+          setPending(true)
         }
       })
   }, [locale])
@@ -64,7 +68,9 @@ const ContactAdress = () => {
 
   return (
     <ContactAdressContainer>
-      {Object.keys(address) > 0 ? (
+      {pending ? (
+        <Pending emoji="" subject="Address Information is" height="initial" />
+      ) : (
         <React.Fragment>
           <ContactAdressText>
             <ContactAdressTextLine>{address.firmenname}</ContactAdressTextLine>
@@ -81,8 +87,6 @@ const ContactAdress = () => {
             tabIndex="0"
           ></MapContainer>
         </React.Fragment>
-      ) : (
-        <Pending emoji="" subject="Address Information is" height="initial" />
       )}
     </ContactAdressContainer>
   )

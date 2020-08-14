@@ -57,11 +57,14 @@ const FilmDetail = ({ location }) => {
 
   useEffect(() => {
     fetchContentful
-      .getAllEntries({
-        content_type: "film",
-        locale: locale,
-        "fields.url": slug,
-      })
+      .getAllEntries(
+        {
+          content_type: "film",
+          locale: locale,
+          "fields.url": slug,
+        },
+        window.location.host
+      )
       .then(data => {
         if (data.items[0].fields.hintergrundBild) {
           setFilmDetails(data.items[0].fields)

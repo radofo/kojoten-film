@@ -25,7 +25,10 @@ const ContactDatenschutz = () => {
 
   useEffect(() => {
     fetchContentful
-      .getAllEntries({ content_type: "datenschutz", locale: "en-US" })
+      .getAllEntries(
+        { content_type: "datenschutz", locale: "en-US" },
+        window.location.host
+      )
       .then(data => {
         if (data.items.length > 0) {
           const raw = data.items[0].fields.datenschutzText

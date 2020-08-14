@@ -23,7 +23,10 @@ const Home = ({ location }) => {
   useEffect(() => {
     setOverlayExists(modal)
     fetchContentful
-      .getAllEntries({ content_type: "film", locale: locale })
+      .getAllEntries(
+        { content_type: "film", locale: locale },
+        window.location.host
+      )
       .then(apidata => {
         if (apidata.items.length > 0) {
           setFilms(apidata.items)
