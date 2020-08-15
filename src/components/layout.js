@@ -11,17 +11,7 @@ import MobileMenu from "./MobileMenu"
 import { headerHeight } from "../utils/window"
 
 // ============== Global Styles & Variables ==============
-const CSSVariables = styled.div`
-  --padding-sides: 3%;
-  --text-color: #fff;
-  --header-bgcolor: #000;
-  --header-bgcolor-transparent: rgba(0, 0, 0, 0);
-  --header-height: ${headerHeight}px;
-  --slider-speed-factor: 160;
-  --active-route: #ffd600;
-  --highlight-color: #ffd600;
-  --default-font-size: 16px;
-`
+const LayoutContainer = styled.div``
 const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
@@ -33,6 +23,15 @@ const GlobalStyle = createGlobalStyle`
     Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: bold;
     background-color: black;
+    --padding-sides: 3%;
+    --text-color: #fff;
+    --header-bgcolor: #000;
+    --header-bgcolor-transparent: rgba(0, 0, 0, 0);
+    --header-height: ${headerHeight}px;
+    --slider-speed-factor: 160;
+    --active-route: #ffd600;
+    --highlight-color: #ffd600;
+    --default-font-size: 16px;
   }
 `
 
@@ -57,7 +56,7 @@ const Layout = ({ children, transparentHeader, backButton }) => {
   }
 
   return (
-    <CSSVariables>
+    <LayoutContainer>
       <Helmet>
         <link rel="icon" href={favicon} />
         <link href="/fontawesome/css/all.css" rel="stylesheet"></link>
@@ -74,7 +73,7 @@ const Layout = ({ children, transparentHeader, backButton }) => {
         backButton={backButton}
       />
       <MobileMenu isMenuOpen={isMenuOpen} />
-    </CSSVariables>
+    </LayoutContainer>
   )
 }
 

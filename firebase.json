@@ -2,6 +2,16 @@
   "hosting": {
     "public": "public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "/film/*",
+        "destination": "/film/index.html"
+      },
+      {
+        "source": "/media/**",
+        "destination": "/media/index.html"
+      }
+    ],
     "headers": [
       {
         "source": "**/*",
