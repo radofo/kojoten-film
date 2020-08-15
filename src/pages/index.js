@@ -19,9 +19,11 @@ const Home = ({ location }) => {
   const [overlayExists, setOverlayExists] = useState(false)
   const [locale, setLocale] = useState(defaultLocale)
   const [isComingSoon, setIsComingSoon] = useState(false)
+  const [overlayDecided, setOverlayDecided] = useState(false)
 
   useEffect(() => {
     setOverlayExists(modal)
+    setOverlayDecided(true)
     fetchContentful
       .getAllEntries(
         { content_type: "film", locale: locale },
@@ -44,7 +46,7 @@ const Home = ({ location }) => {
   }
 
   return (
-    <Layout>
+    <Layout overlayDecided={overlayDecided}>
       <Helmet>
         <title>Kojoten | Film</title>
         <meta name="description" content="Helmet application" />

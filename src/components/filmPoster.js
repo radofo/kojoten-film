@@ -21,15 +21,21 @@ const FilmPoster = ({ film }) => {
     setPosterHeight(window.innerHeight)
   }
 
-  const poster = film.fields.poster.fields
-  const [posterSrc, posterSrcSet] = createSrcSet(poster.file.url)
+  let poster
+  let posterSrc, posterSrcSet
+
+  if (film.fields.poster) {
+    poster = film.fields.poster.fields
+    posterSrc = createSrcSet(poster.file.url)[0]
+    posterSrcSet = createSrcSet(poster.file.url)[1]
+  }
   return (
     <Link to={`/film/${film.fields.url}`} state={{ project: film }}>
       <PosterImage
         posterHeight={posterHeight}
         srcSet={posterSrcSet}
         src={posterSrc}
-        alt={poster.title}
+        alt={poster && poster.title}
       />
     </Link>
   )
