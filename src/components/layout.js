@@ -33,6 +33,9 @@ const GlobalStyle = createGlobalStyle`
     --highlight-color: #ffd600;
     --default-font-size: 16px;
   }
+  img:not([src]) {
+    display: none;
+  }
 `
 
 // ============== Styled Components ==============
