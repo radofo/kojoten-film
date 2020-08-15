@@ -40,7 +40,12 @@ const GlobalStyle = createGlobalStyle`
 const Body = styled.main``
 
 // ============== Layout Component ==============
-const Layout = ({ children, transparentHeader, backButton }) => {
+const Layout = ({
+  children,
+  transparentHeader,
+  backButton,
+  overlayDecided = true,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -66,13 +71,17 @@ const Layout = ({ children, transparentHeader, backButton }) => {
       <Body isMenuOpen={isMenuOpen} transparentHeader={transparentHeader}>
         {children}
       </Body>
-      <Header
-        handleClick={handleClick}
-        isMenuOpen={isMenuOpen}
-        transparentHeader={transparentHeader}
-        backButton={backButton}
-      />
-      <MobileMenu isMenuOpen={isMenuOpen} />
+      {overlayDecided && (
+        <React.Fragment>
+          <Header
+            handleClick={handleClick}
+            isMenuOpen={isMenuOpen}
+            transparentHeader={transparentHeader}
+            backButton={backButton}
+          />
+          <MobileMenu isMenuOpen={isMenuOpen} />
+        </React.Fragment>
+      )}
     </LayoutContainer>
   )
 }
