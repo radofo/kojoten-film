@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import { createSrcSet } from "../utils/fetch"
 
@@ -23,6 +23,13 @@ const Image = styled.img`
 `
 
 const MediaContainer = ({ children, media }) => {
+  let imgSrc
+  let imgSrcSet
+  if (media && media.horizontalImage) {
+    imgSrc = createSrcSet(media.horizontalImage.src)[0]
+    imgSrcSet = createSrcSet(media.horizontalImage.src)[1]
+  }
+
   return (
     <MediaContainerStyles>
       {media.horizontalVideo ? (
@@ -31,17 +38,9 @@ const MediaContainer = ({ children, media }) => {
         </Video>
       ) : (
         <Image
-          src={
-            media &&
-            media.horizontalImage &&
-            createSrcSet(media.horizontalImage.src)[0]
-          }
-          srcSet={
-            media &&
-            media.horizontalImage &&
-            createSrcSet(media.horizontalImage.src)[1]
-          }
-          alt={`BG-image`}
+          src={imgSrc}
+          srcSet={imgSrcSet}
+          alt="BG-image"
           filters={media.filters}
         />
       )}

@@ -26,7 +26,7 @@ export const getAllEntries = (params, hostname) => {
 export const getEntry = (id, params, hostname) => {
   const previewHosts = [
     // "192.168.178.20:8000",
-    // "localhost:8000",
+    "localhost:8000",
     "kojoten-film-integration.web.app",
   ]
   if (previewHosts.includes(hostname)) {
