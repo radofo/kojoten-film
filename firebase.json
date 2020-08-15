@@ -8,7 +8,7 @@
         "destination": "/film/index.html"
       },
       {
-        "source": "/media/*",
+        "source": "/media/**",
         "destination": "/media/index.html"
       }
     ],
