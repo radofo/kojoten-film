@@ -107,7 +107,7 @@ const ImageSlider = ({ films, overlayVisible }) => {
         updateOnWindowResize
         centeredSlides
         watchSlidesVisibility
-        loopedSlides={5}
+        loopedSlides={films.length}
         initialSlide={2}
         breakpoints={{
           700: {
