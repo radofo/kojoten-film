@@ -1,6 +1,14 @@
 import React from "react"
 import { Router } from "@reach/router"
 import FilmDetail from "../components/FilmDetail"
+import styled from "styled-components"
+import Layout from "../components/layout"
+
+const FilmOverviewContainer = styled.div`
+  background: black;
+  height: 100vh;
+  width: 100%;
+`
 
 const Film = () => {
   return (
@@ -12,7 +20,11 @@ const Film = () => {
 }
 
 const FilmOverview = () => {
-  return <div>Overview</div>
+  return (
+    <Layout transparentHeader backButton>
+      <FilmOverviewContainer />
+    </Layout>
+  )
 }
 
 export default Film
