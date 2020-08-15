@@ -81,7 +81,7 @@ const FilmDetail = ({ location }) => {
   const toggleInfosOpen = () => {
     setFilmMedia({
       ...filmMedia,
-      filters: infosOpen ? "" : "grayscale(80%) blur(2px)",
+      filters: infosOpen ? "" : "grayscale(100%) blur(2px)",
     })
     setInfosOpen(!infosOpen)
   }
