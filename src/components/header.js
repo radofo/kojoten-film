@@ -42,8 +42,44 @@ const KojotenLogo = styled.img`
   width: 120px;
 `
 
+const PageControls = styled.div`
+  display: flex;
+`
+
+const LocaleSwitcher = styled.div`
+  margin-left: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const LocaleButton = styled.button`
+  background: rgba(0, 0, 0, 0);
+  border: 1px solid rgba(0, 0, 0, 0);
+  font-size: 14px;
+  color: ${props => props.buttonColor};
+  padding: 0 2px;
+  display: flex;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+    color: white;
+  }
+`
+
+const Dash = styled.span`
+  font-size: 12px;
+`
+
 // ================ Header React Component ================
-const Header = ({ isMenuOpen, handleClick, transparentHeader, backButton }) => {
+const Header = ({
+  isMenuOpen,
+  handleClick,
+  transparentHeader,
+  backButton,
+  locale,
+  changeLocale,
+}) => {
   const headerImage = backButton ? (
     <Link to="/">
       <BackButton className="fa fa-arrow-left fa-2x" alt="Back"></BackButton>
@@ -54,25 +90,41 @@ const Header = ({ isMenuOpen, handleClick, transparentHeader, backButton }) => {
   return (
     <HeaderContainer transparentHeader={transparentHeader}>
       {headerImage}
-
-      <BurgerMenu
-        className={`hamburger hamburger--squeeze ${
-          isMenuOpen ? "is-active" : ""
-        }`}
-        onClick={handleClick}
-        screenSizes={screenSizes}
-      >
-        <span className="hamburger-box">
-          <span className="hamburger-inner"></span>
-        </span>
-      </BurgerMenu>
-      <Navigation>
-        <NavItem link="/news">News</NavItem>
-        <NavItem link="/">Film</NavItem>
-        <NavItem link="/commercial">Commercial</NavItem>
-        <NavItem link="/team">Team</NavItem>
-        <NavItem link="/contact">Contact</NavItem>
-      </Navigation>
+      <PageControls>
+        <BurgerMenu
+          className={`hamburger hamburger--squeeze ${
+            isMenuOpen ? "is-active" : ""
+          }`}
+          onClick={handleClick}
+          screenSizes={screenSizes}
+        >
+          <span className="hamburger-box">
+            <span className="hamburger-inner"></span>
+          </span>
+        </BurgerMenu>
+        <Navigation>
+          <NavItem link="/news">News</NavItem>
+          <NavItem link="/">Film</NavItem>
+          <NavItem link="/commercial">Commercial</NavItem>
+          <NavItem link="/team">Team</NavItem>
+          <NavItem link="/contact">Contact</NavItem>
+        </Navigation>
+        <LocaleSwitcher>
+          <LocaleButton
+            onClick={() => changeLocale("de")}
+            buttonColor={locale === "en" ? "grey" : "white"}
+          >
+            DE
+          </LocaleButton>
+          <Dash>|</Dash>
+          <LocaleButton
+            onClick={() => changeLocale("en")}
+            buttonColor={locale === "en" ? "white" : "grey"}
+          >
+            EN
+          </LocaleButton>
+        </LocaleSwitcher>
+      </PageControls>
     </HeaderContainer>
   )
 }

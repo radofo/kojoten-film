@@ -3,6 +3,7 @@ import * as fetchContentful from "../utils/fetch"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { renderOptions } from "../utils/richText"
 import styled from "styled-components"
+import { defaultLocale } from "../utils/fetch"
 
 import { screenSizes } from "../utils/mediaqueries"
 import Pending from "./pending"
@@ -26,7 +27,7 @@ const ContactDatenschutz = () => {
   useEffect(() => {
     fetchContentful
       .getAllEntries(
-        { content_type: "datenschutz", locale: "en-US" },
+        { content_type: "datenschutz", locale: defaultLocale },
         window.location.host
       )
       .then(data => {

@@ -41,9 +41,12 @@ const MapContainer = styled.iframe`
 `
 
 const ContactAdress = () => {
+  // Data
   const [address, setAddress] = useState({})
+  // Locales
   const [locale, setLocale] = useState(defaultLocale)
-  const [pending, setPending] = useState(false)
+  // Misc
+  const [isComingSoon, setIsComingSoon] = useState(false)
 
   useEffect(() => {
     fetchContentful
@@ -55,7 +58,7 @@ const ContactAdress = () => {
         if (data.items.length > 0) {
           setAddress(data.items[0].fields)
         } else {
-          setPending(true)
+          setIsComingSoon(true)
         }
       })
   }, [locale])
@@ -68,7 +71,7 @@ const ContactAdress = () => {
 
   return (
     <ContactAdressContainer>
-      {pending ? (
+      {isComingSoon ? (
         <Pending emoji="" subject="Address Information is" height="initial" />
       ) : (
         <React.Fragment>

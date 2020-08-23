@@ -3,7 +3,7 @@ import * as contentful from "contentful"
 let contentfulConnection = "cdn.contentful.com"
 let contentfulAccessToken = process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN
 
-export const defaultLocale = "en-US"
+export const defaultLocale = "de"
 
 export const getAllEntries = (params, hostname) => {
   const previewHosts = [

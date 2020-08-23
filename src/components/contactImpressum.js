@@ -6,6 +6,7 @@ import styled from "styled-components"
 
 import { screenSizes } from "../utils/mediaqueries"
 import Pending from "./pending"
+import { defaultLocale } from "../utils/fetch"
 
 const MarkdownContainer = styled.div`
   color: white;
@@ -26,7 +27,7 @@ const ContactImpressum = () => {
   useEffect(() => {
     fetchContentful
       .getAllEntries(
-        { content_type: "impressum", locale: "en-US" },
+        { content_type: "impressum", locale: defaultLocale },
         window.location.host
       )
       .then(data => {
