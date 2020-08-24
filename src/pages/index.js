@@ -36,7 +36,7 @@ const Home = ({ location }) => {
           setIsComingSoon(true)
         }
       })
-  }, [])
+  }, [locale])
 
   const toggleOverlay = () => {
     setOverlayOpen(false)
@@ -45,8 +45,18 @@ const Home = ({ location }) => {
     }, 1000)
   }
 
+  const changeLocale = newLocale => {
+    if (newLocale !== locale) {
+      setLocale(newLocale)
+    }
+  }
+
   return (
-    <Layout overlayDecided={overlayDecided}>
+    <Layout
+      locale={locale}
+      changeLocale={changeLocale}
+      overlayDecided={overlayDecided}
+    >
       <Helmet>
         <title>Kojoten | Film</title>
         <meta name="description" content="Helmet application" />

@@ -66,17 +66,25 @@ const FilmDetail = ({ location }) => {
         window.location.host
       )
       .then(data => {
-        if (data.items[0].fields.hintergrundBild) {
-          setFilmDetails(data.items[0].fields)
-          setFilmMedia({
-            horizontalImage: {
-              src: data.items[0].fields.hintergrundBild.fields.file.url,
-            },
-            filters: "",
-          })
+        if (data.items.length > 0) {
+          if (data.items[0].fields.hintergrundBild) {
+            setFilmDetails(data.items[0].fields)
+            setFilmMedia({
+              horizontalImage: {
+                src: data.items[0].fields.hintergrundBild.fields.file.url,
+              },
+              filters: "",
+            })
+          }
         }
       })
   }, [locale])
+
+  const changeLocale = newLocale => {
+    if (newLocale !== locale) {
+      setLocale(newLocale)
+    }
+  }
 
   const toggleInfosOpen = () => {
     setFilmMedia({
@@ -87,7 +95,12 @@ const FilmDetail = ({ location }) => {
   }
 
   return (
-    <Layout transparentHeader backButton>
+    <Layout
+      locale={locale}
+      changeLocale={changeLocale}
+      transparentHeader
+      backButton
+    >
       <Helmet>
         <title>{`Kojoten | ${filmDetails.titel || "Film Details"}`}</title>
         <meta name="description" content="Helmet application" />

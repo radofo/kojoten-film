@@ -3,7 +3,6 @@ import * as fetchContentful from "../utils/fetch"
 
 import styled from "styled-components"
 import { screenSizes } from "../utils/mediaqueries"
-import { defaultLocale } from "../utils/fetch"
 import Pending from "./pending"
 
 const ContactAdressContainer = styled.div`
@@ -40,10 +39,11 @@ const MapContainer = styled.iframe`
   }
 `
 
-const ContactAdress = () => {
+const ContactAdress = ({ locale }) => {
+  // Data
   const [address, setAddress] = useState({})
-  const [locale, setLocale] = useState(defaultLocale)
-  const [pending, setPending] = useState(false)
+  // Misc
+  const [isComingSoon, setIsComingSoon] = useState(false)
 
   useEffect(() => {
     fetchContentful
@@ -55,20 +55,14 @@ const ContactAdress = () => {
         if (data.items.length > 0) {
           setAddress(data.items[0].fields)
         } else {
-          setPending(true)
+          setIsComingSoon(true)
         }
       })
   }, [locale])
 
-  const changeLocale = newLocale => {
-    if (newLocale !== locale) {
-      setLocale(newLocale)
-    }
-  }
-
   return (
     <ContactAdressContainer>
-      {pending ? (
+      {isComingSoon ? (
         <Pending emoji="" subject="Address Information is" height="initial" />
       ) : (
         <React.Fragment>
