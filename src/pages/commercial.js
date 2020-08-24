@@ -61,17 +61,12 @@ const NavRow = styled.div`
 const Commercial = () => {
   const [commercials, setCommercials] = useState(null)
   const [vh, setVh] = useState("100vh")
+  // Locales
+  const [locale, setLocale] = useState(defaultLocale)
 
   useEffect(() => {
     setVh(window.innerHeight || "100vh")
-    fetchContentful
-      .getAllEntries(
-        { content_type: "commercial", locale: defaultLocale },
-        window.location.host
-      )
-      .then(apidata => {
-        setCommercials(apidata)
-      })
+
     window.addEventListener("resize", handleResize)
 
     return () => {
@@ -79,12 +74,29 @@ const Commercial = () => {
     }
   }, [])
 
+  useEffect(() => {
+    console.log("locale: ", locale)
+    fetchContentful
+      .getAllEntries(
+        { content_type: "commercial", locale: locale },
+        window.location.host
+      )
+      .then(apidata => {
+        setCommercials(apidata)
+      })
+  }, [locale])
+
   const handleResize = () => {
     setVh(window.innerHeight || "100vh")
   }
 
+  const changeLocale = newLocale => {
+    if (newLocale !== locale) {
+      setLocale(newLocale)
+    }
+  }
   return (
-    <Layout transparentHeader>
+    <Layout locale={locale} changeLocale={changeLocale} transparentHeader>
       <Helmet>
         <title>Kojoten | Commercial</title>
         <meta name="description" content="Kojoten Film | Commercial" />

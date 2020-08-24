@@ -39,7 +39,6 @@ const TeamDescription = styled.div`
 
 const Team = () => {
   // Data
-  const [defaultData, setDefaultData] = useState(null)
   const [teamDescription, setTeamDescription] = useState("")
   const [teamMedia, setTeamMedia] = useState({})
   // Locales
@@ -48,16 +47,12 @@ const Team = () => {
   const [isComingSoon, setIsComingSoon] = useState(false)
 
   useEffect(() => {
-    if (defaultData) {
-      mapContentfulData(defaultData)
-    }
     fetchContentful
       .getAllEntries(
         { content_type: "team", locale: locale },
         window.location.host
       )
       .then(apidata => {
-        setDefaultData(apidata)
         mapContentfulData(apidata)
       })
   }, [locale])
@@ -69,7 +64,6 @@ const Team = () => {
   }
 
   const mapContentfulData = apidata => {
-    console.log("apidata: ", apidata)
     if (apidata.items.length > 0) {
       const raw = apidata.items[0].fields.teamBeschreibungsText
       setTeamDescription(documentToReactComponents(raw, renderOptions))

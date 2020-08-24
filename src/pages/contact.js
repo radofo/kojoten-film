@@ -8,6 +8,7 @@ import ContactImpressum from "../components/contactImpressum"
 import ContactDatenschutz from "../components/contactDatenschutz"
 import ContactNavigation from "../components/contactNavigation"
 import { screenSizes } from "../utils/mediaqueries"
+import { defaultLocale } from "../utils/fetch"
 
 const ContactContainer = styled.div`
   position: relative;
@@ -25,12 +26,21 @@ const ContactContainer = styled.div`
 const Contact = () => {
   const [activeTab, setActiveTab] = useState(0)
 
+  // Locales
+  const [locale, setLocale] = useState(defaultLocale)
+
   const handleTabChange = newTab => {
     setActiveTab(newTab)
   }
 
+  const changeLocale = newLocale => {
+    if (newLocale !== locale) {
+      setLocale(newLocale)
+    }
+  }
+
   return (
-    <Layout>
+    <Layout locale={locale} changeLocale={changeLocale}>
       <Helmet>
         <title>Kojoten - Contact</title>
         <meta name="description" content="Helmet application" />
@@ -40,9 +50,9 @@ const Contact = () => {
           handleTabChange={handleTabChange}
           activeTab={activeTab}
         />
-        {activeTab === 0 && <ContactAdress />}
-        {activeTab === 1 && <ContactImpressum />}
-        {activeTab === 2 && <ContactDatenschutz />}
+        {activeTab === 0 && <ContactAdress locale={locale} />}
+        {activeTab === 1 && <ContactImpressum locale={locale} />}
+        {activeTab === 2 && <ContactDatenschutz locale={locale} />}
       </ContactContainer>
     </Layout>
   )

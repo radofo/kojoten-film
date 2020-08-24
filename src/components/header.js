@@ -65,6 +65,9 @@ const LocaleButton = styled.button`
     cursor: pointer;
     color: white;
   }
+  &:focus {
+    outline: none;
+  }
 `
 
 const Dash = styled.span`

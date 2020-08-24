@@ -3,7 +3,6 @@ import * as fetchContentful from "../utils/fetch"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { renderOptions } from "../utils/richText"
 import styled from "styled-components"
-import { defaultLocale } from "../utils/fetch"
 
 import { screenSizes } from "../utils/mediaqueries"
 import Pending from "./pending"
@@ -20,14 +19,14 @@ const MarkdownContainer = styled.div`
   }
 `
 
-const ContactDatenschutz = () => {
+const ContactDatenschutz = ({ locale }) => {
   const [datenschutzContent, setDatenschutzContent] = useState("")
   const [pending, setPending] = useState(false)
 
   useEffect(() => {
     fetchContentful
       .getAllEntries(
-        { content_type: "datenschutz", locale: defaultLocale },
+        { content_type: "datenschutz", locale: locale },
         window.location.host
       )
       .then(data => {
@@ -38,7 +37,7 @@ const ContactDatenschutz = () => {
           setPending(true)
         }
       })
-  }, [])
+  }, [locale])
   return (
     <React.Fragment>
       {pending ? (

@@ -3,7 +3,6 @@ import * as fetchContentful from "../utils/fetch"
 
 import styled from "styled-components"
 import { screenSizes } from "../utils/mediaqueries"
-import { defaultLocale } from "../utils/fetch"
 import Pending from "./pending"
 
 const ContactAdressContainer = styled.div`
@@ -40,11 +39,9 @@ const MapContainer = styled.iframe`
   }
 `
 
-const ContactAdress = () => {
+const ContactAdress = ({ locale }) => {
   // Data
   const [address, setAddress] = useState({})
-  // Locales
-  const [locale, setLocale] = useState(defaultLocale)
   // Misc
   const [isComingSoon, setIsComingSoon] = useState(false)
 
@@ -62,12 +59,6 @@ const ContactAdress = () => {
         }
       })
   }, [locale])
-
-  const changeLocale = newLocale => {
-    if (newLocale !== locale) {
-      setLocale(newLocale)
-    }
-  }
 
   return (
     <ContactAdressContainer>
