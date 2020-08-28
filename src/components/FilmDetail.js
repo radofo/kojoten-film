@@ -111,8 +111,16 @@ const FilmDetail = ({ location }) => {
       <FilmDetailContainer infosOpen={infosOpen}>
         <MediaContainer media={filmMedia}>
           <FilmDetailOverlay infosOpen={infosOpen} />
-          <FilmDetailInfo infosOpen={infosOpen} details={filmDetails} />
-          <FilmDetailCover infosOpen={infosOpen} details={filmDetails} />
+          <FilmDetailInfo
+            infosOpen={infosOpen}
+            details={filmDetails}
+            locale={locale}
+          />
+          <FilmDetailCover
+            infosOpen={infosOpen}
+            details={filmDetails}
+            locale={locale}
+          />
           <FilmDetailToggle
             onClick={toggleInfosOpen}
             className={`fa fa-${infosOpen ? "times" : "chevron-down"} fa-2x`}
