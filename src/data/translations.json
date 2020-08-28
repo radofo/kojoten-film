@@ -1,0 +1,30 @@
+{
+  "filmoverview": {
+    "comingsoon": {
+      "de": "In Entwicklung",
+      "en": "Coming Soon"
+    }
+  },
+  "navigation": {
+    "commercial": {
+      "de": "Werbung",
+      "en": "Commercial"
+    },
+    "news": {
+      "de": "News",
+      "en": "News"
+    },
+    "film": {
+      "de": "Film",
+      "en": "Film"
+    },
+    "contact": {
+      "de": "Kontakt",
+      "en": "Contact"
+    },
+    "team": {
+      "de": "Team",
+      "en": "Team"
+    }
+  }
+}

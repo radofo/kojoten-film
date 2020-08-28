@@ -67,8 +67,11 @@ const FilmDetail = ({ location }) => {
       )
       .then(data => {
         if (data.items.length > 0) {
-          if (data.items[0].fields.hintergrundBild) {
-            setFilmDetails(data.items[0].fields)
+          setFilmDetails(data.items[0].fields)
+          if (
+            data.items[0].fields.hintergrundBild &&
+            data.items[0].fields.hintergrundBild.fields.file
+          ) {
             setFilmMedia({
               horizontalImage: {
                 src: data.items[0].fields.hintergrundBild.fields.file.url,

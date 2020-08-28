@@ -21,9 +21,8 @@ const Home = ({ location }) => {
   const [isComingSoon, setIsComingSoon] = useState(false)
   const [overlayDecided, setOverlayDecided] = useState(false)
 
+  // Film Content Effect
   useEffect(() => {
-    setOverlayExists(modal)
-    setOverlayDecided(true)
     fetchContentful
       .getAllEntries(
         { content_type: "film", locale: locale },
@@ -37,6 +36,12 @@ const Home = ({ location }) => {
         }
       })
   }, [locale])
+
+  // Overlay Effect
+  useEffect(() => {
+    setOverlayExists(modal)
+    setOverlayDecided(true)
+  }, [])
 
   const toggleOverlay = () => {
     setOverlayOpen(false)
