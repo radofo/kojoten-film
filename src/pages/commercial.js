@@ -68,6 +68,10 @@ const Commercial = () => {
     setVh(window.innerHeight || "100vh")
 
     window.addEventListener("resize", handleResize)
+    const storageLocale = localStorage.getItem("kojotenLanguage")
+    if (storageLocale) {
+      setLocale(storageLocale)
+    }
 
     return () => {
       window.removeEventListener("resize", handleResize)

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { Helmet } from "react-helmet"
 
@@ -28,6 +28,13 @@ const Contact = () => {
 
   // Locales
   const [locale, setLocale] = useState(defaultLocale)
+
+  useEffect(() => {
+    const storageLocale = localStorage.getItem("kojotenLanguage")
+    if (storageLocale) {
+      setLocale(storageLocale)
+    }
+  }, [])
 
   const handleTabChange = newTab => {
     setActiveTab(newTab)

@@ -91,6 +91,13 @@ const Header = ({
   ) : (
     <KojotenLogo src={kojotenlogo} alt="Kojoten Film" />
   )
+
+  const setLocale = language => {
+    if (typeof Storage !== "undefined") {
+      localStorage.setItem("kojotenLanguage", language)
+    }
+    changeLocale(language)
+  }
   return (
     <HeaderContainer transparentHeader={transparentHeader}>
       {headerImage}
@@ -117,14 +124,14 @@ const Header = ({
         </Navigation>
         <LocaleSwitcher>
           <LocaleButton
-            onClick={() => changeLocale("de")}
+            onClick={() => setLocale("de")}
             buttonColor={locale === "en" ? "grey" : "white"}
           >
             DE
           </LocaleButton>
           <Dash>|</Dash>
           <LocaleButton
-            onClick={() => changeLocale("en")}
+            onClick={() => setLocale("en")}
             buttonColor={locale === "en" ? "white" : "grey"}
           >
             EN

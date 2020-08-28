@@ -41,6 +41,10 @@ const Home = ({ location }) => {
   useEffect(() => {
     setOverlayExists(modal)
     setOverlayDecided(true)
+    const storageLocale = localStorage.getItem("kojotenLanguage")
+    if (storageLocale) {
+      setLocale(storageLocale)
+    }
   }, [])
 
   const toggleOverlay = () => {

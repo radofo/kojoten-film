@@ -47,6 +47,10 @@ const Team = () => {
   const [isComingSoon, setIsComingSoon] = useState(false)
 
   useEffect(() => {
+    const storageLocale = localStorage.getItem("kojotenLanguage")
+    if (storageLocale) {
+      setLocale(storageLocale)
+    }
     fetchContentful
       .getAllEntries(
         { content_type: "team", locale: locale },
