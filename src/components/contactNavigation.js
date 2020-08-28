@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { screenSizes } from "../utils/mediaqueries"
+import t from "../data/translations.json"
 
 const Navigation = styled.ul`
   list-style: none;
@@ -26,26 +27,26 @@ const NavigationItem = styled.li`
   cursor: pointer;
 `
 
-const ContactNavigation = ({ handleTabChange, activeTab }) => {
+const ContactNavigation = ({ handleTabChange, activeTab, locale }) => {
   return (
     <Navigation>
       <NavigationItem
         onClick={() => handleTabChange(0)}
         selected={activeTab === 0}
       >
-        Adresse
+        {t.contact.address[locale]}
       </NavigationItem>
       <NavigationItem
         onClick={() => handleTabChange(1)}
         selected={activeTab === 1}
       >
-        Impressum
+        {t.contact.imprint[locale]}
       </NavigationItem>
       <NavigationItem
         onClick={() => handleTabChange(2)}
         selected={activeTab === 2}
       >
-        Datenschutz
+        {t.contact.privacy[locale]}
       </NavigationItem>
     </Navigation>
   )

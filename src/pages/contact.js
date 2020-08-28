@@ -49,6 +49,7 @@ const Contact = () => {
         <ContactNavigation
           handleTabChange={handleTabChange}
           activeTab={activeTab}
+          locale={locale}
         />
         {activeTab === 0 && <ContactAdress locale={locale} />}
         {activeTab === 1 && <ContactImpressum locale={locale} />}

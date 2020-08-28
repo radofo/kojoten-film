@@ -1,4 +1,18 @@
 {
+  "contact": {
+    "imprint": {
+      "de": "Impressum",
+      "en": "Imprint"
+    },
+    "privacy": {
+      "de": "Datenschutz",
+      "en": "Privacy"
+    },
+    "address": {
+      "de": "Adresse",
+      "en": "Address"
+    }
+  },
   "commercial": {
     "regisseur": {
       "de": "Regisseur*in",
