@@ -1,4 +1,14 @@
 {
+  "commercial": {
+    "regisseur": {
+      "de": "Regisseur*in",
+      "en": "Director"
+    },
+    "kunde": {
+      "de": "Kunde",
+      "en": "Client"
+    }
+  },
   "filmoverview": {
     "comingsoon": {
       "de": "In Entwicklung",

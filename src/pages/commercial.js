@@ -75,7 +75,6 @@ const Commercial = () => {
   }, [])
 
   useEffect(() => {
-    console.log("locale: ", locale)
     fetchContentful
       .getAllEntries(
         { content_type: "commercial", locale: locale },
@@ -125,7 +124,10 @@ const Commercial = () => {
               return (
                 <SwiperSlide key={index}>
                   <MediaContainer media={commercialMedia}></MediaContainer>
-                  <CommercialBasicInfo details={commercial.fields} />
+                  <CommercialBasicInfo
+                    locale={locale}
+                    details={commercial.fields}
+                  />
                   <NavRow>
                     <NavButton>
                       <i className="fa fa-chevron-left swiper-prev"></i>
