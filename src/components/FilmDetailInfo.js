@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
-import FilmBasicInfo from "./FilmBasicInfo"
+import FilmDetailHeader from "./FilmDetailHeader"
 import FilmDetailCredit from "./FilmDetailCredit"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { renderOptions } from "../utils/richText"
@@ -22,6 +22,9 @@ const FilmDetailInfoContainer = styled.div`
   margin: var(--header-height) 0 0;
   opacity: ${props => {
     return props.infosOpen ? "1" : "0"
+  }};
+  visibility: ${props => {
+    return props.infosOpen ? "visible" : "hidden"
   }};
   z-index: ${props => {
     return props.infosOpen ? "99" : "0"
@@ -75,7 +78,7 @@ const FilmDetailInfo = ({ infosOpen, details, locale }) => {
   return (
     <FilmDetailInfoContainer infosOpen={infosOpen}>
       <FilmDetailLeft>
-        <FilmBasicInfo details={details} highlight />
+        <FilmDetailHeader details={details} />
         <FilmDetailedInfos>
           <FilmDetailDescription>
             {documentToReactComponents(details.beschreibung, renderOptions)}

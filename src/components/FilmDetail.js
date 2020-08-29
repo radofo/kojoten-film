@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet"
 import styled from "styled-components"
 // Components
 import Layout from "../components/layout"
-import FilmDetailCover from "../components/FilmDetailCover"
+import FilmBasicInfo from "./FilmBasicInfo"
 import FilmDetailInfo from "../components/FilmDetailInfo"
 // Utils
 import { screenSizes } from "../utils/mediaqueries"
@@ -34,18 +34,6 @@ const FilmDetailToggle = styled.i`
   &:hover {
     cursor: pointer;
   }
-`
-
-const FilmDetailOverlay = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background: rgba(0, 0, 0, 0.5);
-  display: ${props => {
-    return props.infosOpen ? "block" : "none"
-  }};
-  top: 0;
-  left: 0;
 `
 
 const FilmDetail = ({ location }) => {
@@ -109,23 +97,27 @@ const FilmDetail = ({ location }) => {
         <meta name="description" content="Helmet application" />
       </Helmet>
       <FilmDetailContainer infosOpen={infosOpen}>
-        <MediaContainer media={filmMedia}>
-          <FilmDetailOverlay infosOpen={infosOpen} />
-          <FilmDetailInfo
-            infosOpen={infosOpen}
-            details={filmDetails}
-            locale={locale}
-          />
-          <FilmDetailCover
-            infosOpen={infosOpen}
-            details={filmDetails}
-            locale={locale}
-          />
-          <FilmDetailToggle
-            onClick={toggleInfosOpen}
-            className={`fa fa-${infosOpen ? "times" : "chevron-down"} fa-2x`}
-          ></FilmDetailToggle>
-        </MediaContainer>
+        <MediaContainer
+          customLink={
+            filmDetails.vimeoId ? `/media/f/${filmDetails.url}` : null
+          }
+          media={filmMedia}
+        ></MediaContainer>
+        <FilmDetailInfo
+          infosOpen={infosOpen}
+          details={filmDetails}
+          locale={locale}
+        />
+        <FilmBasicInfo
+          locale={locale}
+          infosOpen={infosOpen}
+          details={filmDetails}
+        />
+
+        <FilmDetailToggle
+          onClick={toggleInfosOpen}
+          className={`fa fa-${infosOpen ? "times" : "chevron-down"} fa-2x`}
+        ></FilmDetailToggle>
       </FilmDetailContainer>
     </Layout>
   )

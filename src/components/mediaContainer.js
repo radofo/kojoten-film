@@ -3,13 +3,19 @@ import styled from "styled-components"
 import { createSrcSet } from "../utils/fetch"
 import { Link } from "gatsby"
 
-const MediaContainerStyles = styled(props => <Link {...props} />)`
+const MediaContainerStyles = styled(props => {
+  return props.islink ? <Link {...props} /> : <div {...props} />
+})`
   display: block;
   height: 100%;
   width: 100%;
   overflow: hidden;
-  cursor: url("/play.svg"), pointer;
-  cursor: -webkit-image-set(url("/play.svg") 1x, url("/play.svg") 2x), pointer;
+  z-index: 99;
+  cursor: ${props => (props.islink ? "url ('/play.svg'), pointer" : "auto")};
+  cursor: ${props =>
+    props.islink
+      ? "-webkit-image-set(url('/play.svg') 1x, url('/play.svg') 2x), pointer"
+      : "auto"};
 `
 const Video = styled.video`
   object-fit: cover;
@@ -35,7 +41,11 @@ const MediaContainer = ({ children, media, customLink }) => {
   }
 
   return (
-    <MediaContainerStyles exact="true" to={customLink}>
+    <MediaContainerStyles
+      islink={customLink ? 1 : 0}
+      exact="true"
+      to={customLink}
+    >
       {media.horizontalVideo ? (
         <Video autoPlay muted loop playsInline key={media.horizontalVideo}>
           <source src={media.horizontalVideo} type="video/mp4"></source>
