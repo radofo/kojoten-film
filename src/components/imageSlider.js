@@ -40,14 +40,15 @@ const ImageContainer = styled.div`
 `
 
 const NavButton = styled.button`
-  color: rgba(255, 255, 255, 0.3);
+  color: #c1c1c1;
   outline: none;
+  opacity: 0.4;
   font-size: 2em;
   background: rgba(0, 0, 0, 0);
   border: 0px solid rgba(0, 0, 0, 0);
   &:hover {
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.8);
+    opacity: 1;
   }
   @media ${screenSizes.desktop} {
     font-size: 2.5em;

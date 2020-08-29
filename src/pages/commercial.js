@@ -3,7 +3,6 @@ import { Helmet } from "react-helmet"
 import Layout from "../components/layout"
 import * as fetchContentful from "../utils/fetch"
 import styled from "styled-components"
-import { Link } from "gatsby"
 import MediaContainer from "../components/mediaContainer"
 import CommercialBasicInfo from "../components/CommercialBasicInfo"
 
@@ -19,42 +18,30 @@ import Pending from "../components/pending"
 
 SwiperCore.use([Navigation])
 
-const PlayButton = styled.i`
-  font-size: 60px;
-  color: rgba(255, 255, 255, 0.2);
-  &:hover {
-    cursor: pointer;
-    color: rgba(255, 255, 255, 1);
-  }
-  @media ${screenSizes.desktop} {
-    font-size: 80px;
-  }
-`
-
 const NavButton = styled.button`
-  color: rgba(255, 255, 255, 0.3);
+  color: #c1c1c1;
   outline: none;
+  opacity: 0.4;
   font-size: 2em;
   background: rgba(0, 0, 0, 0);
   border: 0px solid rgba(0, 0, 0, 0);
   &:hover {
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.8);
+    opacity: 1;
   }
   @media ${screenSizes.desktop} {
     font-size: 2.5em;
   }
-`
-
-const NavRow = styled.div`
-  position: absolute;
-  left: 0;
-  right: 0;
-  width: 100%;
+  z-index: 9999;
+  position: fixed;
+  left: ${props => {
+    return props.left ? 0 : "initial"
+  }};
+  right: ${props => {
+    return props.right ? 0 : "initial"
+  }};
   top: 50%;
   transform: translateY(-50%);
-  display: flex;
-  justify-content: space-between;
   padding: var(--padding-sides);
 `
 
@@ -133,25 +120,23 @@ const Commercial = ({ location }) => {
               }
               return (
                 <SwiperSlide key={index}>
-                  <MediaContainer media={commercialMedia}></MediaContainer>
+                  <MediaContainer
+                    media={commercialMedia}
+                    customLink={`/media/c/${commercial.fields.url}`}
+                  ></MediaContainer>
                   <CommercialBasicInfo
                     locale={locale}
                     details={commercial.fields}
                   />
-                  <NavRow>
-                    <NavButton>
-                      <i className="fa fa-chevron-left swiper-prev"></i>
-                    </NavButton>
-                    <Link to={`/media/c/${commercial.fields.url}`}>
-                      <PlayButton className={`far fa-play-circle`}></PlayButton>
-                    </Link>
-                    <NavButton>
-                      <i className="fa fa-chevron-right swiper-next"></i>
-                    </NavButton>
-                  </NavRow>
                 </SwiperSlide>
               )
             })}
+          <NavButton left>
+            <i className="fa fa-chevron-left swiper-prev"></i>
+          </NavButton>
+          <NavButton right>
+            <i className="fa fa-chevron-right swiper-next"></i>
+          </NavButton>
         </Swiper>
       )}
     </Layout>
