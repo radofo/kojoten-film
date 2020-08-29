@@ -51,10 +51,13 @@ const PageControls = styled.div`
 `
 
 const LocaleSwitcher = styled.div`
-  margin-left: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: none;
+  @media ${screenSizes.desktop} {
+    margin-left: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `
 
 const LocaleButton = styled.button`
@@ -112,7 +115,6 @@ const Header = ({
             isMenuOpen ? "is-active" : ""
           }`}
           onClick={handleClick}
-          screenSizes={screenSizes}
         >
           <span className="hamburger-box">
             <span className="hamburger-inner"></span>

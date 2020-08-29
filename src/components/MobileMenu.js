@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { screenSizes } from "../utils/mediaqueries"
 import { Link } from "gatsby"
+import t from "../data/translations.json"
 
 const MobileMenuContainer = styled.div`
   background: black;
@@ -63,57 +64,110 @@ const NavigationItem = styled(props => <Link {...props} />)`
   }
 `
 
-const MobileMenu = ({ isMenuOpen }) => {
+const LocaleSwitcher = styled.div`
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media ${screenSizes.desktop} {
+    display: none;
+  }
+`
+
+const LocaleButton = styled.button`
+  background: rgba(0, 0, 0, 0);
+  border: 1px solid rgba(0, 0, 0, 0);
+  font-size: 14px;
+  color: ${props => props.buttonColor};
+  padding: 0 2px;
+  display: flex;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+    color: white;
+  }
+  &:focus {
+    outline: none;
+  }
+`
+
+const Dash = styled.span`
+  font-size: 12px;
+`
+
+const MobileMenu = ({ isMenuOpen, locale, changeLocale }) => {
   const [currentpath, setCurrentPath] = useState(null)
 
   useEffect(() => {
     setCurrentPath(window.location.pathname.split("/")[1])
   }, [])
 
+  const setLocale = language => {
+    if (typeof Storage !== "undefined") {
+      localStorage.setItem("kojotenLanguage", language)
+    }
+    changeLocale(language)
+  }
+
   return (
     <MobileMenuContainer isMenuOpen={isMenuOpen ? 1 : 0}>
       <NavigationRow>
         <NavigationItem
-          state={{ modal: false }}
+          state={{ modal: false, locale: locale }}
           exact="true"
           to="/news"
           activeClassName="active"
           currentpath={currentpath === "news" ? 1 : 0}
         >
-          News
+          {t.navigation.news[locale]}
         </NavigationItem>
         <NavigationItem
-          state={{ modal: false }}
+          state={{ modal: false, locale: locale }}
           exact="true"
           to="/"
           currentpath={currentpath === "film" || currentpath === "" ? 1 : 0}
         >
-          Film
+          {t.navigation.film[locale]}
         </NavigationItem>
         <NavigationItem
-          state={{ modal: false }}
+          state={{ modal: false, locale: locale }}
           exact="true"
           to="/commercial"
           currentpath={currentpath === "commercial" ? 1 : 0}
         >
-          Commercial
+          {t.navigation.commercial[locale]}
         </NavigationItem>
         <NavigationItem
-          state={{ modal: false }}
+          state={{ modal: false, locale: locale }}
           exact="true"
           to="/team"
           currentpath={currentpath === "team" ? 1 : 0}
         >
-          Team
+          {t.navigation.team[locale]}
         </NavigationItem>
         <NavigationItem
-          state={{ modal: false }}
+          state={{ modal: false, locale: locale }}
           exact="true"
           to="/contact"
           currentpath={currentpath === "contact" ? 1 : 0}
         >
-          Contact
+          {t.navigation.contact[locale]}
         </NavigationItem>
+        <LocaleSwitcher>
+          <LocaleButton
+            onClick={() => setLocale("de")}
+            buttonColor={locale === "en" ? "grey" : "white"}
+          >
+            DE
+          </LocaleButton>
+          <Dash>|</Dash>
+          <LocaleButton
+            onClick={() => setLocale("en")}
+            buttonColor={locale === "en" ? "white" : "grey"}
+          >
+            EN
+          </LocaleButton>
+        </LocaleSwitcher>
       </NavigationRow>
       <SocialRow>
         <SocialIcon className="fab fa-instagram"></SocialIcon>
