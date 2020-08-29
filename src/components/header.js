@@ -41,6 +41,9 @@ const BackButton = styled.i`
 
 const KojotenLogo = styled.img`
   width: 120px;
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 const PageControls = styled.div`
@@ -89,7 +92,9 @@ const Header = ({
       <BackButton className="fa fa-arrow-left fa-2x" alt="Back"></BackButton>
     </Link>
   ) : (
-    <KojotenLogo src={kojotenlogo} alt="Kojoten Film" />
+    <Link to="/" state={{ modal: false, locale: locale }}>
+      <KojotenLogo src={kojotenlogo} alt="Kojoten Film" />
+    </Link>
   )
 
   const setLocale = language => {
