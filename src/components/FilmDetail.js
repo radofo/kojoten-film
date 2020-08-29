@@ -67,8 +67,11 @@ const FilmDetail = ({ location }) => {
       )
       .then(data => {
         if (data.items.length > 0) {
-          if (data.items[0].fields.hintergrundBild) {
-            setFilmDetails(data.items[0].fields)
+          setFilmDetails(data.items[0].fields)
+          if (
+            data.items[0].fields.hintergrundBild &&
+            data.items[0].fields.hintergrundBild.fields.file
+          ) {
             setFilmMedia({
               horizontalImage: {
                 src: data.items[0].fields.hintergrundBild.fields.file.url,
@@ -108,8 +111,16 @@ const FilmDetail = ({ location }) => {
       <FilmDetailContainer infosOpen={infosOpen}>
         <MediaContainer media={filmMedia}>
           <FilmDetailOverlay infosOpen={infosOpen} />
-          <FilmDetailInfo infosOpen={infosOpen} details={filmDetails} />
-          <FilmDetailCover infosOpen={infosOpen} details={filmDetails} />
+          <FilmDetailInfo
+            infosOpen={infosOpen}
+            details={filmDetails}
+            locale={locale}
+          />
+          <FilmDetailCover
+            infosOpen={infosOpen}
+            details={filmDetails}
+            locale={locale}
+          />
           <FilmDetailToggle
             onClick={toggleInfosOpen}
             className={`fa fa-${infosOpen ? "times" : "chevron-down"} fa-2x`}

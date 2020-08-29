@@ -5,6 +5,7 @@ import FilmDetailCredit from "./FilmDetailCredit"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { renderOptions } from "../utils/richText"
 import { createSrcSet } from "../utils/fetch"
+import t from "../data/translations.json"
 
 import { screenSizes } from "../utils/mediaqueries"
 
@@ -65,9 +66,12 @@ const FilmDetailCredits = styled.div`
   @media ${screenSizes.desktop} {
     margin: 5px;
   }
+  & > div:last-child {
+    padding-bottom: 50px;
+  }
 `
 
-const FilmDetailInfo = ({ infosOpen, details }) => {
+const FilmDetailInfo = ({ infosOpen, details, locale }) => {
   return (
     <FilmDetailInfoContainer infosOpen={infosOpen}>
       <FilmDetailLeft>
@@ -95,18 +99,91 @@ const FilmDetailInfo = ({ infosOpen, details }) => {
         </FilmDetailedInfos>
       </FilmDetailLeft>
       <FilmDetailCredits>
-        <FilmDetailCredit category="Writers" credits={details.writers} />
-        <FilmDetailCredit
-          category="Cinematographer"
-          credits={details.cinematographer}
-        />
-        <FilmDetailCredit category="Director" credits={details.director} />
-        <FilmDetailCredit category="Montage" credits={details.montage} />
-        <FilmDetailCredit category="Producer" credits={details.producer} />
-        <FilmDetailCredit
-          category="Sounddesign"
-          credits={details.sounddesign}
-        />
+        {details.writers && (
+          <FilmDetailCredit
+            category={t.filmDetail.autor[locale]}
+            credits={details.writers}
+          />
+        )}
+        {details.director && (
+          <FilmDetailCredit
+            category={t.filmDetail.regisseur[locale]}
+            credits={details.director}
+          />
+        )}
+        {details.producer && (
+          <FilmDetailCredit
+            category={t.filmDetail.producer[locale]}
+            credits={details.producer}
+          />
+        )}
+        {details.produzentin && (
+          <FilmDetailCredit
+            category={t.filmDetail.produzent[locale]}
+            credits={details.produzentin}
+          />
+        )}
+        {details.cinematographer && (
+          <FilmDetailCredit
+            category={t.filmDetail.kamera[locale]}
+            credits={details.cinematographer}
+          />
+        )}
+        {details.szenenbild && (
+          <FilmDetailCredit
+            category={t.filmDetail.szenenbild[locale]}
+            credits={details.szenenbild}
+          />
+        )}
+        {details.kostm && (
+          <FilmDetailCredit
+            category={t.filmDetail.kostum[locale]}
+            credits={details.kostm}
+          />
+        )}
+        {details.maske && (
+          <FilmDetailCredit
+            category={t.filmDetail.maske[locale]}
+            credits={details.maske}
+          />
+        )}
+        {details.maske && (
+          <FilmDetailCredit
+            category={t.filmDetail.maske[locale]}
+            credits={details.maske}
+          />
+        )}
+        {details.montage && (
+          <FilmDetailCredit
+            category={t.filmDetail.montage[locale]}
+            credits={details.montage}
+          />
+        )}
+        {details.sounddesign && (
+          <FilmDetailCredit
+            category={t.filmDetail.sounddesign[locale]}
+            credits={details.sounddesign}
+          />
+        )}
+
+        {details.filmmusik && (
+          <FilmDetailCredit
+            category={t.filmDetail.filmmusik[locale]}
+            credits={details.filmmusik}
+          />
+        )}
+        {details.farbkorrektur && (
+          <FilmDetailCredit
+            category={t.filmDetail.farbkorrektur[locale]}
+            credits={details.farbkorrektur}
+          />
+        )}
+        {details.cast && (
+          <FilmDetailCredit
+            category={t.filmDetail.cast[locale]}
+            credits={details.cast}
+          />
+        )}
       </FilmDetailCredits>
     </FilmDetailInfoContainer>
   )

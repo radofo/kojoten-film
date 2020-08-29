@@ -37,15 +37,27 @@ const TeamDescription = styled.div`
   }
 `
 
-const Team = () => {
-  // Data
+const Team = ({ location }) => {
+  // Locales ===================================
+  const { state } = location
+  const initialLocale = state ? state.locale : defaultLocale
+  const [locale, setLocale] = useState(initialLocale)
+  useEffect(() => {
+    const storageLocale = localStorage.getItem("kojotenLanguage")
+    if (storageLocale && initialLocale !== storageLocale) {
+      setLocale(storageLocale)
+    }
+  }, [])
+
+  const changeLocale = newLocale => {
+    if (newLocale !== locale) {
+      setLocale(newLocale)
+    }
+  }
+
+  // Data ======================================
   const [teamDescription, setTeamDescription] = useState("")
   const [teamMedia, setTeamMedia] = useState({})
-  // Locales
-  const [locale, setLocale] = useState(defaultLocale)
-  // Misc
-  const [isComingSoon, setIsComingSoon] = useState(false)
-
   useEffect(() => {
     fetchContentful
       .getAllEntries(
@@ -56,13 +68,6 @@ const Team = () => {
         mapContentfulData(apidata)
       })
   }, [locale])
-
-  const changeLocale = newLocale => {
-    if (newLocale !== locale) {
-      setLocale(newLocale)
-    }
-  }
-
   const mapContentfulData = apidata => {
     if (apidata.items.length > 0) {
       const raw = apidata.items[0].fields.teamBeschreibungsText
@@ -76,6 +81,9 @@ const Team = () => {
       setIsComingSoon(true)
     }
   }
+
+  // Misc ======================================
+  const [isComingSoon, setIsComingSoon] = useState(false)
 
   return (
     <Layout transparentHeader locale={locale} changeLocale={changeLocale}>

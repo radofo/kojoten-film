@@ -58,11 +58,26 @@ const NavRow = styled.div`
   padding: var(--padding-sides);
 `
 
-const Commercial = () => {
+const Commercial = ({ location }) => {
+  // Locales ===================================
+  const { state } = location
+  const initialLocale = state ? state.locale : defaultLocale
+  const [locale, setLocale] = useState(initialLocale)
+  useEffect(() => {
+    const storageLocale = localStorage.getItem("kojotenLanguage")
+    if (storageLocale && initialLocale !== storageLocale) {
+      setLocale(storageLocale)
+    }
+  }, [])
+
+  const changeLocale = newLocale => {
+    if (newLocale !== locale) {
+      setLocale(newLocale)
+    }
+  }
+
   const [commercials, setCommercials] = useState(null)
   const [vh, setVh] = useState("100vh")
-  // Locales
-  const [locale, setLocale] = useState(defaultLocale)
 
   useEffect(() => {
     setVh(window.innerHeight || "100vh")
@@ -75,7 +90,6 @@ const Commercial = () => {
   }, [])
 
   useEffect(() => {
-    console.log("locale: ", locale)
     fetchContentful
       .getAllEntries(
         { content_type: "commercial", locale: locale },
@@ -90,11 +104,6 @@ const Commercial = () => {
     setVh(window.innerHeight || "100vh")
   }
 
-  const changeLocale = newLocale => {
-    if (newLocale !== locale) {
-      setLocale(newLocale)
-    }
-  }
   return (
     <Layout locale={locale} changeLocale={changeLocale} transparentHeader>
       <Helmet>
@@ -125,7 +134,10 @@ const Commercial = () => {
               return (
                 <SwiperSlide key={index}>
                   <MediaContainer media={commercialMedia}></MediaContainer>
-                  <CommercialBasicInfo details={commercial.fields} />
+                  <CommercialBasicInfo
+                    locale={locale}
+                    details={commercial.fields}
+                  />
                   <NavRow>
                     <NavButton>
                       <i className="fa fa-chevron-left swiper-prev"></i>

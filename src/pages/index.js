@@ -11,19 +11,33 @@ import { defaultLocale } from "../utils/fetch"
 import Pending from "../components/pending"
 
 const Home = ({ location }) => {
+  // Locales ===================================
   const { state } = location
+  const initialLocale = state ? state.locale : defaultLocale
+  const [locale, setLocale] = useState(initialLocale)
+  useEffect(() => {
+    const storageLocale = localStorage.getItem("kojotenLanguage")
+    if (storageLocale && initialLocale !== storageLocale) {
+      setLocale(storageLocale)
+    }
+  }, [])
+
+  const changeLocale = newLocale => {
+    if (newLocale !== locale) {
+      setLocale(newLocale)
+    }
+  }
+
   const modal = state ? state.modal : true
 
   const [films, setFilms] = useState([])
   const [overlayOpen, setOverlayOpen] = useState(true)
   const [overlayExists, setOverlayExists] = useState(false)
-  const [locale, setLocale] = useState(defaultLocale)
   const [isComingSoon, setIsComingSoon] = useState(false)
   const [overlayDecided, setOverlayDecided] = useState(false)
 
+  // Film Content Effect
   useEffect(() => {
-    setOverlayExists(modal)
-    setOverlayDecided(true)
     fetchContentful
       .getAllEntries(
         { content_type: "film", locale: locale },
@@ -38,17 +52,17 @@ const Home = ({ location }) => {
       })
   }, [locale])
 
+  // Overlay Effect
+  useEffect(() => {
+    setOverlayExists(modal)
+    setOverlayDecided(true)
+  }, [])
+
   const toggleOverlay = () => {
     setOverlayOpen(false)
     setTimeout(() => {
       setOverlayExists(false)
     }, 1000)
-  }
-
-  const changeLocale = newLocale => {
-    if (newLocale !== locale) {
-      setLocale(newLocale)
-    }
   }
 
   return (

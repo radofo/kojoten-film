@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { Helmet } from "react-helmet"
 
@@ -23,20 +23,28 @@ const ContactContainer = styled.div`
   }
 `
 
-const Contact = () => {
-  const [activeTab, setActiveTab] = useState(0)
-
-  // Locales
-  const [locale, setLocale] = useState(defaultLocale)
-
-  const handleTabChange = newTab => {
-    setActiveTab(newTab)
-  }
+const Contact = ({ location }) => {
+  // Locales ===================================
+  const { state } = location
+  const initialLocale = state ? state.locale : defaultLocale
+  const [locale, setLocale] = useState(initialLocale)
+  useEffect(() => {
+    const storageLocale = localStorage.getItem("kojotenLanguage")
+    if (storageLocale && initialLocale !== storageLocale) {
+      setLocale(storageLocale)
+    }
+  }, [])
 
   const changeLocale = newLocale => {
     if (newLocale !== locale) {
       setLocale(newLocale)
     }
+  }
+
+  const [activeTab, setActiveTab] = useState(0)
+
+  const handleTabChange = newTab => {
+    setActiveTab(newTab)
   }
 
   return (
@@ -49,6 +57,7 @@ const Contact = () => {
         <ContactNavigation
           handleTabChange={handleTabChange}
           activeTab={activeTab}
+          locale={locale}
         />
         {activeTab === 0 && <ContactAdress locale={locale} />}
         {activeTab === 1 && <ContactImpressum locale={locale} />}

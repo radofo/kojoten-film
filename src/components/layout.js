@@ -87,7 +87,11 @@ const Layout = ({
             changeLocale={changeLocale}
             locale={locale}
           />
-          <MobileMenu isMenuOpen={isMenuOpen} />
+          <MobileMenu
+            locale={locale}
+            changeLocale={changeLocale}
+            isMenuOpen={isMenuOpen}
+          />
         </React.Fragment>
       )}
     </LayoutContainer>

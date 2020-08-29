@@ -12,11 +12,29 @@ const NewsContainer = styled.div`
   z-index: 9;
 `
 
-const News = () => {
-  const [news, setNews] = useState([])
+const News = ({ location }) => {
+  // Locales ===================================
+  const { state } = location
+  const initialLocale = state ? state.locale : defaultLocale
+  const [locale, setLocale] = useState(initialLocale)
+  useEffect(() => {
+    const storageLocale = localStorage.getItem("kojotenLanguage")
+    if (storageLocale && initialLocale !== storageLocale) {
+      setLocale(storageLocale)
+    }
+  }, [])
+
+  const changeLocale = newLocale => {
+    if (newLocale !== locale) {
+      setLocale(newLocale)
+    }
+  }
+
+  // Misc ======================================
   const [comingSoon, setComingSoon] = useState(false)
-  // Locales
-  const [locale, setLocale] = useState(defaultLocale)
+
+  // Data ======================================
+  const [news, setNews] = useState([])
   useEffect(() => {
     fetchContentful
       .getAllEntries(
@@ -32,12 +50,6 @@ const News = () => {
       })
   }, [locale])
 
-  const changeLocale = newLocale => {
-    if (newLocale !== locale) {
-      setLocale(newLocale)
-    }
-  }
-
   const mapContentfulData = apidata => {
     if (apidata.items.length > 0) {
       setNews(apidata.items)
@@ -46,6 +58,7 @@ const News = () => {
     }
   }
 
+  // Render =======================================
   return (
     <Layout locale={locale} changeLocale={changeLocale}>
       {comingSoon ? (
