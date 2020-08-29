@@ -58,20 +58,31 @@ const NavRow = styled.div`
   padding: var(--padding-sides);
 `
 
-const Commercial = () => {
+const Commercial = ({ location }) => {
+  // Locales ===================================
+  const { state } = location
+  const initialLocale = state ? state.locale : defaultLocale
+  const [locale, setLocale] = useState(initialLocale)
+  useEffect(() => {
+    const storageLocale = localStorage.getItem("kojotenLanguage")
+    if (storageLocale && initialLocale !== storageLocale) {
+      setLocale(storageLocale)
+    }
+  }, [])
+
+  const changeLocale = newLocale => {
+    if (newLocale !== locale) {
+      setLocale(newLocale)
+    }
+  }
+
   const [commercials, setCommercials] = useState(null)
   const [vh, setVh] = useState("100vh")
-  // Locales
-  const [locale, setLocale] = useState(defaultLocale)
 
   useEffect(() => {
     setVh(window.innerHeight || "100vh")
 
     window.addEventListener("resize", handleResize)
-    const storageLocale = localStorage.getItem("kojotenLanguage")
-    if (storageLocale) {
-      setLocale(storageLocale)
-    }
 
     return () => {
       window.removeEventListener("resize", handleResize)
@@ -93,11 +104,6 @@ const Commercial = () => {
     setVh(window.innerHeight || "100vh")
   }
 
-  const changeLocale = newLocale => {
-    if (newLocale !== locale) {
-      setLocale(newLocale)
-    }
-  }
   return (
     <Layout locale={locale} changeLocale={changeLocale} transparentHeader>
       <Helmet>

@@ -23,27 +23,28 @@ const ContactContainer = styled.div`
   }
 `
 
-const Contact = () => {
-  const [activeTab, setActiveTab] = useState(0)
-
-  // Locales
-  const [locale, setLocale] = useState(defaultLocale)
-
+const Contact = ({ location }) => {
+  // Locales ===================================
+  const { state } = location
+  const initialLocale = state ? state.locale : defaultLocale
+  const [locale, setLocale] = useState(initialLocale)
   useEffect(() => {
     const storageLocale = localStorage.getItem("kojotenLanguage")
-    if (storageLocale) {
+    if (storageLocale && initialLocale !== storageLocale) {
       setLocale(storageLocale)
     }
   }, [])
-
-  const handleTabChange = newTab => {
-    setActiveTab(newTab)
-  }
 
   const changeLocale = newLocale => {
     if (newLocale !== locale) {
       setLocale(newLocale)
     }
+  }
+
+  const [activeTab, setActiveTab] = useState(0)
+
+  const handleTabChange = newTab => {
+    setActiveTab(newTab)
   }
 
   return (

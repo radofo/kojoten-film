@@ -114,13 +114,21 @@ const Header = ({
           </span>
         </BurgerMenu>
         <Navigation>
-          <NavItem link="/news">{t.navigation.news[locale]}</NavItem>
-          <NavItem link="/">{t.navigation.film[locale]}</NavItem>
-          <NavItem link="/commercial">
+          <NavItem locale={locale} link="/news">
+            {t.navigation.news[locale]}
+          </NavItem>
+          <NavItem locale={locale} link="/">
+            {t.navigation.film[locale]}
+          </NavItem>
+          <NavItem locale={locale} link="/commercial">
             {t.navigation.commercial[locale]}
           </NavItem>
-          <NavItem link="/team">{t.navigation.team[locale]}</NavItem>
-          <NavItem link="/contact">{t.navigation.contact[locale]}</NavItem>
+          <NavItem locale={locale} link="/team">
+            {t.navigation.team[locale]}
+          </NavItem>
+          <NavItem locale={locale} link="/contact">
+            {t.navigation.contact[locale]}
+          </NavItem>
         </Navigation>
         <LocaleSwitcher>
           <LocaleButton

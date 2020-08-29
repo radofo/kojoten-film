@@ -12,7 +12,7 @@ const NavigationItem = styled(props => <Link {...props} />)`
   }
 `
 
-const NavItem = ({ children, link }) => {
+const NavItem = ({ children, link, locale }) => {
   const [navColor, setNavColor] = useState("var(--text-color)")
   useEffect(() => {
     const currentPath = window.location.pathname.split("/")[1]
@@ -26,7 +26,7 @@ const NavItem = ({ children, link }) => {
   }, [])
   return (
     <NavigationItem
-      state={{ modal: false }}
+      state={{ modal: false, locale: locale }}
       exact="true"
       to={`${link}`}
       navcolor={navColor}
