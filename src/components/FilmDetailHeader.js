@@ -3,22 +3,10 @@ import styled from "styled-components"
 import { screenSizes } from "../utils/mediaqueries"
 
 const FilmBasicInfoContainer = styled.div`
-  position: absolute;
-  left: 0;
-  bottom: 10px;
-  padding: 0 calc(var(--padding-sides) + 10px);
-  opacity: ${props => {
-    return props.infosOpen ? "0" : "1"
-  }};
-
-  transition: all 0.25s ease-out;
-  @media ${screenSizes.desktop} {
-    bottom: 50px;
-  }
-  color: var(--text-color);
+  color: var(--highlight-color);
 `
 
-const FilmDetailHeader = styled.h1`
+const FilmDetailHeading = styled.h1`
   @media ${screenSizes.desktop} {
     font-size: 3em;
   }
@@ -35,10 +23,10 @@ const FilmDetailPlaytime = styled.p`
   font-size: 14px;
 `
 
-const FilmBasicInfo = ({ details, infosOpen }) => {
+const FilmDetailHeader = ({ details, infosOpen }) => {
   return (
     <FilmBasicInfoContainer infosOpen={infosOpen}>
-      <FilmDetailHeader>{details.titel}</FilmDetailHeader>
+      <FilmDetailHeading>{details.titel}</FilmDetailHeading>
       <FilmDetailDirector>
         {details.director &&
           details.director.map((director, index) => {
@@ -68,4 +56,4 @@ const FilmBasicInfo = ({ details, infosOpen }) => {
   )
 }
 
-export default FilmBasicInfo
+export default FilmDetailHeader
