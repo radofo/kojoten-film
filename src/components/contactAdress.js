@@ -33,6 +33,8 @@ const MapContainer = styled.iframe`
   border: 0;
   width: 100%;
   height: 300px;
+  filter: grayscale(100%) invert(1) brightness(0.9);
+  border-radius: 5px;
   @media ${screenSizes.tablet} {
     height: 450px;
     max-width: 600px;

@@ -37,9 +37,24 @@ const FilmDetailToggle = styled.i`
 `
 
 const FilmDetail = ({ location }) => {
+  // Locales ===================================
+  const { state } = location
+  const initialLocale = state ? state.locale : defaultLocale
+  const [locale, setLocale] = useState(initialLocale)
+  useEffect(() => {
+    const storageLocale = localStorage.getItem("kojotenLanguage")
+    if (storageLocale && initialLocale !== storageLocale) {
+      setLocale(storageLocale)
+    }
+  }, [])
+
+  const changeLocale = newLocale => {
+    if (newLocale !== locale) {
+      setLocale(newLocale)
+    }
+  }
   const slug = location.pathname.split("/")[2]
   const [filmDetails, setFilmDetails] = useState({})
-  const [locale, setLocale] = useState(defaultLocale)
   const [filmMedia, setFilmMedia] = useState({})
   const [infosOpen, setInfosOpen] = useState(false)
 
@@ -70,12 +85,6 @@ const FilmDetail = ({ location }) => {
         }
       })
   }, [locale])
-
-  const changeLocale = newLocale => {
-    if (newLocale !== locale) {
-      setLocale(newLocale)
-    }
-  }
 
   const toggleInfosOpen = () => {
     setFilmMedia({

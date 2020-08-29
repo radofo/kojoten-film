@@ -67,7 +67,7 @@ const NavButton = styled.button`
 `
 
 // React Component
-const ImageSlider = ({ films, overlayVisible }) => {
+const ImageSlider = ({ films, overlayVisible, locale }) => {
   const [vh, setVh] = useState("")
   const [swiperRef, setSwiperRef] = useState(null)
 
@@ -126,7 +126,7 @@ const ImageSlider = ({ films, overlayVisible }) => {
         {films.map((film, index) => {
           return (
             <SwiperSlide key={index}>
-              <FilmPoster film={film}></FilmPoster>
+              <FilmPoster locale={locale} film={film}></FilmPoster>
             </SwiperSlide>
           )
         })}

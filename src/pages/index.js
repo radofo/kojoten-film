@@ -81,7 +81,7 @@ const Home = ({ location }) => {
       {isComingSoon ? (
         <Pending emoji="🎥" subject="Films are" />
       ) : (
-        <ImageSlider overlayOpen={overlayOpen} films={films} />
+        <ImageSlider overlayOpen={overlayOpen} films={films} locale={locale} />
       )}
     </Layout>
   )
