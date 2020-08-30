@@ -19,14 +19,14 @@ const MarkdownContainer = styled.div`
   }
 `
 
-const ContactImpressum = () => {
+const ContactImpressum = ({ locale }) => {
   const [impressumContent, setImpressumContent] = useState("")
   const [pending, setPending] = useState(false)
 
   useEffect(() => {
     fetchContentful
       .getAllEntries(
-        { content_type: "impressum", locale: "en-US" },
+        { content_type: "impressum", locale: locale },
         window.location.host
       )
       .then(data => {
@@ -37,7 +37,7 @@ const ContactImpressum = () => {
           setPending(true)
         }
       })
-  }, [])
+  }, [locale])
   return (
     <React.Fragment>
       {pending ? (

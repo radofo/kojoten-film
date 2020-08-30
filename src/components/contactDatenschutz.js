@@ -19,14 +19,14 @@ const MarkdownContainer = styled.div`
   }
 `
 
-const ContactDatenschutz = () => {
+const ContactDatenschutz = ({ locale }) => {
   const [datenschutzContent, setDatenschutzContent] = useState("")
   const [pending, setPending] = useState(false)
 
   useEffect(() => {
     fetchContentful
       .getAllEntries(
-        { content_type: "datenschutz", locale: "en-US" },
+        { content_type: "datenschutz", locale: locale },
         window.location.host
       )
       .then(data => {
@@ -37,7 +37,7 @@ const ContactDatenschutz = () => {
           setPending(true)
         }
       })
-  }, [])
+  }, [locale])
   return (
     <React.Fragment>
       {pending ? (

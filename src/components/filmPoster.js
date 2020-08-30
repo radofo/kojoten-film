@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
 import { createSrcSet } from "../utils/fetch"
+import t from "../data/translations.json"
 
 const PosterImage = styled.img`
   height: 100%;
@@ -9,7 +10,24 @@ const PosterImage = styled.img`
   padding-top: var(--header-height);
 `
 
-const FilmPoster = ({ film }) => {
+const PosterContainer = styled(props => <Link {...props} />)`
+  display: block;
+  position: relative;
+`
+
+const ComingSoon = styled.div`
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  padding: 15px 0;
+  position: absolute;
+  top: 75%;
+  left: 0;
+  display: grid;
+  place-items: center;
+  color: var(--highlight-color);
+  text-transform: uppercase;
+`
+const FilmPoster = ({ film, locale }) => {
   const [posterHeight, setPosterHeight] = useState(0)
 
   useEffect(() => {
@@ -30,14 +48,20 @@ const FilmPoster = ({ film }) => {
     posterSrcSet = createSrcSet(poster.file.url)[1]
   }
   return (
-    <Link to={`/film/${film.fields.url}`} state={{ project: film }}>
+    <PosterContainer
+      to={`/film/${film.fields.url}`}
+      state={{ project: film, locale: locale }}
+    >
       <PosterImage
         posterHeight={posterHeight}
         srcSet={posterSrcSet}
         src={posterSrc}
         alt={poster && poster.title}
       />
-    </Link>
+      {film.fields.inEntwicklung && (
+        <ComingSoon>{t.film.comingsoon[locale]}</ComingSoon>
+      )}
+    </PosterContainer>
   )
 }
 

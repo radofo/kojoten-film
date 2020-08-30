@@ -7,6 +7,8 @@ import MediaContainer from "../components/mediaContainer"
 import { screenSizes } from "../utils/mediaqueries"
 import { defaultLocale } from "../utils/fetch"
 import Pending from "../components/pending"
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
+import { renderOptions } from "../utils/richText"
 
 const TeamContainer = styled.div`
   position: fixed;
@@ -18,7 +20,7 @@ const TeamContainer = styled.div`
   height: 100%;
 `
 
-const TeamDescription = styled.p`
+const TeamDescription = styled.div`
   position: absolute;
   color: var(--highlight-color);
   font-weight: normal;
@@ -27,7 +29,7 @@ const TeamDescription = styled.p`
   padding: calc(var(--header-height) * 1.5) calc(var(--padding-sides) * 1)
     calc(var(--padding-sides) * 1);
   max-width: 100%;
-  @media ${screenSizes.tablet} {
+  @media ${screenSizes.desktop} {
     padding: 0 0 calc(var(--padding-sides) * 1) calc(var(--padding-sides) * 1);
     bottom: 0;
     top: initial;
@@ -35,33 +37,56 @@ const TeamDescription = styled.p`
   }
 `
 
-const Team = () => {
-  const [team, setTeam] = useState(null)
-  const [teamMedia, setTeamMedia] = useState({})
-  const [isComingSoon, setIsComingSoon] = useState(false)
+const Team = ({ location }) => {
+  // Locales ===================================
+  const { state } = location
+  const initialLocale = state ? state.locale : defaultLocale
+  const [locale, setLocale] = useState(initialLocale)
+  useEffect(() => {
+    const storageLocale = localStorage.getItem("kojotenLanguage")
+    if (storageLocale && initialLocale !== storageLocale) {
+      setLocale(storageLocale)
+    }
+  }, [])
 
+  const changeLocale = newLocale => {
+    if (newLocale !== locale) {
+      setLocale(newLocale)
+    }
+  }
+
+  // Data ======================================
+  const [teamDescription, setTeamDescription] = useState("")
+  const [teamMedia, setTeamMedia] = useState({})
   useEffect(() => {
     fetchContentful
       .getAllEntries(
-        { content_type: "team", locale: defaultLocale },
+        { content_type: "team", locale: locale },
         window.location.host
       )
       .then(apidata => {
-        if (apidata.items.length > 0) {
-          setTeam(apidata.items[0].fields)
-          setTeamMedia({
-            horizontalImage: {
-              src: apidata.items[0].fields.backgroundImage.fields.file.url,
-            },
-          })
-        } else {
-          setIsComingSoon(true)
-        }
+        mapContentfulData(apidata)
       })
-  }, [])
+  }, [locale])
+  const mapContentfulData = apidata => {
+    if (apidata.items.length > 0) {
+      const raw = apidata.items[0].fields.teamBeschreibungsText
+      setTeamDescription(documentToReactComponents(raw, renderOptions))
+      setTeamMedia({
+        horizontalImage: {
+          src: apidata.items[0].fields.backgroundImage.fields.file.url,
+        },
+      })
+    } else {
+      setIsComingSoon(true)
+    }
+  }
+
+  // Misc ======================================
+  const [isComingSoon, setIsComingSoon] = useState(false)
 
   return (
-    <Layout transparentHeader>
+    <Layout transparentHeader locale={locale} changeLocale={changeLocale}>
       <Helmet>
         <title>Kojoten | Team</title>
         <meta name="description" content="Helmet application" />
@@ -71,7 +96,7 @@ const Team = () => {
       ) : (
         <TeamContainer>
           <MediaContainer media={teamMedia}>
-            <TeamDescription>{team && team.description}</TeamDescription>
+            <TeamDescription>{teamDescription}</TeamDescription>
           </MediaContainer>
         </TeamContainer>
       )}

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { Helmet } from "react-helmet"
 
@@ -8,6 +8,7 @@ import ContactImpressum from "../components/contactImpressum"
 import ContactDatenschutz from "../components/contactDatenschutz"
 import ContactNavigation from "../components/contactNavigation"
 import { screenSizes } from "../utils/mediaqueries"
+import { defaultLocale } from "../utils/fetch"
 
 const ContactContainer = styled.div`
   position: relative;
@@ -22,7 +23,24 @@ const ContactContainer = styled.div`
   }
 `
 
-const Contact = () => {
+const Contact = ({ location }) => {
+  // Locales ===================================
+  const { state } = location
+  const initialLocale = state ? state.locale : defaultLocale
+  const [locale, setLocale] = useState(initialLocale)
+  useEffect(() => {
+    const storageLocale = localStorage.getItem("kojotenLanguage")
+    if (storageLocale && initialLocale !== storageLocale) {
+      setLocale(storageLocale)
+    }
+  }, [])
+
+  const changeLocale = newLocale => {
+    if (newLocale !== locale) {
+      setLocale(newLocale)
+    }
+  }
+
   const [activeTab, setActiveTab] = useState(0)
 
   const handleTabChange = newTab => {
@@ -30,7 +48,7 @@ const Contact = () => {
   }
 
   return (
-    <Layout>
+    <Layout locale={locale} changeLocale={changeLocale}>
       <Helmet>
         <title>Kojoten - Contact</title>
         <meta name="description" content="Helmet application" />
@@ -39,10 +57,11 @@ const Contact = () => {
         <ContactNavigation
           handleTabChange={handleTabChange}
           activeTab={activeTab}
+          locale={locale}
         />
-        {activeTab === 0 && <ContactAdress />}
-        {activeTab === 1 && <ContactImpressum />}
-        {activeTab === 2 && <ContactDatenschutz />}
+        {activeTab === 0 && <ContactAdress locale={locale} />}
+        {activeTab === 1 && <ContactImpressum locale={locale} />}
+        {activeTab === 2 && <ContactDatenschutz locale={locale} />}
       </ContactContainer>
     </Layout>
   )

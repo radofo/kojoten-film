@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet"
 import styled from "styled-components"
 // Components
 import Layout from "../components/layout"
-import FilmDetailCover from "../components/FilmDetailCover"
+import FilmBasicInfo from "./FilmBasicInfo"
 import FilmDetailInfo from "../components/FilmDetailInfo"
 // Utils
 import { screenSizes } from "../utils/mediaqueries"
@@ -35,7 +35,6 @@ const FilmDetailToggle = styled.i`
     cursor: pointer;
   }
 `
-
 const FilmDetailOverlay = styled.div`
   width: 100%;
   height: 100%;
@@ -49,9 +48,24 @@ const FilmDetailOverlay = styled.div`
 `
 
 const FilmDetail = ({ location }) => {
+  // Locales ===================================
+  const { state } = location
+  const initialLocale = state ? state.locale : defaultLocale
+  const [locale, setLocale] = useState(initialLocale)
+  useEffect(() => {
+    const storageLocale = localStorage.getItem("kojotenLanguage")
+    if (storageLocale && initialLocale !== storageLocale) {
+      setLocale(storageLocale)
+    }
+  }, [])
+
+  const changeLocale = newLocale => {
+    if (newLocale !== locale) {
+      setLocale(newLocale)
+    }
+  }
   const slug = location.pathname.split("/")[2]
   const [filmDetails, setFilmDetails] = useState({})
-  const [locale, setLocale] = useState(defaultLocale)
   const [filmMedia, setFilmMedia] = useState({})
   const [infosOpen, setInfosOpen] = useState(false)
 
@@ -66,14 +80,19 @@ const FilmDetail = ({ location }) => {
         window.location.host
       )
       .then(data => {
-        if (data.items[0].fields.hintergrundBild) {
+        if (data.items.length > 0) {
           setFilmDetails(data.items[0].fields)
-          setFilmMedia({
-            horizontalImage: {
-              src: data.items[0].fields.hintergrundBild.fields.file.url,
-            },
-            filters: "",
-          })
+          if (
+            data.items[0].fields.hintergrundBild &&
+            data.items[0].fields.hintergrundBild.fields.file
+          ) {
+            setFilmMedia({
+              horizontalImage: {
+                src: data.items[0].fields.hintergrundBild.fields.file.url,
+              },
+              filters: infosOpen ? "blur(5px)" : "",
+            })
+          }
         }
       })
   }, [locale])
@@ -81,27 +100,45 @@ const FilmDetail = ({ location }) => {
   const toggleInfosOpen = () => {
     setFilmMedia({
       ...filmMedia,
-      filters: infosOpen ? "" : "grayscale(100%) blur(2px)",
+      filters: infosOpen ? "" : "blur(5px)",
     })
     setInfosOpen(!infosOpen)
   }
 
   return (
-    <Layout transparentHeader backButton>
+    <Layout
+      locale={locale}
+      changeLocale={changeLocale}
+      transparentHeader
+      backButton
+    >
       <Helmet>
         <title>{`Kojoten | ${filmDetails.titel || "Film Details"}`}</title>
         <meta name="description" content="Helmet application" />
       </Helmet>
       <FilmDetailContainer infosOpen={infosOpen}>
-        <MediaContainer media={filmMedia}>
-          <FilmDetailOverlay infosOpen={infosOpen} />
-          <FilmDetailInfo infosOpen={infosOpen} details={filmDetails} />
-          <FilmDetailCover infosOpen={infosOpen} details={filmDetails} />
-          <FilmDetailToggle
-            onClick={toggleInfosOpen}
-            className={`fa fa-${infosOpen ? "times" : "chevron-down"} fa-2x`}
-          ></FilmDetailToggle>
-        </MediaContainer>
+        <MediaContainer
+          customLink={
+            filmDetails.vimeoId ? `/media/f/${filmDetails.url}` : null
+          }
+          media={filmMedia}
+        ></MediaContainer>
+        <FilmDetailOverlay infosOpen={infosOpen} />
+        <FilmDetailInfo
+          infosOpen={infosOpen}
+          details={filmDetails}
+          locale={locale}
+        />
+        <FilmBasicInfo
+          locale={locale}
+          infosOpen={infosOpen}
+          details={filmDetails}
+        />
+
+        <FilmDetailToggle
+          onClick={toggleInfosOpen}
+          className={`fa fa-${infosOpen ? "times" : "chevron-down"} fa-2x`}
+        ></FilmDetailToggle>
       </FilmDetailContainer>
     </Layout>
   )

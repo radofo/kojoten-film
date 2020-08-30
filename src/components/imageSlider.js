@@ -40,14 +40,15 @@ const ImageContainer = styled.div`
 `
 
 const NavButton = styled.button`
-  color: rgba(255, 255, 255, 0.3);
+  color: #c1c1c1;
   outline: none;
+  opacity: 0.4;
   font-size: 2em;
   background: rgba(0, 0, 0, 0);
   border: 0px solid rgba(0, 0, 0, 0);
   &:hover {
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.8);
+    opacity: 1;
   }
   @media ${screenSizes.desktop} {
     font-size: 2.5em;
@@ -66,17 +67,13 @@ const NavButton = styled.button`
 `
 
 // React Component
-const ImageSlider = ({ films, overlayVisible }) => {
+const ImageSlider = ({ films, overlayVisible, locale }) => {
   const [vh, setVh] = useState("")
   const [swiperRef, setSwiperRef] = useState(null)
 
   useEffect(() => {
     setVh(window.innerHeight || "100vh")
     window.addEventListener("resize", handleResize)
-    // const wrapper = document.getElementsByClassName("swiper-wrapper")[0]
-    // if (wrapper) {
-    //   wrapper.classList.add("swiperCustomWrapper")
-    // }
     return () => {
       window.removeEventListener("resize", handleResize)
     }
@@ -105,15 +102,8 @@ const ImageSlider = ({ films, overlayVisible }) => {
         loop
         mousewheel
         updateOnWindowResize
-        centeredSlides
         watchSlidesVisibility
         loopedSlides={films.length}
-        initialSlide={2}
-        breakpoints={{
-          700: {
-            centeredSlides: false,
-          },
-        }}
         freeModeMomentumRatio={0.5}
         followFinger={true}
         navigation={{
@@ -125,7 +115,7 @@ const ImageSlider = ({ films, overlayVisible }) => {
         {films.map((film, index) => {
           return (
             <SwiperSlide key={index}>
-              <FilmPoster film={film}></FilmPoster>
+              <FilmPoster locale={locale} film={film}></FilmPoster>
             </SwiperSlide>
           )
         })}

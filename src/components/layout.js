@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react"
 import styled, { createGlobalStyle } from "styled-components"
 import { Helmet } from "react-helmet"
 import favicon from "../media/favicon.svg"
+import { defaultLocale } from "../utils/fetch"
 
 // Children
 import Header from "./header"
@@ -48,6 +49,8 @@ const Layout = ({
   transparentHeader,
   backButton,
   overlayDecided = true,
+  locale,
+  changeLocale,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -81,8 +84,14 @@ const Layout = ({
             isMenuOpen={isMenuOpen}
             transparentHeader={transparentHeader}
             backButton={backButton}
+            changeLocale={changeLocale}
+            locale={locale}
           />
-          <MobileMenu isMenuOpen={isMenuOpen} />
+          <MobileMenu
+            locale={locale}
+            changeLocale={changeLocale}
+            isMenuOpen={isMenuOpen}
+          />
         </React.Fragment>
       )}
     </LayoutContainer>

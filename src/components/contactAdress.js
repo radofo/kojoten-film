@@ -3,7 +3,6 @@ import * as fetchContentful from "../utils/fetch"
 
 import styled from "styled-components"
 import { screenSizes } from "../utils/mediaqueries"
-import { defaultLocale } from "../utils/fetch"
 import Pending from "./pending"
 
 const ContactAdressContainer = styled.div`
@@ -28,22 +27,33 @@ const ContactAdressText = styled.div`
 
 const ContactAdressTextLine = styled.p`
   color: white;
+  margin-bottom: 5px;
+`
+
+const MailLink = styled.a`
+  color: white;
+  &:hover {
+    color: var(--highlight-color);
+  }
 `
 
 const MapContainer = styled.iframe`
   border: 0;
   width: 100%;
   height: 300px;
+  filter: grayscale(100%) invert(1) brightness(0.9);
+  border-radius: 5px;
   @media ${screenSizes.tablet} {
     height: 450px;
     max-width: 600px;
   }
 `
 
-const ContactAdress = () => {
+const ContactAdress = ({ locale }) => {
+  // Data
   const [address, setAddress] = useState({})
-  const [locale, setLocale] = useState(defaultLocale)
-  const [pending, setPending] = useState(false)
+  // Misc
+  const [isComingSoon, setIsComingSoon] = useState(false)
 
   useEffect(() => {
     fetchContentful
@@ -55,20 +65,14 @@ const ContactAdress = () => {
         if (data.items.length > 0) {
           setAddress(data.items[0].fields)
         } else {
-          setPending(true)
+          setIsComingSoon(true)
         }
       })
   }, [locale])
 
-  const changeLocale = newLocale => {
-    if (newLocale !== locale) {
-      setLocale(newLocale)
-    }
-  }
-
   return (
     <ContactAdressContainer>
-      {pending ? (
+      {isComingSoon ? (
         <Pending emoji="" subject="Address Information is" height="initial" />
       ) : (
         <React.Fragment>
@@ -78,7 +82,12 @@ const ContactAdress = () => {
               {address.straeUndHausnummer}
             </ContactAdressTextLine>
             <ContactAdressTextLine>{address.plzUndStadt}</ContactAdressTextLine>
-            <ContactAdressTextLine>{address.email}</ContactAdressTextLine>
+            <ContactAdressTextLine>
+              <MailLink href={`mailto:${address.email}`}>
+                {address.email}
+              </MailLink>
+            </ContactAdressTextLine>
+            <ContactAdressTextLine>{address.telefon}</ContactAdressTextLine>
           </ContactAdressText>
           <MapContainer
             src={address.mapsUrl}
