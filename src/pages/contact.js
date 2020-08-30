@@ -26,7 +26,7 @@ const ContactContainer = styled.div`
 const Contact = ({ location }) => {
   // Locales ===================================
   const { state } = location
-  const initialLocale = state ? state.locale : defaultLocale
+  const initialLocale = state && state.locale ? state.locale : defaultLocale
   const [locale, setLocale] = useState(initialLocale)
   useEffect(() => {
     const storageLocale = localStorage.getItem("kojotenLanguage")

@@ -52,7 +52,7 @@ const FilmDetail = ({ location }) => {
   const { state } = location
   console.log("location: ", location)
   console.log("state: ", state)
-  const initialLocale = state ? state.locale : defaultLocale
+  const initialLocale = state && state.locale ? state.locale : defaultLocale
   console.log("defaultLocale: ", defaultLocale)
   console.log("state.locale: ", state.locale)
   console.log("initialLocale Film Detail: ", initialLocale)
