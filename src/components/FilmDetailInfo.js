@@ -56,18 +56,18 @@ const FilmDetailAwardRow = styled.div`
   flex-direction: row;
 `
 
-const FilmDetailLeft = styled.div`
+const FilmDetailSynopsis = styled.div`
   max-width: 100%;
-  padding-right: 30px;
+  padding-right: 40px;
   @media ${screenSizes.desktop} {
-    max-width: 70%;
+    width: 50%;
   }
 `
 
 const FilmDetailCredits = styled.div`
   margin: 20px 0;
   @media ${screenSizes.desktop} {
-    margin: 5px;
+    margin: 5px 0 5px 40px;
   }
   & > div:last-child {
     padding-bottom: 50px;
@@ -77,7 +77,7 @@ const FilmDetailCredits = styled.div`
 const FilmDetailInfo = ({ infosOpen, details, locale }) => {
   return (
     <FilmDetailInfoContainer infosOpen={infosOpen}>
-      <FilmDetailLeft>
+      <FilmDetailSynopsis>
         <FilmDetailHeader details={details} />
         <FilmDetailedInfos>
           <FilmDetailDescription>
@@ -100,7 +100,7 @@ const FilmDetailInfo = ({ infosOpen, details, locale }) => {
               })}
           </FilmDetailAwardRow>
         </FilmDetailedInfos>
-      </FilmDetailLeft>
+      </FilmDetailSynopsis>
       <FilmDetailCredits>
         {details.writers && (
           <FilmDetailCredit

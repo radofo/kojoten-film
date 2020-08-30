@@ -35,6 +35,17 @@ const FilmDetailToggle = styled.i`
     cursor: pointer;
   }
 `
+const FilmDetailOverlay = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  display: ${props => {
+    return props.infosOpen ? "block" : "none"
+  }};
+  top: 0;
+  left: 0;
+`
 
 const FilmDetail = ({ location }) => {
   // Locales ===================================
@@ -79,7 +90,7 @@ const FilmDetail = ({ location }) => {
               horizontalImage: {
                 src: data.items[0].fields.hintergrundBild.fields.file.url,
               },
-              filters: "",
+              filters: infosOpen ? "blur(5px)" : "",
             })
           }
         }
@@ -89,7 +100,7 @@ const FilmDetail = ({ location }) => {
   const toggleInfosOpen = () => {
     setFilmMedia({
       ...filmMedia,
-      filters: infosOpen ? "" : "grayscale(100%) blur(2px)",
+      filters: infosOpen ? "" : "blur(5px)",
     })
     setInfosOpen(!infosOpen)
   }
@@ -112,6 +123,7 @@ const FilmDetail = ({ location }) => {
           }
           media={filmMedia}
         ></MediaContainer>
+        <FilmDetailOverlay infosOpen={infosOpen} />
         <FilmDetailInfo
           infosOpen={infosOpen}
           details={filmDetails}
