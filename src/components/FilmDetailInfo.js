@@ -47,13 +47,14 @@ const FilmDetailDescription = styled.div`
   color: var(--highlight-color);
 `
 const FilmDetailAward = styled.img`
-  width: 75px;
-  margin-right: 20px;
+  width: 100px;
+  margin: 0 20px 20px 0;
 `
 const FilmDetailAwardRow = styled.div`
   margin: 20px 0;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 `
 
 const FilmDetailSynopsis = styled.div`
