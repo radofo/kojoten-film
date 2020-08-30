@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components"
 import { screenSizes } from "../utils/mediaqueries"
-import t from "../data/translations.json"
 
 const Navigation = styled.ul`
   list-style: none;
@@ -10,7 +9,7 @@ const Navigation = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media ${screenSizes.tablet} {
+  @media ${screenSizes.desktop} {
     margin: 0 100px 0 0;
     align-items: flex-start;
   }
@@ -28,6 +27,22 @@ const NavigationItem = styled.li`
 `
 
 const ContactNavigation = ({ handleTabChange, activeTab, locale }) => {
+  const t = {
+    contact: {
+      imprint: {
+        de: "Impressum",
+        en: "Imprint",
+      },
+      privacy: {
+        de: "Datenschutz",
+        en: "Privacy",
+      },
+      address: {
+        de: "Adresse",
+        en: "Address",
+      },
+    },
+  }
   return (
     <Navigation>
       <NavigationItem

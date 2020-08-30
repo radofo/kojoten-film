@@ -5,7 +5,6 @@ import FilmDetailCredit from "./FilmDetailCredit"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { renderOptions } from "../utils/richText"
 import { createSrcSet } from "../utils/fetch"
-import t from "../data/translations.json"
 
 import { screenSizes } from "../utils/mediaqueries"
 
@@ -76,11 +75,62 @@ const FilmDetailCredits = styled.div`
 `
 
 const FilmDetailInfo = ({ infosOpen, details, locale }) => {
-  console.log("t.filmDetail: ", t.filmDetail)
-  console.log(
-    "t.filmDetail.regisseur[locale]: ",
-    t.filmDetail.regisseur[locale]
-  )
+  const t = {
+    filmDetail: {
+      autor: {
+        de: "Autor*in",
+        en: "Writer",
+      },
+      regisseur: {
+        de: "Regisseur*in",
+        en: "Director",
+      },
+      producer: {
+        de: "Producer",
+        en: "Producer",
+      },
+      produzent: {
+        de: "Produzent*in",
+        en: "Executive Producer",
+      },
+      kamera: {
+        de: "Kamera",
+        en: "Cinematography",
+      },
+      szenenbild: {
+        de: "Szenenbild",
+        en: "Art Direction",
+      },
+      kostum: {
+        de: "Kostüm",
+        en: "Costume Design",
+      },
+      maske: {
+        de: "Maske",
+        en: "Make Up",
+      },
+      montage: {
+        de: "Montage",
+        en: "Edited By",
+      },
+      sounddesign: {
+        de: "Sounddesign",
+        en: "Sounddesign",
+      },
+      filmmusik: {
+        de: "Filmmusik",
+        en: "Music By",
+      },
+      farbkorrektur: {
+        de: "Farbkorrektur",
+        en: "Color Grading",
+      },
+      cast: {
+        de: "Cast",
+        en: "Cast",
+      },
+    },
+  }
   return (
     <FilmDetailInfoContainer infosOpen={infosOpen}>
       <FilmDetailSynopsis>
