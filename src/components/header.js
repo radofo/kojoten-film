@@ -90,10 +90,6 @@ const Header = ({
   locale,
   changeLocale,
 }) => {
-  console.log("locale in header: ", locale)
-  console.log("t: ", t)
-  console.log("t.navigation: ", t.navigation)
-  console.log("t.navigation.news[locale]: ", t.navigation.news[locale])
   const headerImage = backButton ? (
     <Link to="/">
       <BackButton className="fa fa-arrow-left fa-2x" alt="Back"></BackButton>
