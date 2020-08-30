@@ -27,6 +27,14 @@ const ContactAdressText = styled.div`
 
 const ContactAdressTextLine = styled.p`
   color: white;
+  margin-bottom: 5px;
+`
+
+const MailLink = styled.a`
+  color: white;
+  &:hover {
+    color: var(--highlight-color);
+  }
 `
 
 const MapContainer = styled.iframe`
@@ -74,7 +82,12 @@ const ContactAdress = ({ locale }) => {
               {address.straeUndHausnummer}
             </ContactAdressTextLine>
             <ContactAdressTextLine>{address.plzUndStadt}</ContactAdressTextLine>
-            <ContactAdressTextLine>{address.email}</ContactAdressTextLine>
+            <ContactAdressTextLine>
+              <MailLink href={`mailto:${address.email}`}>
+                {address.email}
+              </MailLink>
+            </ContactAdressTextLine>
+            <ContactAdressTextLine>{address.telefon}</ContactAdressTextLine>
           </ContactAdressText>
           <MapContainer
             src={address.mapsUrl}
