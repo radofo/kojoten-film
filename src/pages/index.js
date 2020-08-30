@@ -13,7 +13,7 @@ import Pending from "../components/pending"
 const Home = ({ location }) => {
   // Locales ===================================
   const { state } = location
-  const initialLocale = state ? state.locale : defaultLocale
+  const initialLocale = state && state.locale ? state.locale : defaultLocale
   const [locale, setLocale] = useState(initialLocale)
   useEffect(() => {
     const storageLocale = localStorage.getItem("kojotenLanguage")
