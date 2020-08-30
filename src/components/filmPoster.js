@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
 import { createSrcSet } from "../utils/fetch"
-import t from "../data/translations.json"
 
 const PosterImage = styled.img`
   height: 100%;
@@ -29,6 +28,14 @@ const ComingSoon = styled.div`
 `
 const FilmPoster = ({ film, locale }) => {
   const [posterHeight, setPosterHeight] = useState(0)
+  const t = {
+    film: {
+      comingsoon: {
+        de: "In Entwicklung",
+        en: "In Development",
+      },
+    },
+  }
 
   useEffect(() => {
     setPosterHeight(window.innerHeight)

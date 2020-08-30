@@ -17,7 +17,7 @@ const ContactContainer = styled.div`
   padding: 50px var(--padding-sides);
   margin-top: var(--header-height);
   z-index: 9;
-  @media ${screenSizes.tablet} {
+  @media ${screenSizes.desktop} {
     flex-direction: row;
     padding: 150px 0 0 100px;
   }

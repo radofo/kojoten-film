@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { screenSizes } from "../utils/mediaqueries"
 import { Link } from "gatsby"
-import t from "../data/translations.json"
 
 const MobileMenuContainer = styled.div`
   background: black;
@@ -97,6 +96,30 @@ const Dash = styled.span`
 
 const MobileMenu = ({ isMenuOpen, locale, changeLocale }) => {
   const [currentpath, setCurrentPath] = useState(null)
+  const t = {
+    navigation: {
+      commercial: {
+        de: "Werbung",
+        en: "Commercial",
+      },
+      news: {
+        de: "News",
+        en: "News",
+      },
+      film: {
+        de: "Film",
+        en: "Film",
+      },
+      contact: {
+        de: "Kontakt",
+        en: "Contact",
+      },
+      team: {
+        de: "Team",
+        en: "Team",
+      },
+    },
+  }
 
   useEffect(() => {
     setCurrentPath(window.location.pathname.split("/")[1])
