@@ -95,7 +95,7 @@ const Commercial = ({ location }) => {
     <Layout locale={locale} changeLocale={changeLocale} transparentHeader>
       <Helmet>
         <title>Kojoten | Commercial</title>
-        <meta name="description" content="Kojoten Film | Commercial" />
+        <meta name="description" content="Kojoten Film" />
       </Helmet>
       {commercials && commercials.items.length === 0 ? (
         <Pending emoji="🍿" subject="Commercials are" />
