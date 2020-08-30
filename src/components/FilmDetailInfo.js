@@ -76,6 +76,11 @@ const FilmDetailCredits = styled.div`
 `
 
 const FilmDetailInfo = ({ infosOpen, details, locale }) => {
+  console.log("t.filmDetail: ", t.filmDetail)
+  console.log(
+    "t.filmDetail.regisseur[locale]: ",
+    t.filmDetail.regisseur[locale]
+  )
   return (
     <FilmDetailInfoContainer infosOpen={infosOpen}>
       <FilmDetailSynopsis>
