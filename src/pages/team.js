@@ -89,7 +89,7 @@ const Team = ({ location }) => {
     <Layout transparentHeader locale={locale} changeLocale={changeLocale}>
       <Helmet>
         <title>Kojoten | Team</title>
-        <meta name="description" content="Helmet application" />
+        <meta name="description" content="Kojoten Film" />
       </Helmet>
       {isComingSoon ? (
         <Pending emoji="🐺" subject="Team Information is" />

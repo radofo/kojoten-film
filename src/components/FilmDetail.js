@@ -120,7 +120,7 @@ const FilmDetail = ({ location }) => {
     >
       <Helmet>
         <title>{`Kojoten | ${filmDetails.titel || "Film Details"}`}</title>
-        <meta name="description" content="Helmet application" />
+        <meta name="description" content="Kojoten Film" />
       </Helmet>
       <FilmDetailContainer infosOpen={infosOpen}>
         <MediaContainer

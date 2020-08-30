@@ -50,8 +50,8 @@ const Contact = ({ location }) => {
   return (
     <Layout locale={locale} changeLocale={changeLocale}>
       <Helmet>
-        <title>Kojoten - Contact</title>
-        <meta name="description" content="Helmet application" />
+        <title>Kojoten | Contact</title>
+        <meta name="description" content="Kojoten Film" />
       </Helmet>
       <ContactContainer>
         <ContactNavigation

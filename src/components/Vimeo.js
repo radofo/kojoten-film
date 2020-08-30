@@ -114,7 +114,7 @@ const Vimeo = ({ location }) => {
       <Helmet>
         <title>Kojoten | {details.titel || "Media"}</title>
         <link href="/fontawesome/css/all.css" rel="stylesheet"></link>
-        <meta name="description" content="Helmet application" />
+        <meta name="description" content="Kojoten Film" />
       </Helmet>
       <VimeoAnchor id="vimeo-container">
         <TopRow>
