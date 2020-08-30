@@ -6,14 +6,14 @@ const FilmBasicInfoContainer = styled.div`
   position: absolute;
   left: 0;
   bottom: 10px;
-  padding: 0 calc(var(--padding-sides) + 10px);
+  padding: 0 calc(var(--padding-sides) + 10px) 50px;
   opacity: ${props => {
     return props.infosOpen ? "0" : "1"
   }};
 
   transition: all 0.25s ease-out;
   @media ${screenSizes.desktop} {
-    bottom: 50px;
+    bottom: 30px;
   }
   color: var(--text-color);
 `
