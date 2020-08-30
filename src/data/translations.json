@@ -1,4 +1,10 @@
 {
+  "film": {
+    "comingsoon": {
+      "de": "In Entwicklung",
+      "en": "In Development"
+    }
+  },
   "contact": {
     "imprint": {
       "de": "Impressum",
