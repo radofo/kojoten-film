@@ -50,7 +50,11 @@ const FilmDetailOverlay = styled.div`
 const FilmDetail = ({ location }) => {
   // Locales ===================================
   const { state } = location
+  console.log("location: ", location)
+  console.log("state: ", state)
   const initialLocale = state ? state.locale : defaultLocale
+  console.log("defaultLocale: ", defaultLocale)
+  console.log("state.locale: ", state.locale)
   console.log("initialLocale Film Detail: ", initialLocale)
   const [locale, setLocale] = useState(initialLocale)
   useEffect(() => {
