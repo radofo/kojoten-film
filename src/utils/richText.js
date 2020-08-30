@@ -14,7 +14,11 @@ export const renderOptions = {
     ),
     [INLINES.HYPERLINK]: (node, children) => {
       return (
-        <a href={node.data.uri} className={markdownStyles.markdownHyperlink}>
+        <a
+          target="_blank"
+          href={node.data.uri}
+          className={markdownStyles.markdownHyperlink}
+        >
           {children}
         </a>
       )
