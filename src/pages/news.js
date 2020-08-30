@@ -5,6 +5,7 @@ import styled from "styled-components"
 import { defaultLocale } from "../utils/fetch"
 import NewsItem from "../components/NewsItem"
 import Pending from "../components/pending"
+import { Helmet } from "react-helmet"
 
 const NewsContainer = styled.div`
   padding: var(--header-height) var(--padding-sides);
@@ -61,6 +62,10 @@ const News = ({ location }) => {
   // Render =======================================
   return (
     <Layout locale={locale} changeLocale={changeLocale}>
+      <Helmet>
+        <title>Kojoten | News</title>
+        <meta name="description" content="Kojoten Film" />
+      </Helmet>
       {comingSoon ? (
         <Pending emoji="🗞" subject="News are" />
       ) : (

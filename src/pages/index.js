@@ -73,7 +73,7 @@ const Home = ({ location }) => {
     >
       <Helmet>
         <title>Kojoten | Film</title>
-        <meta name="description" content="Helmet application" />
+        <meta name="description" content="Kojoten Film" />
       </Helmet>
       {overlayExists && (
         <LpCover overlayOpen={overlayOpen} toggleOverlay={toggleOverlay} />
