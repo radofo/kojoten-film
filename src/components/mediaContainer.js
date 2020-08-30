@@ -11,11 +11,7 @@ const MediaContainerStyles = styled(props => {
   width: 100%;
   overflow: hidden;
   z-index: 99;
-  cursor: ${props => (props.islink ? "url ('/play.svg'), pointer" : "auto")};
-  cursor: ${props =>
-    props.islink
-      ? "-webkit-image-set(url('/play.svg') 1x, url('/play.svg') 2x), pointer"
-      : "auto"};
+  cursor: ${props => (props.islink ? "url('/play.svg'), pointer" : "auto")};
 `
 const Video = styled.video`
   object-fit: cover;

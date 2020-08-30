@@ -74,10 +74,6 @@ const ImageSlider = ({ films, overlayVisible, locale }) => {
   useEffect(() => {
     setVh(window.innerHeight || "100vh")
     window.addEventListener("resize", handleResize)
-    // const wrapper = document.getElementsByClassName("swiper-wrapper")[0]
-    // if (wrapper) {
-    //   wrapper.classList.add("swiperCustomWrapper")
-    // }
     return () => {
       window.removeEventListener("resize", handleResize)
     }
@@ -106,15 +102,8 @@ const ImageSlider = ({ films, overlayVisible, locale }) => {
         loop
         mousewheel
         updateOnWindowResize
-        centeredSlides
         watchSlidesVisibility
         loopedSlides={films.length}
-        initialSlide={2}
-        breakpoints={{
-          700: {
-            centeredSlides: false,
-          },
-        }}
         freeModeMomentumRatio={0.5}
         followFinger={true}
         navigation={{

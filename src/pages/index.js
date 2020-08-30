@@ -40,7 +40,7 @@ const Home = ({ location }) => {
   useEffect(() => {
     fetchContentful
       .getAllEntries(
-        { content_type: "film", locale: locale },
+        { content_type: "film", locale: locale, order: "fields.position" },
         window.location.host
       )
       .then(apidata => {
