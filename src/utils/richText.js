@@ -1,4 +1,4 @@
-import { BLOCKS, MARKS } from "@contentful/rich-text-types"
+import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types"
 import React from "react"
 import markdownStyles from "../styles/markdown.module.css"
 
@@ -12,6 +12,13 @@ export const renderOptions = {
     [BLOCKS.PARAGRAPH]: (node, children) => (
       <p className={markdownStyles.markdownParagraph}>{children}</p>
     ),
+    [INLINES.HYPERLINK]: (node, children) => {
+      return (
+        <a href={node.data.uri} className={markdownStyles.markdownHyperlink}>
+          {children}
+        </a>
+      )
+    },
     [BLOCKS.HEADING_1]: (node, children) => (
       <h1
         className={`${markdownStyles.markdownHeader} ${markdownStyles.markdownH1}`}

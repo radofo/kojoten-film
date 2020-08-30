@@ -10,6 +10,13 @@
   margin-bottom: 8px;
 }
 
+.markdownHyperlink {
+  color: white;
+}
+.markdownHyperlink:hover {
+  color: var(--highlight-color);
+}
+
 .markdownH1 {
   font-size: calc(var(--default-font-size) + 10px);
 }
