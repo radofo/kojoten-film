@@ -5,7 +5,6 @@ import { screenSizes } from "../utils/mediaqueries"
 import Navigation from "./navigation"
 import NavItem from "./navItem"
 import { Link } from "gatsby"
-import t from "../data/translations.json"
 
 // ================ Styled Components ================
 const HeaderContainer = styled.header`
@@ -99,6 +98,30 @@ const Header = ({
       <KojotenLogo src={kojotenlogo} alt="Kojoten Film" />
     </Link>
   )
+  const t = {
+    navigation: {
+      commercial: {
+        de: "Werbung",
+        en: "Commercial",
+      },
+      news: {
+        de: "News",
+        en: "News",
+      },
+      film: {
+        de: "Film",
+        en: "Film",
+      },
+      contact: {
+        de: "Kontakt",
+        en: "Contact",
+      },
+      team: {
+        de: "Team",
+        en: "Team",
+      },
+    },
+  }
 
   const setLocale = language => {
     if (typeof Storage !== "undefined") {

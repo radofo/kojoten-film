@@ -8,7 +8,7 @@ import Pending from "./pending"
 const ContactAdressContainer = styled.div`
   display: flex;
   flex-direction: column;
-  @media ${screenSizes.tablet} {
+  @media ${screenSizes.desktop} {
     flex-direction: row;
     width: 100%;
   }
@@ -19,7 +19,7 @@ const ContactAdressText = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 0 0 25px;
-  @media ${screenSizes.tablet} {
+  @media ${screenSizes.desktop} {
     align-items: flex-start;
     margin-right: 50px;
   }
@@ -43,7 +43,7 @@ const MapContainer = styled.iframe`
   height: 300px;
   filter: grayscale(100%) invert(1) brightness(0.9);
   border-radius: 5px;
-  @media ${screenSizes.tablet} {
+  @media ${screenSizes.desktop} {
     height: 450px;
     max-width: 600px;
   }

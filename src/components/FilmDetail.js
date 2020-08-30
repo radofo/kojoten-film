@@ -51,9 +51,11 @@ const FilmDetail = ({ location }) => {
   // Locales ===================================
   const { state } = location
   const initialLocale = state ? state.locale : defaultLocale
+  console.log("initialLocale Film Detail: ", initialLocale)
   const [locale, setLocale] = useState(initialLocale)
   useEffect(() => {
     const storageLocale = localStorage.getItem("kojotenLanguage")
+    console.log("storageLocale Film Detail: ", storageLocale)
     if (storageLocale && initialLocale !== storageLocale) {
       setLocale(storageLocale)
     }

@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components"
 import { screenSizes } from "../utils/mediaqueries"
-import t from "../data/translations.json"
 
 const CommercialBasicInfoContainer = styled.div`
   position: absolute;
@@ -25,6 +24,18 @@ const CommercialMoreDetails = styled.p`
 `
 
 const CommercialBasicInfo = ({ details, locale }) => {
+  const t = {
+    commercial: {
+      regisseur: {
+        de: "Regisseur*in",
+        en: "Director",
+      },
+      kunde: {
+        de: "Kunde",
+        en: "Client",
+      },
+    },
+  }
   return (
     <CommercialBasicInfoContainer>
       <CommercialDetailHeader>{details.name}</CommercialDetailHeader>
