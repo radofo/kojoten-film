@@ -18,6 +18,8 @@ const TeamContainer = styled.div`
   bottom: 0;
   width: 100%;
   height: 100%;
+  overflow-y: scroll;
+  z-index: 9;
 `
 
 const TeamDescription = styled.div`
