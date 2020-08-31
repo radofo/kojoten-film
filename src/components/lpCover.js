@@ -17,15 +17,15 @@ const VideoCover = styled.div`
   width: 100%;
   height: 100%;
   background: black;
+  opacity: ${props => props.opacity};
   z-index: 999999;
-  transform: ${props => props.transform};
-  transition: transform 0.5s ease-in;
+  transition: opacity 0.5s ease-in;
 `
 
 const ToggleButton = styled.button`
   position: absolute;
-  bottom: 50px;
-  left: 50%;
+  top: 50px;
+  right: 50px;
   transform: translateX(-50%);
   border: none;
   background-color: rgba(0, 0, 0, 0);
@@ -38,8 +38,8 @@ const ToggleButton = styled.button`
   }
 `
 const ChevronDown = styled.i`
-  font-size: 30px;
-  color: white;
+  font-size: 26px;
+  color: rgba(255, 255, 255, 0.8);
 `
 
 const KojotenLogo = styled.img`
@@ -56,10 +56,12 @@ const KojotenLogo = styled.img`
 const LpCover = ({ overlayOpen, toggleOverlay }) => {
   const [coverMedia, setCoverMedia] = useState({})
   const [transform, setTransform] = useState("translateY(0)")
+  const [opacity, setOpacity] = useState("1")
 
   useEffect(() => {
     if (!overlayOpen) {
       setTransform("translateY(-100%)")
+      setOpacity("0")
     }
   }, [overlayOpen])
 
@@ -81,11 +83,11 @@ const LpCover = ({ overlayOpen, toggleOverlay }) => {
   }, [])
 
   return (
-    <VideoCover transform={transform}>
+    <VideoCover transform={transform} opacity={opacity}>
       <MediaContainer media={coverMedia}>
         <KojotenLogo src={kojotenlogo} alt="Kojoten Film" />
         <ToggleButton onClick={toggleOverlay}>
-          <ChevronDown className="fas fa-chevron-down"></ChevronDown>
+          <ChevronDown className="fas fa-times"></ChevronDown>
         </ToggleButton>
       </MediaContainer>
     </VideoCover>
