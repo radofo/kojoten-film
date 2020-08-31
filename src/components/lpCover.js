@@ -27,7 +27,7 @@ const VideoCover = styled.div`
 const ToggleButton = styled.button`
   position: absolute;
   bottom: 50px;
-  right: 50%;
+  left: 50%;
   transform: translateX(-50%);
   border: none;
   background-color: rgba(0, 0, 0, 0);
