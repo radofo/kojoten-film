@@ -41,6 +41,7 @@ const SocialRow = styled.div`
   display: flex;
   justify-content: space-evenly;
   padding: 0 20px 30px;
+  display: none;
 `
 
 const SocialIcon = styled.i`
