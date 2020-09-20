@@ -2,13 +2,6 @@
   "hosting": {
     "public": "public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "redirects": [
-      {
-        "source": "**",
-        "destination": "https://vimeo.com/kojotenfilm",
-        "type": 301
-      }
-    ],
     "rewrites": [
       {
         "source": "/film/*",
