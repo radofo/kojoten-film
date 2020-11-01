@@ -40,6 +40,9 @@ const FilmPoster = ({ film, locale }) => {
   useEffect(() => {
     setPosterHeight(window.innerHeight)
     window.addEventListener("resize", handleResize)
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
   }, [])
 
   const handleResize = () => {
