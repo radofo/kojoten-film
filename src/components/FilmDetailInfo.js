@@ -206,12 +206,6 @@ const FilmDetailInfo = ({ infosOpen, details, locale }) => {
             credits={details.maske}
           />
         )}
-        {details.maske && (
-          <FilmDetailCredit
-            category={t.filmDetail.maske[locale]}
-            credits={details.maske}
-          />
-        )}
         {details.montage && (
           <FilmDetailCredit
             category={t.filmDetail.montage[locale]}

@@ -50,16 +50,10 @@ const FilmDetailOverlay = styled.div`
 const FilmDetail = ({ location }) => {
   // Locales ===================================
   const { state } = location
-  console.log("location: ", location)
-  console.log("state: ", state)
   const initialLocale = state && state.locale ? state.locale : defaultLocale
-  console.log("defaultLocale: ", defaultLocale)
-  console.log("state.locale: ", state.locale)
-  console.log("initialLocale Film Detail: ", initialLocale)
   const [locale, setLocale] = useState(initialLocale)
   useEffect(() => {
     const storageLocale = localStorage.getItem("kojotenLanguage")
-    console.log("storageLocale Film Detail: ", storageLocale)
     if (storageLocale && initialLocale !== storageLocale) {
       setLocale(storageLocale)
     }
