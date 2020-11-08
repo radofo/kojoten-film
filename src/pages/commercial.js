@@ -79,10 +79,15 @@ const Commercial = ({ location }) => {
   useEffect(() => {
     fetchContentful
       .getAllEntries(
-        { content_type: "commercial", locale: locale },
+        {
+          content_type: "commercial",
+          locale: locale,
+          order: "fields.position",
+        },
         window.location.host
       )
       .then(apidata => {
+        apidata.items.push(apidata.items.shift()) // Workaround because Swiper starts with the last element for some reason
         setCommercials(apidata)
       })
   }, [locale])
@@ -102,7 +107,6 @@ const Commercial = ({ location }) => {
       ) : (
         <Swiper
           style={{ height: vh }}
-          initialSlide={0}
           navigation={{
             nextEl: ".swiper-next",
             prevEl: ".swiper-prev",
