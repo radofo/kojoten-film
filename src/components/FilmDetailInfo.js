@@ -60,7 +60,8 @@ const FilmDetailSynopsis = styled.div`
   max-width: 100%;
   padding-right: 40px;
   @media ${screenSizes.desktop} {
-    width: 50%;
+    flex-grow: 0;
+    flex-basis: 50%;
   }
 `
 
@@ -68,6 +69,8 @@ const FilmDetailCredits = styled.div`
   margin: 20px 0;
   @media ${screenSizes.desktop} {
     margin: 5px 0 5px 40px;
+    flex-grow: 0;
+    flex-basis: 50%;
   }
   & > div:last-child {
     padding-bottom: 50px;
