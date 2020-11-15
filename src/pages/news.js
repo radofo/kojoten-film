@@ -6,6 +6,7 @@ import { defaultLocale } from "../utils/fetch"
 import NewsItem from "../components/NewsItem"
 import Pending from "../components/pending"
 import { Helmet } from "react-helmet"
+import { filterHealthyImages } from "../utils/verifications"
 
 const NewsContainer = styled.div`
   padding: var(--header-height) var(--padding-sides);
@@ -70,7 +71,7 @@ const News = ({ location }) => {
         <Pending emoji="🗞" subject="News are" />
       ) : (
         <NewsContainer>
-          {news.map((item, index) => {
+          {news.filter(filterHealthyImages("bild")).map((item, index) => {
             return <NewsItem item={item} key={index} />
           })}
         </NewsContainer>
