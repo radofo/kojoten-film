@@ -24,15 +24,19 @@ const TeamContainer = styled.div`
 
 const TeamDescription = styled.div`
   position: absolute;
-  color: var(--highlight-color);
+  color: var(--text-color);
+  background: rgba(37, 37, 37, 0.4);
+  line-height: 1.3;
+  border-radius: 10px;
   font-weight: normal;
-  top: 0;
+  padding: 15px;
+  bottom: 0;
   left: 0;
-  padding: calc(var(--header-height) * 1.5) calc(var(--padding-sides) * 1)
+  margin: calc(var(--header-height) * 1.5) calc(var(--padding-sides) * 1)
     calc(var(--padding-sides) * 1);
   max-width: 100%;
   @media ${screenSizes.desktop} {
-    padding: 0 0 calc(var(--padding-sides) * 1) calc(var(--padding-sides) * 1);
+    margin: 0 0 calc(var(--padding-sides) * 1) calc(var(--padding-sides) * 1);
     bottom: 0;
     top: initial;
     max-width: 50%;

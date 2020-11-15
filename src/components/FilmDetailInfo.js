@@ -60,7 +60,8 @@ const FilmDetailSynopsis = styled.div`
   max-width: 100%;
   padding-right: 40px;
   @media ${screenSizes.desktop} {
-    width: 50%;
+    flex-grow: 0;
+    flex-basis: 50%;
   }
 `
 
@@ -68,6 +69,8 @@ const FilmDetailCredits = styled.div`
   margin: 20px 0;
   @media ${screenSizes.desktop} {
     margin: 5px 0 5px 40px;
+    flex-grow: 0;
+    flex-basis: 50%;
   }
   & > div:last-child {
     padding-bottom: 50px;
@@ -128,6 +131,10 @@ const FilmDetailInfo = ({ infosOpen, details, locale }) => {
       cast: {
         de: "Cast",
         en: "Cast",
+      },
+      casting: {
+        de: "Casting",
+        en: "Casting",
       },
     },
   }
@@ -206,12 +213,6 @@ const FilmDetailInfo = ({ infosOpen, details, locale }) => {
             credits={details.maske}
           />
         )}
-        {details.maske && (
-          <FilmDetailCredit
-            category={t.filmDetail.maske[locale]}
-            credits={details.maske}
-          />
-        )}
         {details.montage && (
           <FilmDetailCredit
             category={t.filmDetail.montage[locale]}
@@ -241,6 +242,12 @@ const FilmDetailInfo = ({ infosOpen, details, locale }) => {
           <FilmDetailCredit
             category={t.filmDetail.cast[locale]}
             credits={details.cast}
+          />
+        )}
+        {details.casting && (
+          <FilmDetailCredit
+            category={t.filmDetail.casting[locale]}
+            credits={details.casting}
           />
         )}
       </FilmDetailCredits>
