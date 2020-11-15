@@ -29,8 +29,8 @@ const TeamDescription = styled.div`
   line-height: 1.3;
   border-radius: 10px;
   font-weight: normal;
-  padding: 30px;
-  top: 0;
+  padding: 15px;
+  bottom: 0;
   left: 0;
   margin: calc(var(--header-height) * 1.5) calc(var(--padding-sides) * 1)
     calc(var(--padding-sides) * 1);
