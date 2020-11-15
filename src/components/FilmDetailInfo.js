@@ -132,6 +132,10 @@ const FilmDetailInfo = ({ infosOpen, details, locale }) => {
         de: "Cast",
         en: "Cast",
       },
+      casting: {
+        de: "Casting",
+        en: "Casting",
+      },
     },
   }
   return (
@@ -238,6 +242,12 @@ const FilmDetailInfo = ({ infosOpen, details, locale }) => {
           <FilmDetailCredit
             category={t.filmDetail.cast[locale]}
             credits={details.cast}
+          />
+        )}
+        {details.casting && (
+          <FilmDetailCredit
+            category={t.filmDetail.casting[locale]}
+            credits={details.casting}
           />
         )}
       </FilmDetailCredits>
