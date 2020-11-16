@@ -74,7 +74,6 @@ const ImageSlider = ({ films, overlayVisible, locale }) => {
   useEffect(() => {
     setVh(window.innerHeight || "100vh")
     window.addEventListener("resize", handleResize)
-    console.log("films: ", films)
     return () => {
       window.removeEventListener("resize", handleResize)
     }
