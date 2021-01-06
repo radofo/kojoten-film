@@ -3,13 +3,13 @@ import React, { useState, useEffect } from "react"
 import styled, { createGlobalStyle } from "styled-components"
 import { Helmet } from "react-helmet"
 import favicon from "../media/favicon.svg"
-import { defaultLocale } from "../utils/fetch"
-
 // Children
 import Header from "./header"
 import MobileMenu from "./MobileMenu"
 // Utils
 import { headerHeight } from "../utils/window"
+// Fonts
+import "../styles/customfonts.css"
 
 // ============== Global Styles & Variables ==============
 const LayoutContainer = styled.div``
@@ -20,9 +20,8 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   body, html {
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
-    Helvetica, Arial, "Lucida Grande", sans-serif;
-    font-weight: bold;
+    font-family: "DarkerGrotesque", sans-serif;
+    font-size: 20px;
     background-color: black;
     --padding-sides: 3%;
     --text-color: #fff;
@@ -30,9 +29,9 @@ const GlobalStyle = createGlobalStyle`
     --header-bgcolor-transparent: rgba(0, 0, 0, 0);
     --header-height: ${headerHeight}px;
     --slider-speed-factor: 160;
-    --active-route: #ffd600;
-    --highlight-color: #ffd600;
-    --default-font-size: 16px;
+    --active-route: #E3BA85;
+    --highlight-color: #E3BA85;
+    --default-font-size: 20px;
   }
   img:not([src]) {
     display: none;
