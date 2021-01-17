@@ -7,6 +7,7 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
+    "dev:do": "gatsby develop -H 104.248.47.206 -p 8000",
     "mobile": "gatsby develop -H 192.168.178.20 -p 8000",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
