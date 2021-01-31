@@ -20,7 +20,7 @@ const CommercialDetailHeader = styled.h1`
 `
 const CommercialMoreDetails = styled.p`
   margin-bottom: 15px;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSizes.xxlarge};
 `
 
 const CommercialBasicInfo = ({ details, locale }) => {

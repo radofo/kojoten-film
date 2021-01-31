@@ -15,6 +15,12 @@ module.exports = {
         host: `preview.contentful.com`,
       },
     },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        icon: "src/media/favicon_kojoten.png",
+      },
+    },
     `gatsby-plugin-styled-components`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,

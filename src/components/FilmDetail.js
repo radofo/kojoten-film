@@ -7,8 +7,7 @@ import Layout from "../components/layout"
 import FilmBasicInfo from "./FilmBasicInfo"
 import FilmDetailInfo from "../components/FilmDetailInfo"
 // Utils
-import { screenSizes } from "../utils/mediaqueries"
-import { defaultLocale, createSrcSet } from "../utils/fetch"
+import { defaultLocale } from "../utils/fetch"
 
 import MediaContainer from "./mediaContainer"
 
@@ -40,7 +39,7 @@ const FilmDetailOverlay = styled.div`
   height: 100%;
   position: absolute;
   background: rgba(0, 0, 0, 0.5);
-  display: ${props => {
+  display: ${(props) => {
     return props.infosOpen ? "block" : "none"
   }};
   top: 0;
@@ -59,7 +58,7 @@ const FilmDetail = ({ location }) => {
     }
   }, [])
 
-  const changeLocale = newLocale => {
+  const changeLocale = (newLocale) => {
     if (newLocale !== locale) {
       setLocale(newLocale)
     }
@@ -79,7 +78,7 @@ const FilmDetail = ({ location }) => {
         },
         window.location.host
       )
-      .then(data => {
+      .then((data) => {
         if (data.items.length > 0) {
           setFilmDetails(data.items[0].fields)
           if (

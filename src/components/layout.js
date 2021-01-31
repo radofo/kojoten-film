@@ -1,6 +1,6 @@
 // Libraries
 import React, { useState, useEffect } from "react"
-import styled, { createGlobalStyle } from "styled-components"
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components"
 import { Helmet } from "react-helmet"
 import favicon from "../media/favicon.svg"
 // Children
@@ -10,6 +10,8 @@ import MobileMenu from "./MobileMenu"
 import { headerHeight } from "../utils/window"
 // Fonts
 import "../styles/customfonts.css"
+// Themes
+import { standardTheme } from "../styles/theme"
 
 // ============== Global Styles & Variables ==============
 const LayoutContainer = styled.div``
@@ -21,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body, html {
     font-family: "DarkerGrotesque", sans-serif;
-    font-size: 20px;
+    font-size: ${standardTheme.fontSizes.regularText};
     background-color: black;
     --padding-sides: 3%;
     --text-color: #fff;
@@ -72,27 +74,29 @@ const Layout = ({
         <link href="/fontawesome/css/all.css" rel="stylesheet"></link>
         <title>Kojoten Filmproduktion</title>
       </Helmet>
-      <GlobalStyle />
-      <Body isMenuOpen={isMenuOpen} transparentHeader={transparentHeader}>
-        {children}
-      </Body>
-      {overlayDecided && (
-        <React.Fragment>
-          <Header
-            handleClick={handleClick}
-            isMenuOpen={isMenuOpen}
-            transparentHeader={transparentHeader}
-            backButton={backButton}
-            changeLocale={changeLocale}
-            locale={locale}
-          />
-          <MobileMenu
-            locale={locale}
-            changeLocale={changeLocale}
-            isMenuOpen={isMenuOpen}
-          />
-        </React.Fragment>
-      )}
+      <ThemeProvider theme={standardTheme}>
+        <GlobalStyle />
+        <Body isMenuOpen={isMenuOpen} transparentHeader={transparentHeader}>
+          {children}
+        </Body>
+        {overlayDecided && (
+          <React.Fragment>
+            <Header
+              handleClick={handleClick}
+              isMenuOpen={isMenuOpen}
+              transparentHeader={transparentHeader}
+              backButton={backButton}
+              changeLocale={changeLocale}
+              locale={locale}
+            />
+            <MobileMenu
+              locale={locale}
+              changeLocale={changeLocale}
+              isMenuOpen={isMenuOpen}
+            />
+          </React.Fragment>
+        )}
+      </ThemeProvider>
     </LayoutContainer>
   )
 }

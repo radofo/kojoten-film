@@ -34,10 +34,10 @@ const NavButton = styled.button`
   }
   z-index: 9999;
   position: fixed;
-  left: ${props => {
+  left: ${(props) => {
     return props.left ? 0 : "initial"
   }};
-  right: ${props => {
+  right: ${(props) => {
     return props.right ? 0 : "initial"
   }};
   top: 50%;
@@ -57,7 +57,7 @@ const Commercial = ({ location }) => {
     }
   }, [])
 
-  const changeLocale = newLocale => {
+  const changeLocale = (newLocale) => {
     if (newLocale !== locale) {
       setLocale(newLocale)
     }
@@ -86,7 +86,7 @@ const Commercial = ({ location }) => {
         },
         window.location.host
       )
-      .then(apidata => {
+      .then((apidata) => {
         apidata.items.push(apidata.items.shift()) // Workaround because Swiper starts with the last element for some reason
         setCommercials(apidata)
       })

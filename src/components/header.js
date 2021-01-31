@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import kojotenlogo from "../media/kojoten_logo.svg"
+import kojotenlogo from "../media/kojoten_logo_weiss.svg"
 import { screenSizes } from "../utils/mediaqueries"
 import Navigation from "./navigation"
 import NavItem from "./navItem"
@@ -18,7 +18,7 @@ const HeaderContainer = styled.header`
   top: 0;
   width: 100%;
   z-index: 99999;
-  background-color: ${props => {
+  background-color: ${(props) => {
     return props.transparentHeader
       ? "var(--header-bgcolor-transparent)"
       : "var(--header-bgcolor)"
@@ -38,8 +38,13 @@ const BackButton = styled.i`
   }
 `
 
+const LogoLink = styled((props) => <Link {...props} />)`
+  line-height: 0.9;
+`
+
 const KojotenLogo = styled.img`
   width: 120px;
+  margin-top: 5px;
   &:hover {
     cursor: pointer;
   }
@@ -54,7 +59,7 @@ const LocaleSwitcher = styled.div`
   @media ${screenSizes.desktop} {
     margin-left: 50px;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
   }
 `
@@ -62,11 +67,12 @@ const LocaleSwitcher = styled.div`
 const LocaleButton = styled.button`
   background: rgba(0, 0, 0, 0);
   border: 1px solid rgba(0, 0, 0, 0);
-  font-size: 14px;
-  color: ${props => props.buttonColor};
+  color: ${(props) => props.buttonColor};
   padding: 0 2px;
+  font-size: ${(props) => props.theme.fontSizes.xSmallText};
   display: flex;
   align-items: center;
+  font-family: "DarkerGrotesque", sans-serif;
   &:hover {
     cursor: pointer;
     color: white;
@@ -77,7 +83,8 @@ const LocaleButton = styled.button`
 `
 
 const Dash = styled.span`
-  font-size: 12px;
+  font-size: 18px;
+  color: ${(props) => props.theme.colors.textDimmed};
 `
 
 // ================ Header React Component ================
@@ -94,9 +101,9 @@ const Header = ({
       <BackButton className="fa fa-arrow-left fa-2x" alt="Back"></BackButton>
     </Link>
   ) : (
-    <Link to="/" state={{ modal: false, locale: locale }}>
+    <LogoLink to="/" state={{ modal: false, locale: locale }}>
       <KojotenLogo src={kojotenlogo} alt="Kojoten Film" />
-    </Link>
+    </LogoLink>
   )
   const t = {
     navigation: {
@@ -123,7 +130,7 @@ const Header = ({
     },
   }
 
-  const setLocale = language => {
+  const setLocale = (language) => {
     if (typeof Storage !== "undefined") {
       localStorage.setItem("kojotenLanguage", language)
     }

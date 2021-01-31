@@ -40,7 +40,7 @@ const NewsImageBox = styled.div`
 
 const NewsContent = styled.div`
   margin-top: 20px;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSizes.smallText};
   & p {
     margin-bottom: 5px;
   }

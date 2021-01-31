@@ -77,11 +77,12 @@ const LocaleSwitcher = styled.div`
 const LocaleButton = styled.button`
   background: rgba(0, 0, 0, 0);
   border: 1px solid rgba(0, 0, 0, 0);
-  font-size: 14px;
-  color: ${props => props.buttonColor};
+  color: ${(props) => props.buttonColor};
   padding: 0 2px;
+  font-size: ${(props) => props.theme.fontSizes.xSmallText};
   display: flex;
   align-items: center;
+  font-family: "DarkerGrotesque", sans-serif;
   &:hover {
     cursor: pointer;
     color: white;
@@ -92,7 +93,8 @@ const LocaleButton = styled.button`
 `
 
 const Dash = styled.span`
-  font-size: 12px;
+  font-size: 18px;
+  color: ${(props) => props.theme.colors.textDimmed};
 `
 
 const MobileMenu = ({ isMenuOpen, locale, changeLocale }) => {
