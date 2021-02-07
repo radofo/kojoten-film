@@ -1,10 +1,12 @@
 import React from "react"
 import styled from "styled-components"
-import kojotenlogo from "../media/kojoten_logo_weiss.svg"
+import kojotenlogo from "../media/kojoten_logo_new.png"
 import { screenSizes } from "../utils/mediaqueries"
 import Navigation from "./navigation"
 import NavItem from "./navItem"
 import { Link } from "gatsby"
+// import { ArrowLeft } from "react-feather"
+import { BackButton } from "../styles/styled-components"
 
 // ================ Styled Components ================
 const HeaderContainer = styled.header`
@@ -28,13 +30,6 @@ const HeaderContainer = styled.header`
 const BurgerMenu = styled.div`
   @media ${screenSizes.desktop} {
     display: none;
-  }
-`
-
-const BackButton = styled.i`
-  color: var(--text-color);
-  &:hover {
-    cursor: pointer;
   }
 `
 
@@ -98,7 +93,7 @@ const Header = ({
 }) => {
   const headerImage = backButton ? (
     <Link to="/">
-      <BackButton className="fa fa-arrow-left fa-2x" alt="Back"></BackButton>
+      <BackButton size={36} />
     </Link>
   ) : (
     <LogoLink to="/" state={{ modal: false, locale: locale }}>

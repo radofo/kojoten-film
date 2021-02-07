@@ -7,10 +7,10 @@ const FilmBasicInfoContainer = styled.div``
 const FilmDetailHeading = styled.h1`
   color: var(--highlight-color);
   line-height: 0.9;
+  margin-bottom: 5px;
   font-weight: normal;
   text-transform: uppercase;
   @media ${screenSizes.desktop} {
-    margin-bottom: 20px;
     font-size: 3em;
   }
 `

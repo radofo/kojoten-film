@@ -15,6 +15,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/swiper-bundle.min.css"
 import "../styles/swiper.css"
 import Pending from "../components/pending"
+import { ChevronRight, ChevronLeft } from "react-feather"
 
 SwiperCore.use([Navigation])
 
@@ -135,11 +136,11 @@ const Commercial = ({ location }) => {
                 </SwiperSlide>
               )
             })}
-          <NavButton left>
-            <i className="fa fa-chevron-left swiper-prev"></i>
+          <NavButton className="swiper-prev" left>
+            <ChevronLeft size={50} />
           </NavButton>
-          <NavButton right>
-            <i className="fa fa-chevron-right swiper-next"></i>
+          <NavButton className="swiper-next" right>
+            <ChevronRight size={50} />
           </NavButton>
         </Swiper>
       )}
