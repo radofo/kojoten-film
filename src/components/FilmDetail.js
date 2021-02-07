@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react"
 import * as fetchContentful from "../utils/fetch"
 import { Helmet } from "react-helmet"
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 // Components
 import Layout from "../components/layout"
 import FilmBasicInfo from "./FilmBasicInfo"
 import FilmDetailInfo from "../components/FilmDetailInfo"
-// Utils
-import { screenSizes } from "../utils/mediaqueries"
-import { defaultLocale, createSrcSet } from "../utils/fetch"
+// Utils & Icons
+import { defaultLocale } from "../utils/fetch"
+import { ChevronDown, X } from "react-feather"
 
 import MediaContainer from "./mediaContainer"
 
@@ -24,7 +24,7 @@ const FilmDetailContainer = styled.div`
   background: black;
 `
 
-const FilmDetailToggle = styled.i`
+const FilmDetailFeatherIcon = css`
   position: absolute;
   bottom: 20px;
   left: 50%;
@@ -35,12 +35,19 @@ const FilmDetailToggle = styled.i`
     cursor: pointer;
   }
 `
+const FeatherChevronDown = styled((props) => <ChevronDown {...props} />)`
+  ${FilmDetailFeatherIcon}
+`
+const FeatherX = styled((props) => <X {...props} />)`
+  ${FilmDetailFeatherIcon}
+`
+
 const FilmDetailOverlay = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
   background: rgba(0, 0, 0, 0.5);
-  display: ${props => {
+  display: ${(props) => {
     return props.infosOpen ? "block" : "none"
   }};
   top: 0;
@@ -59,7 +66,7 @@ const FilmDetail = ({ location }) => {
     }
   }, [])
 
-  const changeLocale = newLocale => {
+  const changeLocale = (newLocale) => {
     if (newLocale !== locale) {
       setLocale(newLocale)
     }
@@ -79,7 +86,7 @@ const FilmDetail = ({ location }) => {
         },
         window.location.host
       )
-      .then(data => {
+      .then((data) => {
         if (data.items.length > 0) {
           setFilmDetails(data.items[0].fields)
           if (
@@ -134,11 +141,11 @@ const FilmDetail = ({ location }) => {
           infosOpen={infosOpen}
           details={filmDetails}
         />
-
-        <FilmDetailToggle
-          onClick={toggleInfosOpen}
-          className={`fa fa-${infosOpen ? "times" : "chevron-down"} fa-2x`}
-        ></FilmDetailToggle>
+        {infosOpen ? (
+          <FeatherX onClick={toggleInfosOpen} size={36} />
+        ) : (
+          <FeatherChevronDown onClick={toggleInfosOpen} size={40} />
+        )}
       </FilmDetailContainer>
     </Layout>
   )

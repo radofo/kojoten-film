@@ -2,25 +2,28 @@ import React from "react"
 import styled from "styled-components"
 import { screenSizes } from "../utils/mediaqueries"
 
-const FilmBasicInfoContainer = styled.div`
-  color: var(--highlight-color);
-`
+const FilmBasicInfoContainer = styled.div``
 
 const FilmDetailHeading = styled.h1`
+  color: var(--highlight-color);
+  line-height: 0.9;
+  margin-bottom: 5px;
+  font-weight: normal;
+  text-transform: uppercase;
   @media ${screenSizes.desktop} {
     font-size: 3em;
   }
 `
 const FilmDetailDirector = styled.p`
   margin-bottom: 15px;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSizes.regularText};
 `
 const FilmDetailGenres = styled.p`
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSizes.regularText};
   text-transform: uppercase;
 `
 const FilmDetailPlaytime = styled.p`
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSizes.regularText};
 `
 
 const FilmDetailHeader = ({ details, infosOpen }) => {

@@ -14,13 +14,15 @@ const CommercialBasicInfoContainer = styled.div`
 `
 
 const CommercialDetailHeader = styled.h1`
+  line-height: 0.9;
+  margin-bottom: 10px;
   @media ${screenSizes.desktop} {
     font-size: 3em;
   }
 `
 const CommercialMoreDetails = styled.p`
   margin-bottom: 15px;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSizes.xxlarge};
 `
 
 const CommercialBasicInfo = ({ details, locale }) => {

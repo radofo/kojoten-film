@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import styled from "styled-components"
-import { defaultLocale } from "../utils/fetch"
 import Moment from "react-moment"
 import { screenSizes } from "../utils/mediaqueries"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
@@ -41,7 +40,7 @@ const NewsImageBox = styled.div`
 
 const NewsContent = styled.div`
   margin-top: 20px;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSizes.smallText};
   & p {
     margin-bottom: 5px;
   }

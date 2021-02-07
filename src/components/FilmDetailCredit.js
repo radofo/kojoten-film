@@ -2,11 +2,10 @@ import React from "react"
 import styled from "styled-components"
 
 const FilmDetailCreditContainer = styled.div`
-  color: var(--highlight-color);
   margin-bottom: 15px;
 `
 const FilmDetailCreditHeader = styled.p`
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSizes.xSmallText};
   margin: 0 0 3px;
 `
 const FilmDetailCreditNames = styled.p`
