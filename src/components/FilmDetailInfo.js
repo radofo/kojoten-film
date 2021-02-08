@@ -19,17 +19,17 @@ const FilmDetailInfoContainer = styled.div`
   flex-direction: column;
   padding: 20px var(--padding-sides) 0;
   margin: var(--header-height) 0 0;
-  opacity: ${props => {
+  opacity: ${(props) => {
     return props.infosOpen ? "1" : "0"
   }};
-  visibility: ${props => {
+  visibility: ${(props) => {
     return props.infosOpen ? "visible" : "hidden"
   }};
-  z-index: ${props => {
+  z-index: ${(props) => {
     return props.infosOpen ? "99" : "0"
   }};
   transition: all 0.45s ease-out;
-  transform: ${props => {
+  transform: ${(props) => {
     return props.infosOpen ? "translateY(0)" : "translateY(50px)"
   }};
   color: white;
@@ -40,10 +40,32 @@ const FilmDetailInfoContainer = styled.div`
   }
 `
 
+const FilmDetailSynopsis = styled.div`
+  max-width: 100%;
+  padding-right: 60px;
+  @media ${screenSizes.desktop} {
+    flex-grow: 0;
+    flex-basis: 50%;
+  }
+`
+
+const FilmDetailCredits = styled.div`
+  margin: 20px 0;
+  @media ${screenSizes.desktop} {
+    padding-left: 60px;
+    margin: 0;
+    padding-top: 10px;
+    flex-grow: 0;
+    flex-basis: 50%;
+  }
+  & > div:last-child {
+    padding-bottom: 50px;
+  }
+`
+
 const FilmDetailedInfos = styled.div``
 const FilmDetailDescription = styled.div`
   margin-top: 20px;
-  color: var(--highlight-color);
 `
 const FilmDetailAward = styled.img`
   width: 100px;
@@ -54,27 +76,6 @@ const FilmDetailAwardRow = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-`
-
-const FilmDetailSynopsis = styled.div`
-  max-width: 100%;
-  padding-right: 40px;
-  @media ${screenSizes.desktop} {
-    flex-grow: 0;
-    flex-basis: 50%;
-  }
-`
-
-const FilmDetailCredits = styled.div`
-  margin: 20px 0;
-  @media ${screenSizes.desktop} {
-    margin: 5px 0 5px 40px;
-    flex-grow: 0;
-    flex-basis: 50%;
-  }
-  & > div:last-child {
-    padding-bottom: 50px;
-  }
 `
 
 const FilmDetailInfo = ({ infosOpen, details, locale }) => {

@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
 
-const NavigationItem = styled(props => <Link {...props} />)`
+const NavigationItem = styled((props) => <Link {...props} />)`
   text-decoration: none;
-  color: ${props => {
+  color: ${(props) => {
     return props.navcolor
   }};
+  display: flex;
+  align-items: center;
   &:not(:last-child) {
     margin-right: 20px;
   }

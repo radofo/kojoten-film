@@ -1,44 +1,16 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect } from "react"
 import FilmPoster from "../components/filmPoster"
-import styled, { keyframes } from "styled-components"
-import { sliderSpeedFactor, getNodeListWidth } from "../utils/slider"
+import styled from "styled-components"
 import { screenSizes } from "../utils/mediaqueries"
 // 3rd Party
 import SwiperCore, { Navigation, Mousewheel, Scrollbar, Autoplay } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/swiper-bundle.css"
 import "../styles/swiper.css"
-
+import { ChevronRight, ChevronLeft } from "react-feather"
 SwiperCore.use([Navigation, Mousewheel, Scrollbar, Autoplay])
 
 // Styled Components
-const animateBatch = batchWidth => keyframes`
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-${batchWidth}px);
-  }
-`
-const ImageContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: inline-flex;
-  flex-direction: row;
-  align-items: flex-start;
-  transform: translateX(0);
-  animation: ${props => animateBatch(props.batchWidth)}
-    ${props => {
-      return props.batchWidth / sliderSpeedFactor
-    }}s
-    linear infinite;
-  animation-fill-mode: forwards;
-  animation-play-state: ${props => {
-    return props.play ? "play" : "paused"
-  }};
-`
-
 const NavButton = styled.button`
   color: #c1c1c1;
   outline: none;
@@ -55,10 +27,10 @@ const NavButton = styled.button`
   }
   z-index: 9999;
   position: fixed;
-  left: ${props => {
+  left: ${(props) => {
     return props.left ? 0 : "initial"
   }};
-  right: ${props => {
+  right: ${(props) => {
     return props.right ? 0 : "initial"
   }};
   top: 50%;
@@ -82,12 +54,6 @@ const ImageSlider = ({ films, overlayVisible, locale }) => {
 
   const handleResize = () => {
     setVh(window.innerHeight || "100vh")
-  }
-
-  const handleClick = () => {
-    swiperRef.autoplay.running
-      ? swiperRef.autoplay.stop()
-      : swiperRef.autoplay.start()
   }
 
   return films.length > 0 ? (
@@ -120,11 +86,11 @@ const ImageSlider = ({ films, overlayVisible, locale }) => {
             </SwiperSlide>
           )
         })}
-        <NavButton left>
-          <i className="fa fa-chevron-left swiper-prev"></i>
+        <NavButton className="swiper-prev" left>
+          <ChevronLeft size={50} />
         </NavButton>
-        <NavButton right>
-          <i className="fa fa-chevron-right swiper-next"></i>
+        <NavButton className="swiper-next" right>
+          <ChevronRight size={50} />
         </NavButton>
       </Swiper>
     </div>

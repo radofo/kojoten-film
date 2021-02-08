@@ -8,6 +8,7 @@ export const defaultLocale = "de"
 export const getAllEntries = (params, hostname) => {
   const previewHosts = [
     // "192.168.178.20:8000",
+    "104.248.47.206:8000",
     "localhost:8000",
     "kojoten-film-integration.web.app",
   ]

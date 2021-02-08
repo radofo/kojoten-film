@@ -7,6 +7,7 @@ import VimeoControls from "./VimeoControls"
 import { defaultLocale } from "../utils/fetch"
 import { Link } from "gatsby"
 import { headerHeight } from "../utils/window"
+import { BackButton } from "../styles/styled-components"
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -35,7 +36,7 @@ const VimeoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: ${props => {
+  height: ${(props) => {
     return props.vh
   }};
   overflow: hidden;
@@ -46,12 +47,12 @@ const VimeoAnchor = styled.div`
   position: relative;
 `
 
-const BackButton = styled.i`
-  color: white;
-  &:hover {
-    cursor: pointer;
-  }
-`
+// const BackButton = styled.i`
+//   color: white;
+//   &:hover {
+//     cursor: pointer;
+//   }
+// `
 
 const TopRow = styled.div`
   padding: 0 3%;
@@ -85,7 +86,7 @@ const Vimeo = ({ location }) => {
         },
         window.location.host
       )
-      .then(data => {
+      .then((data) => {
         const details = data.items[0].fields
         setDetails(details)
         var options = {
@@ -119,7 +120,7 @@ const Vimeo = ({ location }) => {
       <VimeoAnchor id="vimeo-container">
         <TopRow>
           <Link to={`/${section === "film" ? `film/${details.url}` : section}`}>
-            <BackButton className="fa fa-arrow-left fa-2x"></BackButton>
+            <BackButton size={36} />
           </Link>
         </TopRow>
         <VimeoControls player={vimeoPlayer} onClick={enterFullScreen} />
