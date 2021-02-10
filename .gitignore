@@ -54,6 +54,9 @@ typings/
 # dotenv environment variable files
 .env*
 
+# Shell Scripts
+*.sh
+
 # gatsby files
 .cache/
 public
