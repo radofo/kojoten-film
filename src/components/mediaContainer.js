@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import styled from "styled-components"
 import { createSrcSet } from "../utils/fetch"
 import { Link } from "gatsby"
 
-const MediaContainerStyles = styled(props => {
+const MediaContainerStyles = styled((props) => {
   return props.islink ? <Link {...props} /> : <div {...props} />
 })`
   display: block;
@@ -11,7 +11,7 @@ const MediaContainerStyles = styled(props => {
   width: 100%;
   overflow: hidden;
   z-index: 99;
-  cursor: ${props => (props.islink ? "url('/play.svg'), pointer" : "auto")};
+  cursor: ${(props) => (props.islink ? "url('/play.svg'), pointer" : "auto")};
 `
 const Video = styled.video`
   object-fit: cover;
@@ -25,7 +25,7 @@ const Image = styled.img`
   height: 100%;
   background: black;
   border: 1px solid black;
-  filter: ${props => props.filters};
+  filter: ${(props) => props.filters};
 `
 
 const MediaContainer = ({ children, media, customLink }) => {
