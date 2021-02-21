@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
+import { isMobile } from "react-device-detect"
 import styled from "styled-components"
 import { createSrcSet } from "../utils/fetch"
 import { Link } from "gatsby"
+import { PlayButton } from "./icons/PlayButton"
 
-const MediaContainerStyles = styled(props => {
+
+const MediaContainerStyles = styled((props) => {
   return props.islink ? <Link {...props} /> : <div {...props} />
 })`
   display: block;
@@ -11,7 +14,7 @@ const MediaContainerStyles = styled(props => {
   width: 100%;
   overflow: hidden;
   z-index: 99;
-  cursor: ${props => (props.islink ? "url('/play.svg'), pointer" : "auto")};
+  cursor: ${(props) => (props.islink ? "url('/play.svg'), pointer" : "auto")};
 `
 const Video = styled.video`
   object-fit: cover;
@@ -25,7 +28,7 @@ const Image = styled.img`
   height: 100%;
   background: black;
   border: 1px solid black;
-  filter: ${props => props.filters};
+  filter: ${(props) => props.filters};
 `
 
 const MediaContainer = ({ children, media, customLink }) => {
@@ -35,7 +38,7 @@ const MediaContainer = ({ children, media, customLink }) => {
     imgSrc = createSrcSet(media.horizontalImage.src)[0]
     imgSrcSet = createSrcSet(media.horizontalImage.src)[1]
   }
-
+  const displayMobilePlayButton = isMobile && customLink?.length > 0
   return (
     <MediaContainerStyles
       islink={customLink ? 1 : 0}
@@ -55,6 +58,7 @@ const MediaContainer = ({ children, media, customLink }) => {
         />
       )}
       {children}
+      {displayMobilePlayButton && <PlayButton size={50} />}
     </MediaContainerStyles>
   )
 }
