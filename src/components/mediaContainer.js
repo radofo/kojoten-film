@@ -1,7 +1,10 @@
 import React from "react"
+import { isMobile } from "react-device-detect"
 import styled from "styled-components"
 import { createSrcSet } from "../utils/fetch"
 import { Link } from "gatsby"
+import { PlayButton } from "./icons/PlayButton"
+
 
 const MediaContainerStyles = styled((props) => {
   return props.islink ? <Link {...props} /> : <div {...props} />
@@ -35,7 +38,7 @@ const MediaContainer = ({ children, media, customLink }) => {
     imgSrc = createSrcSet(media.horizontalImage.src)[0]
     imgSrcSet = createSrcSet(media.horizontalImage.src)[1]
   }
-
+  const displayMobilePlayButton = isMobile && customLink?.length > 0
   return (
     <MediaContainerStyles
       islink={customLink ? 1 : 0}
@@ -55,6 +58,7 @@ const MediaContainer = ({ children, media, customLink }) => {
         />
       )}
       {children}
+      {displayMobilePlayButton && <PlayButton size={50} />}
     </MediaContainerStyles>
   )
 }
