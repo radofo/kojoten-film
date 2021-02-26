@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import styled from "styled-components"
 import FilmDetailHeader from "./FilmDetailHeader"
 import FilmDetailCredit from "./FilmDetailCredit"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { renderOptions } from "../utils/richText"
-import { createSrcSet } from "../utils/fetch"
 
 import { screenSizes } from "../utils/mediaqueries"
+import { IconRow } from "./IconRow"
+import { t } from "./locales/filmdetail"
 
 const FilmDetailInfoContainer = styled.div`
   width: 100%;
@@ -19,17 +20,17 @@ const FilmDetailInfoContainer = styled.div`
   flex-direction: column;
   padding: 20px var(--padding-sides) 0;
   margin: var(--header-height) 0 0;
-  opacity: ${(props) => {
+  opacity: ${props => {
     return props.infosOpen ? "1" : "0"
   }};
-  visibility: ${(props) => {
+  visibility: ${props => {
     return props.infosOpen ? "visible" : "hidden"
   }};
-  z-index: ${(props) => {
+  z-index: ${props => {
     return props.infosOpen ? "99" : "0"
   }};
   transition: all 0.45s ease-out;
-  transform: ${(props) => {
+  transform: ${props => {
     return props.infosOpen ? "translateY(0)" : "translateY(50px)"
   }};
   color: white;
@@ -67,78 +68,8 @@ const FilmDetailedInfos = styled.div``
 const FilmDetailDescription = styled.div`
   margin-top: 20px;
 `
-const FilmDetailAward = styled.img`
-  width: 100px;
-  margin: 0 20px 20px 0;
-`
-const FilmDetailAwardRow = styled.div`
-  margin: 20px 0;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-`
 
 const FilmDetailInfo = ({ infosOpen, details, locale }) => {
-  const t = {
-    filmDetail: {
-      autor: {
-        de: "Autor*in",
-        en: "Writer",
-      },
-      regisseur: {
-        de: "Regisseur*in",
-        en: "Director",
-      },
-      producer: {
-        de: "Producer",
-        en: "Producer",
-      },
-      produzent: {
-        de: "Produzent*in",
-        en: "Executive Producer",
-      },
-      kamera: {
-        de: "Kamera",
-        en: "Cinematography",
-      },
-      szenenbild: {
-        de: "Szenenbild",
-        en: "Art Direction",
-      },
-      kostum: {
-        de: "Kostüm",
-        en: "Costume Design",
-      },
-      maske: {
-        de: "Maske",
-        en: "Make Up",
-      },
-      montage: {
-        de: "Montage",
-        en: "Edited By",
-      },
-      sounddesign: {
-        de: "Sounddesign",
-        en: "Sounddesign",
-      },
-      filmmusik: {
-        de: "Filmmusik",
-        en: "Music By",
-      },
-      farbkorrektur: {
-        de: "Farbkorrektur",
-        en: "Color Grading",
-      },
-      cast: {
-        de: "Cast",
-        en: "Cast",
-      },
-      casting: {
-        de: "Casting",
-        en: "Casting",
-      },
-    },
-  }
   return (
     <FilmDetailInfoContainer infosOpen={infosOpen}>
       <FilmDetailSynopsis>
@@ -147,107 +78,103 @@ const FilmDetailInfo = ({ infosOpen, details, locale }) => {
           <FilmDetailDescription>
             {documentToReactComponents(details.beschreibung, renderOptions)}
           </FilmDetailDescription>
-          <FilmDetailAwardRow>
-            {details.auszeichnungen &&
-              details.auszeichnungen.map((auszeichnung, index) => {
-                const [awardSrc, awardSrcSet] = createSrcSet(
-                  auszeichnung.fields.file.url,
-                  "svg"
-                )
-                return (
-                  <FilmDetailAward
-                    key={index}
-                    src={awardSrc}
-                    srcSet={awardSrcSet}
-                  />
-                )
-              })}
-          </FilmDetailAwardRow>
+          {details.auszeichnungen && (
+            <IconRow
+              heading={t.iconRows.auszeichnungen[locale]}
+              icons={details.auszeichnungen}
+            />
+          )}
+          {details.koproduktionFrderungPartner && (
+            <IconRow
+              heading={t.iconRows.koproduktion[locale]}
+              icons={details.koproduktionFrderungPartner}
+            />
+          )}
         </FilmDetailedInfos>
       </FilmDetailSynopsis>
       <FilmDetailCredits>
         {details.writers && (
           <FilmDetailCredit
-            category={t.filmDetail.autor[locale]}
+            category={t.credits.autor[locale]}
             credits={details.writers}
           />
         )}
         {details.director && (
           <FilmDetailCredit
-            category={t.filmDetail.regisseur[locale]}
+            category={t.credits.regisseur[locale]}
             credits={details.director}
           />
         )}
         {details.producer && (
           <FilmDetailCredit
-            category={t.filmDetail.producer[locale]}
+            category={t.credits.producer[locale]}
             credits={details.producer}
           />
         )}
         {details.produzentin && (
           <FilmDetailCredit
-            category={t.filmDetail.produzent[locale]}
+            category={t.credits.produzent[locale]}
             credits={details.produzentin}
           />
         )}
         {details.cinematographer && (
           <FilmDetailCredit
-            category={t.filmDetail.kamera[locale]}
+            category={t.credits.kamera[locale]}
             credits={details.cinematographer}
           />
         )}
         {details.szenenbild && (
           <FilmDetailCredit
-            category={t.filmDetail.szenenbild[locale]}
+            category={t.credits.szenenbild[locale]}
             credits={details.szenenbild}
           />
         )}
         {details.kostm && (
           <FilmDetailCredit
-            category={t.filmDetail.kostum[locale]}
+            category={t.credits.kostum[locale]}
             credits={details.kostm}
           />
         )}
         {details.maske && (
           <FilmDetailCredit
-            category={t.filmDetail.maske[locale]}
+            category={t.credits.maske[locale]}
             credits={details.maske}
           />
         )}
         {details.montage && (
           <FilmDetailCredit
-            category={t.filmDetail.montage[locale]}
+            category={t.credits.montage[locale]}
             credits={details.montage}
           />
         )}
         {details.sounddesign && (
           <FilmDetailCredit
-            category={t.filmDetail.sounddesign[locale]}
+            category={t.credits.sounddesign[locale]}
             credits={details.sounddesign}
           />
         )}
 
         {details.filmmusik && (
           <FilmDetailCredit
-            category={t.filmDetail.filmmusik[locale]}
+            category={t.credits.filmmusik[locale]}
             credits={details.filmmusik}
           />
         )}
         {details.farbkorrektur && (
           <FilmDetailCredit
-            category={t.filmDetail.farbkorrektur[locale]}
+            category={t.credits.farbkorrektur[locale]}
             credits={details.farbkorrektur}
           />
         )}
         {details.cast && (
           <FilmDetailCredit
-            category={t.filmDetail.cast[locale]}
+            category={t.credits.cast[locale]}
             credits={details.cast}
           />
         )}
         {details.casting && (
           <FilmDetailCredit
-            category={t.filmDetail.casting[locale]}
+            category={t.credits.casting[locale]}
             credits={details.casting}
           />
         )}
