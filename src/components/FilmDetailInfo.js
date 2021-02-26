@@ -18,7 +18,7 @@ const FilmDetailInfoContainer = styled.div`
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
-  padding: 20px var(--padding-sides) 0;
+  padding: 20px var(--padding-sides) 100px;
   margin: var(--header-height) 0 0;
   opacity: ${props => {
     return props.infosOpen ? "1" : "0"
@@ -47,6 +47,9 @@ const FilmDetailSynopsis = styled.div`
   @media ${screenSizes.desktop} {
     flex-grow: 0;
     flex-basis: 50%;
+    & > div:last-child {
+      padding-bottom: 50px;
+    }
   }
 `
 
