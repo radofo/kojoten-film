@@ -1,9 +1,9 @@
 import React from "react"
 import styled from "styled-components"
-import FilmDetailHeader from "./FilmDetailHeader"
 import FilmDetailCredit from "./FilmDetailCredit"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { renderOptions } from "../utils/richText"
+import FilmShortDescription from "./molecules/FilmShortDescription"
 
 import { screenSizes } from "../utils/mediaqueries"
 import { IconRow } from "./IconRow"
@@ -76,7 +76,7 @@ const FilmDetailInfo = ({ infosOpen, details, locale }) => {
   return (
     <FilmDetailInfoContainer infosOpen={infosOpen}>
       <FilmDetailSynopsis>
-        <FilmDetailHeader details={details} />
+        <FilmShortDescription isColoredHeader={true} details={details} />
         <FilmDetailedInfos>
           <FilmDetailDescription>
             {documentToReactComponents(details.beschreibung, renderOptions)}
