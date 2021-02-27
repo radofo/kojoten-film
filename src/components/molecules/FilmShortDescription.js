@@ -1,35 +1,46 @@
 import React from "react"
 import styled from "styled-components"
-import { screenSizes } from "../utils/mediaqueries"
 
-const FilmBasicInfoContainer = styled.div``
+import { screenSizes } from "../../utils/mediaqueries"
 
-const FilmDetailHeading = styled.h1`
-  color: var(--highlight-color);
-  line-height: 0.9;
-  margin-bottom: 5px;
-  font-weight: normal;
+const FilmDetailHeader = styled.h1`
   text-transform: uppercase;
+  color: ${props =>
+    props.isColoredHeader
+      ? props.theme.colors.highlight
+      : props.theme.colors.normal};
+  line-height: 0.9;
+  font-weight: normal;
+  margin-bottom: 10px;
   @media ${screenSizes.desktop} {
     font-size: 3em;
   }
 `
 const FilmDetailDirector = styled.p`
   margin-bottom: 15px;
+  color: ${props => props.theme.colors.normal};
   font-size: ${props => props.theme.fontSizes.regularText};
 `
 const FilmDetailGenres = styled.p`
+  color: ${props => props.theme.colors.normal};
+
   font-size: ${props => props.theme.fontSizes.regularText};
   text-transform: uppercase;
 `
 const FilmDetailPlaytime = styled.p`
+  color: ${props => props.theme.colors.normal};
   font-size: ${props => props.theme.fontSizes.regularText};
 `
+const FilmDetailStatus = styled.p`
+  color: ${({ theme }) => theme.colors.highlight};
+`
 
-const FilmDetailHeader = ({ details, infosOpen }) => {
+const FilmShortDescription = ({ details, isColoredHeader = false }) => {
   return (
-    <FilmBasicInfoContainer infosOpen={infosOpen}>
-      <FilmDetailHeading>{details.titel}</FilmDetailHeading>
+    <>
+      <FilmDetailHeader isColoredHeader={isColoredHeader}>
+        {details.titel}
+      </FilmDetailHeader>
       <FilmDetailDirector>
         {details.director &&
           details.director.map((director, index) => {
@@ -55,8 +66,11 @@ const FilmDetailHeader = ({ details, infosOpen }) => {
       <FilmDetailPlaytime>
         {details.lngeInMinuten ? `${details.lngeInMinuten} MIN.` : ""}
       </FilmDetailPlaytime>
-    </FilmBasicInfoContainer>
+      {details.filmstatus && (
+        <FilmDetailStatus>{details.filmstatus.toUpperCase()}</FilmDetailStatus>
+      )}
+    </>
   )
 }
 
-export default FilmDetailHeader
+export default FilmShortDescription

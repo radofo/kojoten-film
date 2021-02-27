@@ -6,6 +6,8 @@ export const standardTheme = {
     headerXXL: "26px",
   },
   colors: {
+    normal: "#fff",
+    highlight: "#E3BA85",
     textDimmed: "#ababab",
   },
 }
