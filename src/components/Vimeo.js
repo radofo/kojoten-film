@@ -36,7 +36,7 @@ const VimeoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: ${(props) => {
+  height: ${props => {
     return props.vh
   }};
   overflow: hidden;
@@ -86,7 +86,7 @@ const Vimeo = ({ location }) => {
         },
         window.location.host
       )
-      .then((data) => {
+      .then(data => {
         const details = data.items[0].fields
         setDetails(details)
         var options = {
@@ -94,6 +94,7 @@ const Vimeo = ({ location }) => {
           controls: false,
           autoplay: true,
           responsive: true,
+          transparent: false,
         }
         var player = new Player("vimeo-container", options)
         setVimeoPlayer(player)
