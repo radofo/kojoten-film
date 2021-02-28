@@ -68,9 +68,6 @@ const FilmPoster = ({ film, locale }) => {
         src={posterSrc}
         alt={poster && poster.title}
       />
-      {film.fields.inEntwicklung && (
-        <ComingSoon>{t.film.comingsoon[locale]}</ComingSoon>
-      )}
     </PosterContainer>
   )
 }

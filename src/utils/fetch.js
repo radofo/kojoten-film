@@ -42,8 +42,13 @@ export const getEntry = (id, params, hostname) => {
   return client.getEntry(id, params)
 }
 
-export const createSrcSet = (src, fileFormat = "png") => {
-  const params = fileFormat === "svg" ? "" : "?fm=jpg&fl=progressive"
+export const createSrcSet = (
+  src,
+  fileFormat = "png",
+  isTransparent = false
+) => {
+  const params =
+    fileFormat === "svg" || isTransparent ? "" : "?fm=jpg&fl=progressive"
   return [
     `${src}${params}`,
     `${src}${params} 1x, ${src}${params} 1.5x, ${src}${params} 2x`,

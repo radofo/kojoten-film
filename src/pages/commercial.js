@@ -127,7 +127,11 @@ const Commercial = ({ location }) => {
                 <SwiperSlide key={index}>
                   <MediaContainer
                     media={commercialMedia}
-                    customLink={`/media/c/${commercial.fields.url}`}
+                    customLink={
+                      commercial.fields.url
+                        ? `/media/c/${commercial.fields.url}`
+                        : undefined
+                    }
                   ></MediaContainer>
                   <CommercialBasicInfo
                     locale={locale}
