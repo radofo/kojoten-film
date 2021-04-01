@@ -3,7 +3,7 @@ import styled from "styled-components"
 import FilmDetailCredit from "./FilmDetailCredit"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { renderOptions } from "../utils/richText"
-import FilmShortDescription from "./molecules/FilmShortDescription"
+import FilmShortDescription from "./reusable/FilmShortDescription"
 
 import { screenSizes } from "../utils/mediaqueries"
 import { IconRow } from "./IconRow"

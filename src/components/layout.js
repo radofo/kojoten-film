@@ -8,6 +8,8 @@ import Header from "./header"
 import MobileMenu from "./MobileMenu"
 // Utils
 import { headerHeight } from "../utils/window"
+// Context
+import { SocialMediaContextProvider } from "./context/SocialMedia"
 // Fonts
 import "../styles/customfonts.css"
 // Themes
@@ -75,27 +77,29 @@ const Layout = ({
         <title>Kojoten Filmproduktion</title>
       </Helmet>
       <ThemeProvider theme={standardTheme}>
-        <GlobalStyle />
-        <Body isMenuOpen={isMenuOpen} transparentHeader={transparentHeader}>
-          {children}
-        </Body>
-        {overlayDecided && (
-          <React.Fragment>
-            <Header
-              handleClick={handleClick}
-              isMenuOpen={isMenuOpen}
-              transparentHeader={transparentHeader}
-              backButton={backButton}
-              changeLocale={changeLocale}
-              locale={locale}
-            />
-            <MobileMenu
-              locale={locale}
-              changeLocale={changeLocale}
-              isMenuOpen={isMenuOpen}
-            />
-          </React.Fragment>
-        )}
+        <SocialMediaContextProvider>
+          <GlobalStyle />
+          <Body isMenuOpen={isMenuOpen} transparentHeader={transparentHeader}>
+            {children}
+          </Body>
+          {overlayDecided && (
+            <React.Fragment>
+              <Header
+                handleClick={handleClick}
+                isMenuOpen={isMenuOpen}
+                transparentHeader={transparentHeader}
+                backButton={backButton}
+                changeLocale={changeLocale}
+                locale={locale}
+              />
+              <MobileMenu
+                locale={locale}
+                changeLocale={changeLocale}
+                isMenuOpen={isMenuOpen}
+              />
+            </React.Fragment>
+          )}
+        </SocialMediaContextProvider>
       </ThemeProvider>
     </LayoutContainer>
   )

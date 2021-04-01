@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { screenSizes } from "../utils/mediaqueries"
-import FilmShortDescription from "./molecules/FilmShortDescription"
+import FilmShortDescription from "./reusable/FilmShortDescription"
 
 const FilmBasicInfoContainer = styled.div`
   position: absolute;

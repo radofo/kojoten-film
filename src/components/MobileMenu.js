@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { screenSizes } from "../utils/mediaqueries"
 import { Link } from "gatsby"
+import SocialMediaIcons from "./reusable/SocialMediaIcons"
 
 const MobileMenuContainer = styled.div`
   background: black;
@@ -37,35 +38,29 @@ const NavigationRow = styled.div`
   padding: 0 25px;
 `
 
-const SocialRow = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  padding: 0 20px 30px;
-  display: none;
-`
-
-const SocialIcon = styled.i`
-  color: white;
-  font-size: 20px;
-  &:hover {
-    color: var(--highlight-color);
-    cursor: pointer;
-  }
-`
-
 const NavigationItem = styled(props => <Link {...props} />)`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.regularText};
   text-decoration: none;
-  color: ${props => {
-    return props.currentpath ? "var(--active-route)" : "var(--text-color)"
+  color: ${({ theme, currentpath }) => {
+    return currentpath ? theme.colors.highlight : theme.colors.normal
   }};
-  &:not(:last-child) {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
+`
+
+const NaviationItemSmall = styled(props => <Link {...props} />)`
+  font-size: ${({ theme }) => theme.fontSizes.smallText};
+  text-decoration: none;
+  color: ${({ theme, currentpath }) => {
+    return currentpath ? theme.colors.highlight : theme.colors.normal
+  }};
+  margin-bottom: 20px;
+
+  &:nth-last-child(3) {
+    margin-top: 30px;
   }
 `
 
 const LocaleSwitcher = styled.div`
-  margin-top: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,9 +72,9 @@ const LocaleSwitcher = styled.div`
 const LocaleButton = styled.button`
   background: rgba(0, 0, 0, 0);
   border: 1px solid rgba(0, 0, 0, 0);
-  color: ${(props) => props.buttonColor};
+  color: ${props => props.buttonColor};
   padding: 0 2px;
-  font-size: ${(props) => props.theme.fontSizes.xSmallText};
+  font-size: ${props => props.theme.fontSizes.xSmallText};
   display: flex;
   align-items: center;
   font-family: "DarkerGrotesque", sans-serif;
@@ -94,7 +89,7 @@ const LocaleButton = styled.button`
 
 const Dash = styled.span`
   font-size: 18px;
-  color: ${(props) => props.theme.colors.textDimmed};
+  color: ${props => props.theme.colors.textDimmed};
 `
 
 const MobileMenu = ({ isMenuOpen, locale, changeLocale }) => {
@@ -120,6 +115,14 @@ const MobileMenu = ({ isMenuOpen, locale, changeLocale }) => {
       team: {
         de: "Team",
         en: "Team",
+      },
+      imprint: {
+        de: "Impressum",
+        en: "Imprint",
+      },
+      privacy: {
+        de: "Datenschutz",
+        en: "Privacy",
       },
     },
   }
@@ -179,6 +182,22 @@ const MobileMenu = ({ isMenuOpen, locale, changeLocale }) => {
         >
           {t.navigation.contact[locale]}
         </NavigationItem>
+        <NaviationItemSmall
+          state={{ modal: false, locale: locale }}
+          exact="true"
+          to="/imprint"
+          currentpath={currentpath === "imprint" ? 1 : 0}
+        >
+          {t.navigation.imprint[locale]}
+        </NaviationItemSmall>
+        <NaviationItemSmall
+          state={{ modal: false, locale: locale }}
+          exact="true"
+          to="/privacy"
+          currentpath={currentpath === "privacy" ? 1 : 0}
+        >
+          {t.navigation.privacy[locale]}
+        </NaviationItemSmall>
         <LocaleSwitcher>
           <LocaleButton
             onClick={() => setLocale("de")}
@@ -195,12 +214,7 @@ const MobileMenu = ({ isMenuOpen, locale, changeLocale }) => {
           </LocaleButton>
         </LocaleSwitcher>
       </NavigationRow>
-      <SocialRow>
-        <SocialIcon className="fab fa-instagram"></SocialIcon>
-        <SocialIcon className="fab fa-facebook-f"></SocialIcon>
-        <SocialIcon className="fab fa-vimeo-v"></SocialIcon>
-        <SocialIcon className="far fa-envelope"></SocialIcon>
-      </SocialRow>
+      <SocialMediaIcons />
     </MobileMenuContainer>
   )
 }
