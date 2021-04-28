@@ -34,13 +34,13 @@ const ContactAddressHeader = styled.h1`
 
 const ContactAddressLine = styled.p`
   color: ${props => props.theme.colors.textDimmed};
-  font-size: ${props => props.theme.fontSizes.smallText};
+  font-size: ${props => props.theme.fontSizes.small};
   margin-bottom: 10px;
 `
 
 const ContactAddressLineLink = styled.a`
   color: ${props => props.theme.colors.textDimmed};
-  font-size: ${props => props.theme.fontSizes.smallText};
+  font-size: ${props => props.theme.fontSizes.small};
   margin-bottom: 10px;
   text-decoration: underline;
   &:hover {

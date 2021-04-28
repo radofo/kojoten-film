@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components"
 import Moment from "react-moment"
-import { screenSizes } from "../utils/mediaqueries"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { renderOptions } from "../utils/richText"
 
@@ -13,14 +12,14 @@ const NewsItemContainer = styled.div`
   &:not(:first-child) {
     margin-top: 70px;
   }
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     flex-direction: row;
   }
 `
 
 const NewsText = styled.div`
   width: 100%;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     padding-left: 30px;
     margin-top: -6px;
   }
@@ -30,7 +29,7 @@ const NewsImageBox = styled.div`
   width: 100%;
   padding-top: 66.6%;
   position: relative;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     align-self: flex-start;
     width: 30%;
     min-width: 30%;
@@ -40,7 +39,7 @@ const NewsImageBox = styled.div`
 
 const NewsContent = styled.div`
   margin-top: 20px;
-  font-size: ${(props) => props.theme.fontSizes.smallText};
+  font-size: ${props => props.theme.fontSizes.small};
   & p {
     margin-bottom: 5px;
   }
@@ -65,7 +64,7 @@ const NewsHeader = styled.h1`
   font-size: 24px;
   background: rgba(0, 0, 0, 0.3);
   margin-bottom: 3px;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     font-size: 30px;
   }
 `
@@ -78,14 +77,14 @@ const NewsHeadlineMobile = styled.div`
   bottom: 0px;
   left: 0px;
   padding: 3%;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     display: none;
   }
 `
 
 const NewsHeadline = styled.div`
   display: none;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     display: block;
   }
 `

@@ -1,6 +1,5 @@
 import React from "react"
 import styled from "styled-components"
-import { screenSizes } from "../utils/mediaqueries"
 
 const Navigation = styled.ul`
   list-style: none;
@@ -9,7 +8,7 @@ const Navigation = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     margin: 0 100px 0 0;
     align-items: flex-start;
   }

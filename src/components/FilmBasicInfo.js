@@ -1,6 +1,5 @@
 import React from "react"
 import styled from "styled-components"
-import { screenSizes } from "../utils/mediaqueries"
 import FilmShortDescription from "./reusable/FilmShortDescription"
 
 const FilmBasicInfoContainer = styled.div`
@@ -13,7 +12,7 @@ const FilmBasicInfoContainer = styled.div`
   }};
 
   transition: all 0.25s ease-out;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     bottom: 30px;
   }
 `

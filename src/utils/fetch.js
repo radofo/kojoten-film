@@ -48,7 +48,7 @@ export const createSrcSet = (
   isTransparent = false
 ) => {
   const params =
-    fileFormat === "svg" || isTransparent ? "" : "?fm=jpg&fl=progressive"
+    fileFormat === "svg" || isTransparent ? "" : "?fm=jpg&fl=progressive&q=70"
   return [
     `${src}${params}`,
     `${src}${params} 1x, ${src}${params} 1.5x, ${src}${params} 2x`,

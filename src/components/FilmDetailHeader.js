@@ -1,6 +1,5 @@
 import React from "react"
 import styled from "styled-components"
-import { screenSizes } from "../utils/mediaqueries"
 
 const FilmBasicInfoContainer = styled.div``
 
@@ -10,20 +9,20 @@ const FilmDetailHeading = styled.h1`
   margin-bottom: 5px;
   font-weight: normal;
   text-transform: uppercase;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     font-size: 3em;
   }
 `
 const FilmDetailDirector = styled.p`
   margin-bottom: 15px;
-  font-size: ${props => props.theme.fontSizes.regularText};
+  font-size: ${props => props.theme.fontSizes.regular};
 `
 const FilmDetailGenres = styled.p`
-  font-size: ${props => props.theme.fontSizes.regularText};
+  font-size: ${props => props.theme.fontSizes.regular};
   text-transform: uppercase;
 `
 const FilmDetailPlaytime = styled.p`
-  font-size: ${props => props.theme.fontSizes.regularText};
+  font-size: ${props => props.theme.fontSizes.regular};
 `
 
 const FilmDetailHeader = ({ details, infosOpen }) => {

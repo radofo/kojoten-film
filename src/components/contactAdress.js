@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react"
 import * as fetchContentful from "../utils/fetch"
 
 import styled from "styled-components"
-import { screenSizes } from "../utils/mediaqueries"
 import Pending from "./pending"
 
 const ContactAdressContainer = styled.div`
   display: flex;
   flex-direction: column;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     flex-direction: row;
     width: 100%;
   }
@@ -19,7 +18,7 @@ const ContactAdressText = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 0 0 25px;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     align-items: flex-start;
     margin-right: 50px;
   }
@@ -43,7 +42,7 @@ const MapContainer = styled.iframe`
   height: 300px;
   filter: grayscale(100%) invert(1) brightness(0.9);
   border-radius: 5px;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     height: 450px;
     max-width: 600px;
   }
