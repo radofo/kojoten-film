@@ -13,7 +13,6 @@ const MediaContainerStyles = styled(props => {
   width: 100%;
   overflow: hidden;
   z-index: 9;
-  // position: relative;
   cursor: ${props => (props.islink ? "url('/play.svg'), pointer" : "auto")};
 `
 const Video = styled.video`
@@ -40,7 +39,8 @@ const Overlay = styled.div`
   background-color: black;
   opacity: 0;
 
-  &:hover {
+  div:hover,
+  a:hover > & {
     opacity: 0.5;
   }
 `

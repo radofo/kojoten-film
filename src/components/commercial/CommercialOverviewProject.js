@@ -37,6 +37,7 @@ const CommercialInfos = styled.div`
     isDesktop ? "translate(0, -50%)" : "translate(-50%, -50%)"};
   width: ${({ isDesktop }) => (isDesktop ? "initial" : "100%")};
   z-index: 10;
+  color: white;
 `
 
 const KundeUndName = styled.div`
@@ -87,16 +88,17 @@ const CommercialOverviewProject = ({
         customLink={infos.url ? `/media/c/${infos.url}` : undefined}
         overlayOnHover={true}
         mobilePlayOptOut={true}
-      ></MediaContainer>
-      <CommercialInfos isDesktop={isDesktop} side={side}>
-        <KundeUndName isDesktop={isDesktop} side={side}>
-          <Kunde>{infos.kunde}</Kunde>
-          <Name>{infos.name}</Name>
-        </KundeUndName>
-        <Regisseur isDesktop={isDesktop} side={side}>
-          {infos.regisseur}
-        </Regisseur>
-      </CommercialInfos>
+      >
+        <CommercialInfos isDesktop={isDesktop} side={side}>
+          <KundeUndName isDesktop={isDesktop} side={side}>
+            <Kunde>{infos.kunde}</Kunde>
+            <Name>{infos.name}</Name>
+          </KundeUndName>
+          <Regisseur isDesktop={isDesktop} side={side}>
+            {infos.regisseur}
+          </Regisseur>
+        </CommercialInfos>
+      </MediaContainer>
     </Container>
   )
 }

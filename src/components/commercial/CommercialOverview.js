@@ -21,7 +21,11 @@ const ContainerMobile = styled.div`
   flex-wrap: wrap;
 `
 
-const CommercialOverview = ({ overviewCommercials, isDesktop }) => {
+const CommercialOverview = ({
+  overviewCommercials,
+  isDesktop,
+  overviewRef,
+}) => {
   const [leftCommercials, setLeftCommercials] = useState([])
   const [rightCommercials, setRightCommercials] = useState([])
 
@@ -36,7 +40,7 @@ const CommercialOverview = ({ overviewCommercials, isDesktop }) => {
   }, [overviewCommercials])
 
   return (
-    <Container>
+    <Container ref={overviewRef}>
       {isDesktop ? (
         <ContainerDesktop>
           <CommercialColumn

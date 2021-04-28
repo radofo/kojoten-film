@@ -4,7 +4,7 @@ import styled from "styled-components"
 const CommercialBasicInfoContainer = styled.div`
   position: absolute;
   left: 0;
-  bottom: 10px;
+  bottom: 40px;
   padding: 0 calc(var(--padding-sides) + 10px);
   color: white;
   @media ${({ theme }) => theme.screenSizes.desktop} {

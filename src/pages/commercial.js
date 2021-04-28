@@ -6,7 +6,7 @@ import styled from "styled-components"
 import MediaContainer from "../components/mediaContainer"
 import CommercialBasicInfo from "../components/CommercialBasicInfo"
 import Pending from "../components/pending"
-import { ChevronRight, ChevronLeft } from "react-feather"
+import { ChevronRight, ChevronLeft, ChevronDown } from "react-feather"
 import { screenSizes } from "../styles/theme"
 
 import { defaultLocale } from "../utils/fetch"
@@ -17,13 +17,14 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/swiper-bundle.min.css"
 import "../styles/swiper.css"
 import CommercialOverview from "../components/commercial/CommercialOverview"
+import { useRef } from "react"
 
 SwiperCore.use([Navigation])
 
 const NavButton = styled.button`
   color: #c1c1c1;
   outline: none;
-  opacity: 0.4;
+  opacity: 0.7;
   font-size: 2em;
   background: rgba(0, 0, 0, 0);
   border: 0px solid rgba(0, 0, 0, 0);
@@ -45,6 +46,27 @@ const NavButton = styled.button`
   top: 50%;
   transform: translateY(-50%);
   padding: var(--padding-sides);
+`
+
+const ScrollButton = styled.button`
+  color: #c1c1c1;
+  outline: none;
+  opacity: 0.7;
+  font-size: 2em;
+  background: rgba(0, 0, 0, 0);
+  border: 0px solid rgba(0, 0, 0, 0);
+  &:hover {
+    cursor: pointer;
+    opacity: 1;
+  }
+  @media ${({ theme }) => theme.screenSizes.desktop} {
+    font-size: 2.5em;
+  }
+  z-index: 9999;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
 `
 
 const Commercial = ({ location }) => {
@@ -70,6 +92,7 @@ const Commercial = ({ location }) => {
   const [vh, setVh] = useState("100vh")
   const [activeIndex, setActiveIndex] = useState(null)
   const [isDesktop, setIsDesktop] = useState(false)
+  const overviewRef = useRef(null)
 
   useEffect(() => {
     handleResize()
@@ -173,9 +196,17 @@ const Commercial = ({ location }) => {
             <NavButton className="swiper-next" right>
               <ChevronRight size={50} />
             </NavButton>
+            <ScrollButton
+              onClick={() =>
+                overviewRef?.current.scrollIntoView({ behavior: "smooth" })
+              }
+            >
+              <ChevronDown size={50} />
+            </ScrollButton>
           </Swiper>
           {overviewCommercials && (
             <CommercialOverview
+              overviewRef={overviewRef}
               overviewCommercials={overviewCommercials}
               isDesktop={isDesktop}
             />
