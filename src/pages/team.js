@@ -4,7 +4,6 @@ import Layout from "../components/layout"
 import * as fetchContentful from "../utils/fetch"
 import styled from "styled-components"
 import MediaContainer from "../components/mediaContainer"
-import { screenSizes } from "../utils/mediaqueries"
 import { defaultLocale } from "../utils/fetch"
 import Pending from "../components/pending"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
@@ -35,7 +34,7 @@ const TeamDescription = styled.div`
   margin: calc(var(--header-height) * 1.5) calc(var(--padding-sides) * 1)
     calc(var(--padding-sides) * 1);
   max-width: 100%;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     margin: 0 0 calc(var(--padding-sides) * 1) calc(var(--padding-sides) * 1);
     bottom: 0;
     top: initial;

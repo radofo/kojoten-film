@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
-import { screenSizes } from "../../utils/mediaqueries"
 import SocialMediaIcons from "../reusable/SocialMediaIcons"
 
 // Level 1
@@ -14,7 +13,7 @@ const ContactFooterContainer = styled.div`
   grid-template-columns: 1fr auto 1fr;
   grid-template-rows: 1fr 1fr;
 
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     grid-template-rows: 1fr;
   }
 `
@@ -26,7 +25,7 @@ const Links = styled.div`
   align-items: center;
   grid-column-start: 2;
   grid-row-start: 2;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     grid-row-start: 1;
   }
 `
@@ -35,7 +34,7 @@ const ProduzentenAllianz = styled.img`
   width: 100px;
   grid-row-start: 1;
   grid-column-start: 2;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     width: 120px;
     justify-self: end;
     grid-column-start: 3;
@@ -44,7 +43,7 @@ const ProduzentenAllianz = styled.img`
 
 const BoringLinks = styled.div`
   display: none;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     & > :first-child {
       margin-right: 60px;
     }
@@ -55,7 +54,7 @@ const BoringLinks = styled.div`
 
 const BoringLink = styled(props => <Link {...props} />)`
   text-decoration: none;
-  font-size: ${props => props.theme.fontSizes.smallText};
+  font-size: ${props => props.theme.fontSizes.small};
   color: ${props => props.theme.colors.textDimmed};
   &:hover {
     color: ${props => props.theme.colors.highlight};

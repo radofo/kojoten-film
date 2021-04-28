@@ -5,7 +5,6 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { renderOptions } from "../utils/richText"
 import FilmShortDescription from "./reusable/FilmShortDescription"
 
-import { screenSizes } from "../utils/mediaqueries"
 import { IconRow } from "./IconRow"
 import { t } from "./locales/filmdetail"
 
@@ -35,7 +34,7 @@ const FilmDetailInfoContainer = styled.div`
   }};
   color: white;
 
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     display: flex;
     flex-direction: row;
   }
@@ -44,7 +43,7 @@ const FilmDetailInfoContainer = styled.div`
 const FilmDetailSynopsis = styled.div`
   max-width: 100%;
   padding-right: 60px;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     flex-grow: 0;
     flex-basis: 50%;
     & > div:last-child {
@@ -55,7 +54,7 @@ const FilmDetailSynopsis = styled.div`
 
 const FilmDetailCredits = styled.div`
   margin: 20px 0;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     padding-left: 60px;
     margin: 0;
     padding-top: 10px;

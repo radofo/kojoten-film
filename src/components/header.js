@@ -1,11 +1,9 @@
 import React from "react"
 import styled from "styled-components"
 import kojotenlogo from "../media/kojoten_logo_new.png"
-import { screenSizes } from "../utils/mediaqueries"
 import Navigation from "./navigation"
 import NavItem from "./navItem"
 import { Link } from "gatsby"
-// import { ArrowLeft } from "react-feather"
 import { BackButton } from "../styles/styled-components"
 
 // ================ Styled Components ================
@@ -20,7 +18,7 @@ const HeaderContainer = styled.header`
   top: 0;
   width: 100%;
   z-index: 99999;
-  background-color: ${(props) => {
+  background-color: ${props => {
     return props.transparentHeader
       ? "var(--header-bgcolor-transparent)"
       : "var(--header-bgcolor)"
@@ -28,12 +26,12 @@ const HeaderContainer = styled.header`
 `
 
 const BurgerMenu = styled.div`
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     display: none;
   }
 `
 
-const LogoLink = styled((props) => <Link {...props} />)`
+const LogoLink = styled(props => <Link {...props} />)`
   line-height: 0.9;
 `
 
@@ -51,7 +49,7 @@ const PageControls = styled.div`
 
 const LocaleSwitcher = styled.div`
   display: none;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     margin-left: 50px;
     display: flex;
     align-items: flex-end;
@@ -62,9 +60,9 @@ const LocaleSwitcher = styled.div`
 const LocaleButton = styled.button`
   background: rgba(0, 0, 0, 0);
   border: 1px solid rgba(0, 0, 0, 0);
-  color: ${(props) => props.buttonColor};
+  color: ${props => props.buttonColor};
   padding: 0 2px;
-  font-size: ${(props) => props.theme.fontSizes.xSmallText};
+  font-size: ${props => props.theme.fontSizes.xSmall};
   display: flex;
   align-items: center;
   font-family: "DarkerGrotesque", sans-serif;
@@ -79,7 +77,7 @@ const LocaleButton = styled.button`
 
 const Dash = styled.span`
   font-size: 18px;
-  color: ${(props) => props.theme.colors.textDimmed};
+  color: ${props => props.theme.colors.textDimmed};
 `
 
 // ================ Header React Component ================
@@ -125,7 +123,7 @@ const Header = ({
     },
   }
 
-  const setLocale = (language) => {
+  const setLocale = language => {
     if (typeof Storage !== "undefined") {
       localStorage.setItem("kojotenLanguage", language)
     }

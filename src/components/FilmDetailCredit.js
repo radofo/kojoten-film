@@ -5,7 +5,7 @@ const FilmDetailCreditContainer = styled.div`
   margin-bottom: 15px;
 `
 const FilmDetailCreditHeader = styled.p`
-  font-size: ${(props) => props.theme.fontSizes.xSmallText};
+  font-size: ${props => props.theme.fontSizes.xSmall};
   margin: 0 0 3px;
 `
 const FilmDetailCreditNames = styled.p`

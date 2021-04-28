@@ -4,7 +4,6 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { renderOptions } from "../utils/richText"
 import styled from "styled-components"
 
-import { screenSizes } from "../utils/mediaqueries"
 import Pending from "./pending"
 
 const MarkdownContainer = styled.div`
@@ -14,7 +13,7 @@ const MarkdownContainer = styled.div`
   & > :first-child {
     margin-top: 0;
   }
-  @media ${screenSizes.tablet} {
+  @media ${({ theme }) => theme.screenSizes.tablet} {
     padding: 0 40px 50px;
   }
 `

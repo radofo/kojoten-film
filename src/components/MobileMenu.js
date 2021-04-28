@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import { screenSizes } from "../utils/mediaqueries"
 import { Link } from "gatsby"
 import SocialMediaIcons from "./reusable/SocialMediaIcons"
 
@@ -24,7 +23,7 @@ const MobileMenuContainer = styled.div`
   z-index: ${props => {
     return props.isMenuOpen ? "9999" : "0"
   }};
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     display: none;
   }
 `
@@ -39,7 +38,7 @@ const NavigationRow = styled.div`
 `
 
 const NavigationItem = styled(props => <Link {...props} />)`
-  font-size: ${({ theme }) => theme.fontSizes.regularText};
+  font-size: ${({ theme }) => theme.fontSizes.regular};
   text-decoration: none;
   color: ${({ theme, currentpath }) => {
     return currentpath ? theme.colors.highlight : theme.colors.normal
@@ -48,7 +47,7 @@ const NavigationItem = styled(props => <Link {...props} />)`
 `
 
 const NaviationItemSmall = styled(props => <Link {...props} />)`
-  font-size: ${({ theme }) => theme.fontSizes.smallText};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   text-decoration: none;
   color: ${({ theme, currentpath }) => {
     return currentpath ? theme.colors.highlight : theme.colors.normal
@@ -64,7 +63,7 @@ const LocaleSwitcher = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     display: none;
   }
 `
@@ -74,7 +73,7 @@ const LocaleButton = styled.button`
   border: 1px solid rgba(0, 0, 0, 0);
   color: ${props => props.buttonColor};
   padding: 0 2px;
-  font-size: ${props => props.theme.fontSizes.xSmallText};
+  font-size: ${props => props.theme.fontSizes.xSmall};
   display: flex;
   align-items: center;
   font-family: "DarkerGrotesque", sans-serif;
