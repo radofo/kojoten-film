@@ -1,10 +1,9 @@
 import React from "react"
 import styled from "styled-components"
-import { screenSizes } from "../utils/mediaqueries"
 
 const NavigationContainer = styled.nav`
   display: none;
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     display: flex;
     flex-direction: row;
   }

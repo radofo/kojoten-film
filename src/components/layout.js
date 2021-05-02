@@ -25,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body, html {
     font-family: "DarkerGrotesque", sans-serif;
-    font-size: ${standardTheme.fontSizes.regularText};
+    font-size: ${standardTheme.fontSizes.regular};
     background-color: black;
     --padding-sides: 3%;
     --text-color: #fff;

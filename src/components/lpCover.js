@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import kojotenlogo from "../media/kojoten_logo_new.png"
-import { screenSizes } from "../utils/mediaqueries"
 import * as fetchContentful from "../utils/fetch"
 import { defaultLocale } from "../utils/fetch"
 import { ArrowUp } from "react-feather"
@@ -17,8 +16,8 @@ const VideoCover = styled.div`
   width: 100%;
   height: 100%;
   background: black;
-  transform: ${(props) => props.transform};
-  opacity: ${(props) => props.opacity};
+  transform: ${props => props.transform};
+  opacity: ${props => props.opacity};
   z-index: 999999;
   transition: opacity 0.8s cubic-bezier(0.38, 1.1, 0.77, 0.86),
     transform 0.8s cubic-bezier(0.38, 1.1, 0.77, 0.86);
@@ -32,7 +31,7 @@ const ToggleButton = styled.button`
   border: none;
   background-color: rgba(0, 0, 0, 0);
 
-  @media ${screenSizes.tablet} {
+  @media ${({ theme }) => theme.screenSizes.tablet} {
     bottom: 50px;
   }
   &:focus {
@@ -42,7 +41,7 @@ const ToggleButton = styled.button`
     cursor: pointer;
   }
 `
-const ArrowUpFeather = styled((props) => <ArrowUp {...props} />)`
+const ArrowUpFeather = styled(props => <ArrowUp {...props} />)`
   color: rgba(255, 255, 255);
   &:hover {
     color: var(--highlight-color);
@@ -54,7 +53,7 @@ const KojotenLogo = styled.img`
   bottom: 40px;
   left: 10px;
   width: 100px;
-  @media ${screenSizes.tablet} {
+  @media ${({ theme }) => theme.screenSizes.tablet} {
     left: 50px;
     bottom: 50px;
     width: 150px;
@@ -79,7 +78,7 @@ const LpCover = ({ overlayOpen, toggleOverlay }) => {
         { content_type: "coverMedia", locale: defaultLocale },
         window.location.host
       )
-      .then((apidata) => {
+      .then(apidata => {
         setCoverMedia({
           horizontalVideo:
             apidata.items[0].fields.horizontalVideo.fields.file.url,

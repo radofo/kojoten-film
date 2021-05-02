@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import FilmPoster from "../components/filmPoster"
 import styled from "styled-components"
-import { screenSizes } from "../utils/mediaqueries"
 // 3rd Party
 import SwiperCore, { Navigation, Mousewheel, Scrollbar, Autoplay } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -22,15 +21,15 @@ const NavButton = styled.button`
     cursor: pointer;
     opacity: 1;
   }
-  @media ${screenSizes.desktop} {
+  @media ${({ theme }) => theme.screenSizes.desktop} {
     font-size: 2.5em;
   }
   z-index: 9999;
   position: fixed;
-  left: ${(props) => {
+  left: ${props => {
     return props.left ? 0 : "initial"
   }};
-  right: ${(props) => {
+  right: ${props => {
     return props.right ? 0 : "initial"
   }};
   top: 50%;
