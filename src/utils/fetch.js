@@ -11,6 +11,7 @@ export const getAllEntries = (params, hostname) => {
     "104.248.47.206:8000",
     "localhost:8000",
     "kojoten-film-integration.web.app",
+    "kojoten-film-integration.netlify.app",
   ]
   if (previewHosts.includes(hostname)) {
     contentfulConnection = "preview.contentful.com"
