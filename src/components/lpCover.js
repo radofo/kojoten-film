@@ -81,9 +81,9 @@ const LpCover = ({ overlayOpen, toggleOverlay }) => {
       .then(apidata => {
         setCoverMedia({
           horizontalVideo:
-            apidata.items[0].fields.horizontalVideo.fields.file.url,
+            apidata?.items[0]?.fields?.horizontalVideo?.fields?.file?.url,
           horizontalImage: {
-            src: apidata.items[0].fields.horizontalImage.fields.file.url,
+            src: apidata?.items[0]?.fields?.horizontalImage?.fields?.file?.url,
           },
         })
       })

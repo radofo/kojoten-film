@@ -73,19 +73,6 @@ const Commercial = ({ location }) => {
   const { state } = location
   const initialLocale = state && state.locale ? state.locale : defaultLocale
   const [locale, setLocale] = useState(initialLocale)
-  useEffect(() => {
-    const storageLocale = localStorage.getItem("kojotenLanguage")
-    if (storageLocale && initialLocale !== storageLocale) {
-      setLocale(storageLocale)
-    }
-  }, [])
-
-  const changeLocale = newLocale => {
-    if (newLocale !== locale) {
-      setLocale(newLocale)
-    }
-  }
-
   const [overviewCommercials, setOverviewCommercials] = useState(null)
   const [commercials, setCommercials] = useState(null)
   const [swiperCommercials, setSwiperCommercials] = useState(null)
@@ -93,6 +80,13 @@ const Commercial = ({ location }) => {
   const [activeIndex, setActiveIndex] = useState(null)
   const [isDesktop, setIsDesktop] = useState(false)
   const overviewRef = useRef(null)
+
+  useEffect(() => {
+    const storageLocale = localStorage.getItem("kojotenLanguage")
+    if (storageLocale && initialLocale !== storageLocale) {
+      setLocale(storageLocale)
+    }
+  }, [])
 
   useEffect(() => {
     handleResize()
@@ -115,10 +109,10 @@ const Commercial = ({ location }) => {
         window.location.host
       )
       .then(apidata => {
-        const commercials = apidata.items
-        const first = commercials.shift()
-        const original = [first, ...commercials]
-        const shifted = [...commercials, first] // workaround because Swiper starts with the last element
+        const validCommercials = filterInvalidCommercials(apidata.items)
+        const first = validCommercials.shift()
+        const original = [first, ...validCommercials]
+        const shifted = [...validCommercials, first] // workaround because Swiper starts with the last element
         const shiftedIndex = shifted.length - 1
         setCommercials(original)
         setOverviewCommercials(original.filter((comm, i) => i !== 0))
@@ -135,6 +129,16 @@ const Commercial = ({ location }) => {
         )
       )
   }, [activeIndex, commercials])
+
+  const filterInvalidCommercials = allCommercials => {
+    return allCommercials.filter(comm => comm?.fields?.poster !== undefined)
+  }
+
+  const changeLocale = newLocale => {
+    if (newLocale !== locale) {
+      setLocale(newLocale)
+    }
+  }
 
   const handleResize = () => {
     setVh(window.innerHeight || "100vh")

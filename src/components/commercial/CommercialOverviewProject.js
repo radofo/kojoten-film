@@ -73,7 +73,6 @@ const CommercialOverviewProject = ({
   isDesktop,
 }) => {
   const { fields: infos } = commercial
-  console.log("side: ", side)
 
   return (
     <Container
