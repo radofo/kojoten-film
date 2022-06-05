@@ -5,14 +5,13 @@ let contentfulAccessToken = process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN
 
 export const defaultLocale = "de"
 
+const previewHosts = [
+  "localhost:8000",
+  "kojoten-film-integration.web.app",
+  "kojoten-film-vorschau.netlify.app",
+]
+
 export const getAllEntries = (params, hostname) => {
-  const previewHosts = [
-    // "192.168.178.20:8000",
-    "104.248.47.206:8000",
-    "localhost:8000",
-    "kojoten-film-integration.web.app",
-    "kojoten-film-integration.netlify.app",
-  ]
   if (previewHosts.includes(hostname)) {
     contentfulConnection = "preview.contentful.com"
     contentfulAccessToken = process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN_PREVIEW
@@ -26,11 +25,6 @@ export const getAllEntries = (params, hostname) => {
 }
 
 export const getEntry = (id, params, hostname) => {
-  const previewHosts = [
-    // "192.168.178.20:8000",
-    "localhost:8000",
-    "kojoten-film-integration.web.app",
-  ]
   if (previewHosts.includes(hostname)) {
     contentfulConnection = "preview.contentful.com"
     contentfulAccessToken = process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN_PREVIEW
