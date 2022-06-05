@@ -17,7 +17,7 @@ const Home = ({ location }) => {
   const [showOverlay, setShowOverlay] = useState(false)
   const [isComingSoon, setIsComingSoon] = useState(false)
   const [overlayDecided, setOverlayDecided] = useState(false)
-  const [windowHeight, setWindowHeight] = useState(window.innerHeight)
+  const [windowHeight, setWindowHeight] = useState(0)
 
   useEffect(() => {
     const { state } = location
@@ -29,6 +29,7 @@ const Home = ({ location }) => {
     const storageLocale = localStorage.getItem("kojotenLanguage")
     setLocale(storageLocale ?? defaultLocale)
     // Window Height
+    handleResize()
     window.addEventListener("resize", handleResize)
     return () => {
       window.removeEventListener("resize", handleResize)
