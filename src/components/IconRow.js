@@ -3,8 +3,8 @@ import { createSrcSet } from "../utils/fetch"
 import styled from "styled-components"
 
 const IconRowIconStyle = styled.img`
-  width: ${props => (props.isWide ? "auto" : "90px")};
-  height: ${props => (props.isWide ? "50px" : "auto")};
+  width: ${(props) => (props.isWide ? "auto" : "90px")};
+  height: ${(props) => (props.isWide ? "50px" : "auto")};
   margin: 0 20px 20px 0;
 `
 const IconRowStyle = styled.div`
@@ -29,13 +29,14 @@ export const IconRow = ({ icons, heading }) => {
       <IconRowStyle>
         {icons &&
           icons.map((icon, index) => {
-            const [awardSrc, awardSrcSet] = createSrcSet(
-              icon.fields.file.url,
-              icon.fields.file.contentType.indexOf("svg") > -1
-                ? "svg"
-                : undefined,
-              true
-            )
+            const [awardSrc, awardSrcSet] = createSrcSet({
+              src: icon.fields.file.url,
+              fileFormat:
+                icon.fields.file.contentType.indexOf("svg") > -1
+                  ? "svg"
+                  : undefined,
+              isTransparent: true,
+            })
             const aspectRatio =
               icon.fields.file.details.image.width /
               icon.fields.file.details.image.height

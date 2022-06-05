@@ -18,7 +18,7 @@ const HeaderContainer = styled.header`
   top: 0;
   width: 100%;
   z-index: 99999;
-  background-color: ${props => {
+  background-color: ${(props) => {
     return props.transparentHeader
       ? "var(--header-bgcolor-transparent)"
       : "var(--header-bgcolor)"
@@ -27,11 +27,11 @@ const HeaderContainer = styled.header`
 
 const BurgerMenu = styled.div`
   @media ${({ theme }) => theme.screenSizes.desktop} {
-    display: none;
+    display: none !important;
   }
 `
 
-const LogoLink = styled(props => <Link {...props} />)`
+const LogoLink = styled((props) => <Link {...props} />)`
   line-height: 0.9;
 `
 
@@ -60,9 +60,9 @@ const LocaleSwitcher = styled.div`
 const LocaleButton = styled.button`
   background: rgba(0, 0, 0, 0);
   border: 1px solid rgba(0, 0, 0, 0);
-  color: ${props => props.buttonColor};
+  color: ${(props) => props.buttonColor};
   padding: 0 2px;
-  font-size: ${props => props.theme.fontSizes.xSmall};
+  font-size: ${(props) => props.theme.fontSizes.xSmall};
   display: flex;
   align-items: center;
   font-family: "DarkerGrotesque", sans-serif;
@@ -77,7 +77,7 @@ const LocaleButton = styled.button`
 
 const Dash = styled.span`
   font-size: 18px;
-  color: ${props => props.theme.colors.textDimmed};
+  color: ${(props) => props.theme.colors.textDimmed};
 `
 
 // ================ Header React Component ================
@@ -123,7 +123,7 @@ const Header = ({
     },
   }
 
-  const setLocale = language => {
+  const setLocale = (language) => {
     if (typeof Storage !== "undefined") {
       localStorage.setItem("kojotenLanguage", language)
     }

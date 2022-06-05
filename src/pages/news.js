@@ -3,10 +3,9 @@ import Layout from "../components/layout"
 import * as fetchContentful from "../utils/fetch"
 import styled from "styled-components"
 import { defaultLocale } from "../utils/fetch"
-import NewsItem from "../components/NewsItem"
+import NewsItem from "../components/newsItem"
 import Pending from "../components/pending"
 import { Helmet } from "react-helmet"
-import { filterHealthyImages } from "../utils/verifications"
 
 const NewsContainer = styled.div`
   padding: var(--header-height) var(--padding-sides);
@@ -15,10 +14,12 @@ const NewsContainer = styled.div`
 `
 
 const News = ({ location }) => {
-  // Locales ===================================
   const { state } = location
   const initialLocale = state && state.locale ? state.locale : defaultLocale
   const [locale, setLocale] = useState(initialLocale)
+  const [comingSoon, setComingSoon] = useState(false)
+  const [news, setNews] = useState([])
+
   useEffect(() => {
     const storageLocale = localStorage.getItem("kojotenLanguage")
     if (storageLocale && initialLocale !== storageLocale) {
@@ -26,17 +27,6 @@ const News = ({ location }) => {
     }
   }, [])
 
-  const changeLocale = newLocale => {
-    if (newLocale !== locale) {
-      setLocale(newLocale)
-    }
-  }
-
-  // Misc ======================================
-  const [comingSoon, setComingSoon] = useState(false)
-
-  // Data ======================================
-  const [news, setNews] = useState([])
   useEffect(() => {
     fetchContentful
       .getAllEntries(
@@ -47,12 +37,18 @@ const News = ({ location }) => {
         },
         window.location.host
       )
-      .then(apidata => {
+      .then((apidata) => {
         mapContentfulData(apidata)
       })
   }, [locale])
 
-  const mapContentfulData = apidata => {
+  const changeLocale = (newLocale) => {
+    if (newLocale !== locale) {
+      setLocale(newLocale)
+    }
+  }
+
+  const mapContentfulData = (apidata) => {
     if (apidata.items.length > 0) {
       setNews(apidata.items)
     } else {
@@ -71,9 +67,11 @@ const News = ({ location }) => {
         <Pending emoji="🗞" subject="News are" />
       ) : (
         <NewsContainer>
-          {news.filter(filterHealthyImages("bild")).map((item, index) => {
-            return <NewsItem item={item} key={index} />
-          })}
+          {news
+            .filter((newsEl) => newsEl.fields?.bild?.fields?.file?.url)
+            .map((item, index) => {
+              return <NewsItem item={item} key={index} />
+            })}
         </NewsContainer>
       )}
     </Layout>

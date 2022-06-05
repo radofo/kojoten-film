@@ -42,11 +42,8 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-// ============== Styled Components ==============
-
 const Body = styled.main``
 
-// ============== Layout Component ==============
 const Layout = ({
   children,
   transparentHeader,
@@ -60,6 +57,7 @@ const Layout = ({
   useEffect(() => {
     document.body.style.overflow = "initial"
   }, [])
+
   const handleClick = () => {
     if (!isMenuOpen) {
       document.body.style.overflow = "hidden"

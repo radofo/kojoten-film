@@ -1,10 +1,10 @@
 import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types"
 import React from "react"
-import markdownStyles from "../styles/markdown.module.css"
+import * as markdownStyles from "../styles/markdown.module.css"
 
 export const renderOptions = {
   renderMark: {
-    [MARKS.BOLD]: text => (
+    [MARKS.BOLD]: (text) => (
       <span className={markdownStyles.markdownHighlight}>{text}</span>
     ),
   },

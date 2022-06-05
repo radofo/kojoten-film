@@ -23,21 +23,25 @@ const ContainerMobile = styled.div`
 
 const CommercialOverview = ({
   overviewCommercials,
+  activeIndex,
   isDesktop,
   overviewRef,
 }) => {
   const [leftCommercials, setLeftCommercials] = useState([])
   const [rightCommercials, setRightCommercials] = useState([])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    const allButCurrentCommercial = overviewCommercials
+      ? overviewCommercials.filter((comm, index) => index !== activeIndex)
+      : []
     const left = []
     const right = []
-    overviewCommercials.forEach((commercial, index) => {
+    allButCurrentCommercial.forEach((commercial, index) => {
       index % 2 === 0 ? left.push(commercial) : right.push(commercial)
     })
     setLeftCommercials(left)
     setRightCommercials(right)
-  }, [overviewCommercials])
+  }, [overviewCommercials, activeIndex])
 
   return (
     <Container ref={overviewRef}>

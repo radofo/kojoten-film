@@ -16,27 +16,27 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
-    "@contentful/rich-text-react-renderer": "^13.4.0",
-    "@vimeo/player": "^2.12.2",
-    "babel-plugin-styled-components": "^1.10.7",
-    "contentful": "^7.14.5",
-    "gatsby": "^2.19.45",
-    "moment": "^2.27.0",
-    "react": "^16.12.0",
-    "react-device-detect": "^1.15.0",
-    "react-dom": "^16.12.0",
-    "react-feather": "^2.0.9",
+    "@contentful/rich-text-react-renderer": "^15.12.1",
+    "@vimeo/player": "^2.16.4",
+    "babel-plugin-styled-components": "^2.0.7",
+    "contentful": "^9.1.29",
+    "gatsby": "^4.15.2",
+    "moment": "^2.29.3",
+    "react": "^18.1.0",
+    "react-device-detect": "^2.2.2",
+    "react-dom": "^18.1.0",
+    "react-feather": "^2.0.10",
     "react-helmet": "^6.1.0",
-    "react-icons": "^4.2.0",
-    "react-moment": "^0.9.7",
+    "react-icons": "^4.4.0",
+    "react-moment": "^1.1.2",
     "smoothscroll-polyfill": "^0.4.4",
-    "styled-components": "^5.1.0",
-    "swiper": "6.1.1"
+    "styled-components": "^5.3.5",
+    "swiper": "8.2.2"
   },
   "devDependencies": {
-    "gatsby-cli": "^2.12.82",
-    "prettier": "^1.19.1",
-    "typescript": "^4.0.5"
+    "gatsby-cli": "^4.15.1",
+    "prettier": "^2.6.2",
+    "typescript": "^4.7.2"
   },
   "repository": {
     "type": "git",

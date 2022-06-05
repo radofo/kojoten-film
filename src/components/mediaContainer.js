@@ -5,7 +5,7 @@ import { createSrcSet } from "../utils/fetch"
 import { Link } from "gatsby"
 import { PlayButton } from "./icons/PlayButton"
 
-const MediaContainerStyles = styled(props => {
+const MediaContainerStyles = styled((props) => {
   return props.islink ? <Link {...props} /> : <div {...props} />
 })`
   display: block;
@@ -13,7 +13,7 @@ const MediaContainerStyles = styled(props => {
   width: 100%;
   overflow: hidden;
   z-index: 9;
-  cursor: ${props => (props.islink ? "url('/play.svg'), pointer" : "auto")};
+  cursor: ${(props) => (props.islink ? "url('/play.svg'), pointer" : "auto")};
 `
 const Video = styled.video`
   object-fit: cover;
@@ -27,7 +27,7 @@ const Image = styled.img`
   height: 100%;
   background: black;
   outline: 1px solid black;
-  filter: ${props => props.filters};
+  filter: ${(props) => props.filters};
 `
 const Overlay = styled.div`
   position: absolute;
@@ -55,8 +55,8 @@ const MediaContainer = ({
   let imgSrc
   let imgSrcSet
   if (media && media.horizontalImage) {
-    imgSrc = createSrcSet(media.horizontalImage.src)[0]
-    imgSrcSet = createSrcSet(media.horizontalImage.src)[1]
+    imgSrc = createSrcSet({ src: media.horizontalImage.src })[0]
+    imgSrcSet = createSrcSet({ src: media.horizontalImage.src })[1]
   }
   const displayMobilePlayButton =
     isMobile && !mobilePlayOptOut && customLink?.length > 0

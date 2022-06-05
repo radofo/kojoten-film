@@ -1,61 +1,28 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
 import { createSrcSet } from "../utils/fetch"
 
 const PosterImage = styled.img`
   height: 100%;
-  height: ${props => props.posterHeight}px;
+  height: ${(props) => props.posterHeight}px;
   padding-top: var(--header-height);
 `
 
-const PosterContainer = styled(props => <Link {...props} />)`
+const PosterContainer = styled((props) => <Link {...props} />)`
   display: block;
   position: relative;
 `
 
-const ComingSoon = styled.div`
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 100%;
-  padding: 15px 0;
-  position: absolute;
-  top: 75%;
-  left: 0;
-  display: grid;
-  place-items: center;
-  color: var(--highlight-color);
-  text-transform: uppercase;
-`
-const FilmPoster = ({ film, locale }) => {
-  const [posterHeight, setPosterHeight] = useState(0)
-  const t = {
-    film: {
-      comingsoon: {
-        de: "In Entwicklung",
-        en: "In Development",
-      },
-    },
-  }
-
-  useEffect(() => {
-    setPosterHeight(window.innerHeight)
-    window.addEventListener("resize", handleResize)
-    return () => {
-      window.removeEventListener("resize", handleResize)
-    }
-  }, [])
-
-  const handleResize = () => {
-    setPosterHeight(window.innerHeight)
-  }
-
+const FilmPoster = ({ film, height, locale }) => {
   let poster
   let posterSrc, posterSrcSet
 
   if (film.fields.poster) {
     poster = film.fields.poster.fields
-    posterSrc = createSrcSet(poster.file.url)[0]
-    posterSrcSet = createSrcSet(poster.file.url)[1]
+    const [src, srcSet] = createSrcSet({ src: poster.file.url, size: "900" })
+    posterSrc = src
+    posterSrcSet = srcSet
   }
   return (
     <PosterContainer
@@ -63,7 +30,7 @@ const FilmPoster = ({ film, locale }) => {
       state={{ project: film, locale: locale }}
     >
       <PosterImage
-        posterHeight={posterHeight}
+        posterHeight={height}
         srcSet={posterSrcSet}
         src={posterSrc}
         alt={poster && poster.title}

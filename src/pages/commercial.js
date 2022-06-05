@@ -2,97 +2,43 @@ import React, { useEffect, useState } from "react"
 import { Helmet } from "react-helmet"
 import Layout from "../components/layout"
 import * as fetchContentful from "../utils/fetch"
-import styled from "styled-components"
 import MediaContainer from "../components/mediaContainer"
 import CommercialBasicInfo from "../components/CommercialBasicInfo"
 import Pending from "../components/pending"
 import { ChevronRight, ChevronLeft, ChevronDown } from "react-feather"
 import { screenSizes } from "../styles/theme"
+import { NavButton, ScrollButton } from "../styles/pageStyles/commercialStyles"
 
 import { defaultLocale } from "../utils/fetch"
 
 // 3rd Party
-import SwiperCore, { Navigation } from "swiper"
+import { Navigation } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
-import "swiper/swiper-bundle.min.css"
+import "swiper/css"
+import "swiper/css/navigation"
 import "../styles/swiper.css"
 import CommercialOverview from "../components/commercial/CommercialOverview"
 import { useRef } from "react"
-
-SwiperCore.use([Navigation])
-
-const NavButton = styled.button`
-  color: #c1c1c1;
-  outline: none;
-  opacity: 0.7;
-  font-size: 2em;
-  background: rgba(0, 0, 0, 0);
-  border: 0px solid rgba(0, 0, 0, 0);
-  &:hover {
-    cursor: pointer;
-    opacity: 1;
-  }
-  @media ${({ theme }) => theme.screenSizes.desktop} {
-    font-size: 2.5em;
-  }
-  z-index: 9999;
-  position: absolute;
-  left: ${props => {
-    return props.left ? 0 : "initial"
-  }};
-  right: ${props => {
-    return props.right ? 0 : "initial"
-  }};
-  top: 50%;
-  transform: translateY(-50%);
-  padding: var(--padding-sides);
-`
-
-const ScrollButton = styled.button`
-  color: #c1c1c1;
-  outline: none;
-  opacity: 0.7;
-  font-size: 2em;
-  background: rgba(0, 0, 0, 0);
-  border: 0px solid rgba(0, 0, 0, 0);
-  &:hover {
-    cursor: pointer;
-    opacity: 1;
-  }
-  @media ${({ theme }) => theme.screenSizes.desktop} {
-    font-size: 2.5em;
-  }
-  z-index: 9999;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-`
 
 const Commercial = ({ location }) => {
   const { state } = location
   const initialLocale = state && state.locale ? state.locale : defaultLocale
   const [locale, setLocale] = useState(initialLocale)
-  const [overviewCommercials, setOverviewCommercials] = useState(null)
   const [commercials, setCommercials] = useState(null)
-  const [swiperCommercials, setSwiperCommercials] = useState(null)
   const [vh, setVh] = useState("100vh")
-  const [activeIndex, setActiveIndex] = useState(null)
+  const [activeIndex, setActiveIndex] = useState(0)
   const [isDesktop, setIsDesktop] = useState(false)
   const overviewRef = useRef(null)
 
   useEffect(() => {
+    // Locale
     const storageLocale = localStorage.getItem("kojotenLanguage")
     if (storageLocale && initialLocale !== storageLocale) {
       setLocale(storageLocale)
     }
-  }, [])
-
-  useEffect(() => {
+    // Resize
     handleResize()
-
     window.addEventListener("resize", handleResize)
-
     return () => {
       window.removeEventListener("resize", handleResize)
     }
@@ -108,33 +54,17 @@ const Commercial = ({ location }) => {
         },
         window.location.host
       )
-      .then(apidata => {
+      .then((apidata) => {
         const validCommercials = filterInvalidCommercials(apidata.items)
-        const first = validCommercials.shift()
-        const original = [first, ...validCommercials]
-        const shifted = [...validCommercials, first] // workaround because Swiper starts with the last element
-        const shiftedIndex = shifted.length - 1
-        setCommercials(original)
-        setOverviewCommercials(original.filter((comm, i) => i !== 0))
-        setSwiperCommercials(shifted)
-        setActiveIndex(shiftedIndex) // active index is for the shifted array, as updates to this are coming from Swiper
+        setCommercials(validCommercials)
       })
   }, [locale])
 
-  useEffect(() => {
-    commercials &&
-      setOverviewCommercials(
-        commercials.filter(
-          (comm, i) => i !== shiftArrayIndex(activeIndex, commercials)
-        )
-      )
-  }, [activeIndex, commercials])
-
-  const filterInvalidCommercials = allCommercials => {
-    return allCommercials.filter(comm => comm?.fields?.poster !== undefined)
+  const filterInvalidCommercials = (allCommercials) => {
+    return allCommercials.filter((comm) => comm?.fields?.poster !== undefined)
   }
 
-  const changeLocale = newLocale => {
+  const changeLocale = (newLocale) => {
     if (newLocale !== locale) {
       setLocale(newLocale)
     }
@@ -145,7 +75,8 @@ const Commercial = ({ location }) => {
     setIsDesktop(window.innerWidth > screenSizes.desktop)
   }
 
-  const shiftArrayIndex = (oldIndex, arr) => (oldIndex + 1) % arr.length
+  const isCommercialsInProgress = commercials && commercials.length === 0
+  const showCommercials = !isCommercialsInProgress && commercials
 
   return (
     <Layout locale={locale} changeLocale={changeLocale} transparentHeader>
@@ -153,11 +84,13 @@ const Commercial = ({ location }) => {
         <title>Kojoten | Commercial</title>
         <meta name="description" content="Kojoten Film" />
       </Helmet>
-      {swiperCommercials && swiperCommercials.length === 0 ? (
+      {isCommercialsInProgress && (
         <Pending emoji="🍿" subject="Commercials are" />
-      ) : (
+      )}
+      {showCommercials && (
         <>
           <Swiper
+            modules={[Navigation]}
             style={{ height: vh }}
             navigation={{
               nextEl: ".swiper-next",
@@ -166,34 +99,35 @@ const Commercial = ({ location }) => {
             loop
             followFinger={false}
             speed={400}
-            onSlideChangeTransitionEnd={swiper => {
+            onSlideChangeTransitionEnd={(swiper) => {
               setActiveIndex(swiper.realIndex)
             }}
           >
-            {swiperCommercials &&
-              swiperCommercials.map((commercial, index) => {
-                const commercialMedia = {
-                  horizontalImage: {
-                    src: commercial.fields.poster.fields.file.url,
-                  },
-                }
-                return (
-                  <SwiperSlide key={index}>
-                    <MediaContainer
-                      media={commercialMedia}
-                      customLink={
-                        commercial.fields.url
-                          ? `/media/c/${commercial.fields.url}`
-                          : undefined
-                      }
-                    ></MediaContainer>
-                    <CommercialBasicInfo
-                      locale={locale}
-                      details={commercial.fields}
-                    />
-                  </SwiperSlide>
-                )
-              })}
+            {commercials.map((commercial, index) => {
+              const commercialMedia = {
+                horizontalImage: {
+                  src: commercial.fields.poster.fields.file.url,
+                },
+              }
+              return (
+                <SwiperSlide
+                  key={`${commercial?.fields?.name}${commercial?.fields?.position}${index}`}
+                >
+                  <MediaContainer
+                    media={commercialMedia}
+                    customLink={
+                      commercial.fields.url
+                        ? `/media/c/${commercial.fields.url}`
+                        : undefined
+                    }
+                  />
+                  <CommercialBasicInfo
+                    locale={locale}
+                    details={commercial.fields}
+                  />
+                </SwiperSlide>
+              )
+            })}
             <NavButton className="swiper-prev" left>
               <ChevronLeft size={50} />
             </NavButton>
@@ -208,13 +142,12 @@ const Commercial = ({ location }) => {
               <ChevronDown size={50} />
             </ScrollButton>
           </Swiper>
-          {overviewCommercials && (
-            <CommercialOverview
-              overviewRef={overviewRef}
-              overviewCommercials={overviewCommercials}
-              isDesktop={isDesktop}
-            />
-          )}
+          <CommercialOverview
+            activeIndex={activeIndex}
+            overviewRef={overviewRef}
+            overviewCommercials={commercials}
+            isDesktop={isDesktop}
+          />
         </>
       )}
     </Layout>
