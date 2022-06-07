@@ -90,7 +90,7 @@ const Header = ({
   changeLocale,
 }) => {
   const headerImage = backButton ? (
-    <Link to="/">
+    <Link to="/" state={{ modal: false, locale: locale }}>
       <BackButton size={36} />
     </Link>
   ) : (
