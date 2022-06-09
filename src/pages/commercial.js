@@ -105,7 +105,7 @@ const Commercial = ({ location }) => {
           >
             {commercials.map((commercial, index) => {
               const commercialMedia = {
-                horizontalImage: {
+                image: {
                   src: commercial.fields.poster.fields.file.url,
                 },
               }
@@ -115,7 +115,7 @@ const Commercial = ({ location }) => {
                 >
                   <MediaContainer
                     media={commercialMedia}
-                    customLink={
+                    playbackLink={
                       commercial.fields.url
                         ? `/media/c/${commercial.fields.url}`
                         : undefined

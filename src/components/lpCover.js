@@ -16,8 +16,8 @@ const VideoCover = styled.div`
   width: 100%;
   height: 100%;
   background: black;
-  transform: ${props => props.transform};
-  opacity: ${props => props.opacity};
+  transform: ${(props) => props.transform};
+  opacity: ${(props) => props.opacity};
   z-index: 999999;
   transition: opacity 0.8s cubic-bezier(0.38, 1.1, 0.77, 0.86),
     transform 0.8s cubic-bezier(0.38, 1.1, 0.77, 0.86);
@@ -41,7 +41,7 @@ const ToggleButton = styled.button`
     cursor: pointer;
   }
 `
-const ArrowUpFeather = styled(props => <ArrowUp {...props} />)`
+const ArrowUpFeather = styled((props) => <ArrowUp {...props} />)`
   color: rgba(255, 255, 255);
   &:hover {
     color: var(--highlight-color);
@@ -78,11 +78,10 @@ const LpCover = ({ overlayOpen, toggleOverlay }) => {
         { content_type: "coverMedia", locale: defaultLocale },
         window.location.host
       )
-      .then(apidata => {
+      .then((apidata) => {
         setCoverMedia({
-          horizontalVideo:
-            apidata?.items[0]?.fields?.horizontalVideo?.fields?.file?.url,
-          horizontalImage: {
+          video: apidata?.items[0]?.fields?.horizontalVideo?.fields?.file?.url,
+          image: {
             src: apidata?.items[0]?.fields?.horizontalImage?.fields?.file?.url,
           },
         })

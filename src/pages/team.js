@@ -43,10 +43,13 @@ const TeamDescription = styled.div`
 `
 
 const Team = ({ location }) => {
-  // Locales ===================================
   const { state } = location
   const initialLocale = state && state.locale ? state.locale : defaultLocale
   const [locale, setLocale] = useState(initialLocale)
+  const [isComingSoon, setIsComingSoon] = useState(false)
+  const [teamDescription, setTeamDescription] = useState("")
+  const [teamMedia, setTeamMedia] = useState({})
+
   useEffect(() => {
     const storageLocale = localStorage.getItem("kojotenLanguage")
     if (storageLocale && initialLocale !== storageLocale) {
@@ -54,41 +57,36 @@ const Team = ({ location }) => {
     }
   }, [])
 
-  const changeLocale = newLocale => {
-    if (newLocale !== locale) {
-      setLocale(newLocale)
-    }
-  }
-
-  // Data ======================================
-  const [teamDescription, setTeamDescription] = useState("")
-  const [teamMedia, setTeamMedia] = useState({})
   useEffect(() => {
     fetchContentful
       .getAllEntries(
         { content_type: "team", locale: locale },
         window.location.host
       )
-      .then(apidata => {
-        mapContentfulData(apidata)
+      .then((apidata) => {
+        if (apidata.items.length > 0) {
+          const raw = apidata?.items[0]?.fields?.teamBeschreibungsText
+          setTeamDescription(documentToReactComponents(raw, renderOptions))
+          setTeamMedia({
+            image: {
+              src: apidata?.items[0]?.fields?.backgroundImage?.fields?.file
+                ?.url,
+              srcMobile:
+                apidata?.items[0]?.fields?.hintergrundbildMobile?.fields?.file
+                  ?.url,
+            },
+          })
+        } else {
+          setIsComingSoon(true)
+        }
       })
   }, [locale])
-  const mapContentfulData = apidata => {
-    if (apidata.items.length > 0) {
-      const raw = apidata.items[0].fields.teamBeschreibungsText
-      setTeamDescription(documentToReactComponents(raw, renderOptions))
-      setTeamMedia({
-        horizontalImage: {
-          src: apidata.items[0].fields.backgroundImage.fields.file.url,
-        },
-      })
-    } else {
-      setIsComingSoon(true)
+
+  const changeLocale = (newLocale) => {
+    if (newLocale !== locale) {
+      setLocale(newLocale)
     }
   }
-
-  // Misc ======================================
-  const [isComingSoon, setIsComingSoon] = useState(false)
 
   return (
     <Layout transparentHeader locale={locale} changeLocale={changeLocale}>

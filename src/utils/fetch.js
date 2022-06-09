@@ -43,11 +43,17 @@ export const createSrcSet = ({
   fileFormat = "png",
   isTransparent = false,
 }) => {
-  const imageW = size ? `&w=${size}` : undefined
-  const params =
-    fileFormat === "svg" || isTransparent
-      ? ""
-      : `?fm=jpg&fl=progressive${imageW ?? ""}`
+  let params = ""
+  if (fileFormat !== "svg") {
+    if (!isTransparent) {
+      params = params + `?fm=jpg&fl=progressive`
+    }
+    if (size) {
+      const leadingSign = params.indexOf("?") > -1 ? "&" : "?"
+      params = params + `${leadingSign}w=${size}`
+    }
+  }
+
   return [
     `${src}${params}`,
     `${src}${params} 1x, ${src}${params} 1.5x, ${src}${params} 2x`,

@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { createSrcSet } from "../utils/fetch"
 import { Link } from "gatsby"
 import { PlayButton } from "./icons/PlayButton"
+import { screenSizes } from "../styles/theme"
 
 const MediaContainerStyles = styled((props) => {
   return props.islink ? <Link {...props} /> : <div {...props} />
@@ -48,30 +49,51 @@ const Overlay = styled.div`
 const MediaContainer = ({
   children,
   media,
-  customLink,
+  playbackLink,
   overlayOnHover = false,
   mobilePlayOptOut = false,
 }) => {
-  let imgSrc
-  let imgSrcSet
-  if (media && media.horizontalImage) {
-    imgSrc = createSrcSet({ src: media.horizontalImage.src })[0]
-    imgSrcSet = createSrcSet({ src: media.horizontalImage.src })[1]
-  }
+  const [imgSrc, imgSrcSet] = media?.image?.src
+    ? createSrcSet({ src: media.image.src, size: "1600" })
+    : []
+  const [, imgSrcSetMobile] = media?.image?.srcMobile
+    ? createSrcSet({ src: media.image.srcMobile, size: "1600" })
+    : []
+
   const displayMobilePlayButton =
-    isMobile && !mobilePlayOptOut && customLink?.length > 0
+    isMobile && !mobilePlayOptOut && playbackLink?.length > 0
+
   return (
     <MediaContainerStyles
-      islink={customLink ? 1 : 0}
+      islink={playbackLink ? 1 : 0}
       exact="true"
-      to={customLink}
+      to={playbackLink}
     >
-      {media.horizontalVideo ? (
-        <Video autoPlay muted loop playsInline key={media.horizontalVideo}>
-          <source src={media.horizontalVideo} type="video/mp4"></source>
+      {media.video ? (
+        <Video autoPlay muted loop playsInline key={media.video}>
+          <source src={media.video} type="video/mp4"></source>
         </Video>
+      ) : imgSrcSetMobile ? (
+        <picture>
+          <source
+            srcSet={imgSrcSet}
+            media={`(min-width: ${screenSizes.desktop}px)`}
+          />
+          <source srcSet={imgSrcSetMobile} media={`(min-width: 1px)`} />
+          <Image
+            src={imgSrc}
+            srcSet={imgSrcSet}
+            alt=""
+            filters={media?.image?.filters}
+          />
+        </picture>
       ) : (
-        <Image src={imgSrc} srcSet={imgSrcSet} alt="" filters={media.filters} />
+        <Image
+          src={imgSrc}
+          srcSet={imgSrcSet}
+          alt=""
+          filters={media?.image?.filters}
+        />
       )}
       {children}
       {displayMobilePlayButton && <PlayButton size={50} />}

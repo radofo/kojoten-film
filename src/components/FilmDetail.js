@@ -94,10 +94,10 @@ const FilmDetail = ({ location }) => {
             data.items[0].fields.hintergrundBild.fields.file
           ) {
             setFilmMedia({
-              horizontalImage: {
+              image: {
                 src: data.items[0].fields.hintergrundBild.fields.file.url,
+                filters: infosOpen ? "blur(5px)" : "",
               },
-              filters: infosOpen ? "blur(5px)" : "",
             })
           }
         }
@@ -107,7 +107,10 @@ const FilmDetail = ({ location }) => {
   const toggleInfosOpen = () => {
     setFilmMedia({
       ...filmMedia,
-      filters: infosOpen ? "" : "blur(5px)",
+      image: {
+        ...filmMedia.image,
+        filters: infosOpen ? "" : "blur(5px)",
+      },
     })
     setInfosOpen(!infosOpen)
   }
@@ -125,7 +128,7 @@ const FilmDetail = ({ location }) => {
       </Helmet>
       <FilmDetailContainer infosOpen={infosOpen}>
         <MediaContainer
-          customLink={
+          playbackLink={
             filmDetails.vimeoId ? `/media/f/${filmDetails.url}` : null
           }
           media={filmMedia}

@@ -19,10 +19,12 @@ const Container = styled.div`
     margin: ${({ side, isDesktop }) =>
       isDesktop
         ? side === "left"
-          ? `${commercialMarginH *
-              2}px ${commercialMarginH}px ${commercialMarginV}px 0px`
-          : `${commercialMarginH *
-              2}px 0px ${commercialMarginV}px ${commercialMarginH}px`
+          ? `${
+              commercialMarginH * 2
+            }px ${commercialMarginH}px ${commercialMarginV}px 0px`
+          : `${
+              commercialMarginH * 2
+            }px 0px ${commercialMarginV}px ${commercialMarginH}px`
         : "0"};
   }
 `
@@ -82,9 +84,9 @@ const CommercialOverviewProject = ({
     >
       <MediaContainer
         media={{
-          horizontalImage: { src: infos.poster.fields.file.url },
+          image: { src: infos.poster.fields.file.url },
         }}
-        customLink={infos.url ? `/media/c/${infos.url}` : undefined}
+        playbackLink={infos.url ? `/media/c/${infos.url}` : undefined}
         overlayOnHover={true}
         mobilePlayOptOut={true}
       >
