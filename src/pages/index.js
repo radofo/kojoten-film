@@ -11,6 +11,7 @@ import { defaultLocale } from "../utils/fetch"
 import Pending from "../components/pending"
 
 const Home = ({ location }) => {
+  const { state } = location
   const [locale, setLocale] = useState()
   const [films, setFilms] = useState([])
   const [overlayOpen, setOverlayOpen] = useState(true)
@@ -20,7 +21,6 @@ const Home = ({ location }) => {
   const [windowHeight, setWindowHeight] = useState(0)
 
   useEffect(() => {
-    const { state } = location
     // Modal
     const showModal = state?.modal === false ? false : true
     setShowOverlay(showModal)
@@ -28,13 +28,14 @@ const Home = ({ location }) => {
     // Locale
     const storageLocale = localStorage.getItem("kojotenLanguage")
     setLocale(storageLocale ?? defaultLocale)
-    // Window Height
+    // Window Height Listener
     handleResize()
     window.addEventListener("resize", handleResize)
+    // Cleanup Listener
     return () => {
       window.removeEventListener("resize", handleResize)
     }
-  }, [])
+  }, [state])
 
   const handleResize = () => {
     setWindowHeight(window.innerHeight)

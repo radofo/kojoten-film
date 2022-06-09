@@ -19,17 +19,17 @@ const FilmDetailInfoContainer = styled.div`
   flex-direction: column;
   padding: 20px var(--padding-sides) 100px;
   margin: var(--header-height) 0 0;
-  opacity: ${props => {
+  opacity: ${(props) => {
     return props.infosOpen ? "1" : "0"
   }};
-  visibility: ${props => {
+  visibility: ${(props) => {
     return props.infosOpen ? "visible" : "hidden"
   }};
-  z-index: ${props => {
+  z-index: ${(props) => {
     return props.infosOpen ? "99" : "0"
   }};
   transition: all 0.45s ease-out;
-  transform: ${props => {
+  transform: ${(props) => {
     return props.infosOpen ? "translateY(0)" : "translateY(50px)"
   }};
   color: white;
@@ -66,7 +66,17 @@ const FilmDetailCredits = styled.div`
   }
 `
 
+const IconRowWrapper = styled.div`
+  margin: 30px 0;
+`
+
+const IconRowHeadingStyle = styled.h4`
+  font-weight: bold;
+  margin-bottom: 15px;
+`
+
 const FilmDetailedInfos = styled.div``
+
 const FilmDetailDescription = styled.div`
   margin-top: 20px;
 `
@@ -80,18 +90,26 @@ const FilmDetailInfo = ({ infosOpen, details, locale }) => {
           <FilmDetailDescription>
             {documentToReactComponents(details.beschreibung, renderOptions)}
           </FilmDetailDescription>
-          {details.auszeichnungen && (
-            <IconRow
-              heading={t.iconRows.auszeichnungen[locale]}
-              icons={details.auszeichnungen}
-            />
+          {details.auszeichnungen && t.iconRows.auszeichnungen[locale] && (
+            <IconRowWrapper>
+              <IconRowHeadingStyle>
+                {t.iconRows.auszeichnungen[locale]}
+              </IconRowHeadingStyle>
+              <IconRow icons={details.auszeichnungen} alignment="left" />
+            </IconRowWrapper>
           )}
-          {details.koproduktionFrderungPartner && (
-            <IconRow
-              heading={t.iconRows.koproduktion[locale]}
-              icons={details.koproduktionFrderungPartner}
-            />
-          )}
+          {details.koproduktionFrderungPartner &&
+            t.iconRows.koproduktion[locale] && (
+              <IconRowWrapper>
+                <IconRowHeadingStyle>
+                  {t.iconRows.koproduktion[locale]}
+                </IconRowHeadingStyle>
+                <IconRow
+                  icons={details.koproduktionFrderungPartner}
+                  alignment="left"
+                />
+              </IconRowWrapper>
+            )}
         </FilmDetailedInfos>
       </FilmDetailSynopsis>
       <FilmDetailCredits>

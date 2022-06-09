@@ -2,55 +2,50 @@ import React from "react"
 import { createSrcSet } from "../utils/fetch"
 import styled from "styled-components"
 
-const IconRowIconStyle = styled.img`
-  width: ${(props) => (props.isWide ? "auto" : "90px")};
-  height: ${(props) => (props.isWide ? "50px" : "auto")};
-  margin: 0 20px 20px 0;
+const Icon = styled.img`
+  width: ${({ iconWidth }) => iconWidth ?? "90px"};
+  height: ${({ iconHeight }) => iconHeight ?? "40px"};
 `
-const IconRowStyle = styled.div`
-  margin: 20px 0;
+const IconContainer = styled.div`
+  gap: 30px;
   display: flex;
-  flex-direction: row;
+  justify-content: ${({ alignment }) => alignment ?? "center"};
   align-items: center;
   flex-wrap: wrap;
 `
-const IconRowHeadingStyle = styled.h4`
-  font-weight: bold;
-`
 
-const IconRowContainer = styled.div`
-  margin-top: 40px;
-`
-
-export const IconRow = ({ icons, heading }) => {
+export const IconRow = ({ icons, iconWidth, iconHeight, alignment }) => {
   return (
-    <IconRowContainer>
-      <IconRowHeadingStyle>{heading}</IconRowHeadingStyle>
-      <IconRowStyle>
-        {icons &&
-          icons.map((icon, index) => {
-            const [awardSrc, awardSrcSet] = createSrcSet({
-              src: icon.fields.file.url,
-              fileFormat:
-                icon.fields.file.contentType.indexOf("svg") > -1
-                  ? "svg"
-                  : undefined,
-              isTransparent: true,
-            })
-            const aspectRatio =
-              icon.fields.file.details.image.width /
-              icon.fields.file.details.image.height
+    <IconContainer alignment={alignment}>
+      {icons &&
+        icons.map((icon, index) => {
+          const [awardSrc, awardSrcSet] = createSrcSet({
+            src: icon.fields.file.url,
+            size: "200",
+            fileFormat:
+              icon.fields.file.contentType.indexOf("svg") > -1
+                ? "svg"
+                : undefined,
+            isTransparent: true,
+          })
+          const aspectRatio =
+            icon.fields.file.details.image.width /
+            icon.fields.file.details.image.height
 
-            return (
-              <IconRowIconStyle
-                isWide={aspectRatio > 2}
-                key={index}
-                src={awardSrc}
-                srcSet={awardSrcSet}
-              />
-            )
-          })}
-      </IconRowStyle>
-    </IconRowContainer>
+          const isWide = aspectRatio > 2
+          const iconWidthStyle = isWide ? "auto" : iconWidth ?? "90px"
+          const iconHeightStyle = isWide ? iconHeight ?? "40px" : "auto"
+
+          return (
+            <Icon
+              key={index}
+              src={awardSrc}
+              srcSet={awardSrcSet}
+              iconWidth={iconWidthStyle}
+              iconHeight={iconHeightStyle}
+            />
+          )
+        })}
+    </IconContainer>
   )
 }

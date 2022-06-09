@@ -31,21 +31,20 @@ const Contact = ({ location }) => {
       setLocale(storageLocale)
     }
   }, [])
-  // Data
   useEffect(() => {
     fetchContentful
       .getAllEntries(
         { content_type: "contactPage", locale: locale },
         window.location.host
       )
-      .then(data => {
+      .then((data) => {
         if (data.items.length > 0) {
           setContactInfos(data.items[0].fields)
         }
       })
   }, [locale])
 
-  const changeLocale = newLocale => {
+  const changeLocale = (newLocale) => {
     if (newLocale !== locale) {
       setLocale(newLocale)
     }

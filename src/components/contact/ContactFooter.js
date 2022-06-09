@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
+import { IconRow } from "../IconRow"
 import SocialMediaIcons from "../reusable/SocialMediaIcons"
 
 // Level 1
@@ -8,11 +9,10 @@ const ContactFooterContainer = styled.div`
   padding: 50px 0 20px;
   flex: 0;
   display: grid;
-  row-gap: 40px;
+  gap: 40px 20px;
   justify-items: center;
   grid-template-columns: 1fr auto 1fr;
-  grid-template-rows: 1fr 1fr;
-
+  grid-template-rows: repeat(3, auto);
   @media ${({ theme }) => theme.screenSizes.desktop} {
     grid-template-rows: 1fr;
   }
@@ -23,21 +23,30 @@ const Links = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  grid-column-start: 2;
-  grid-row-start: 2;
+  grid-column: 2;
+  grid-row: 3;
   @media ${({ theme }) => theme.screenSizes.desktop} {
     grid-row-start: 1;
   }
 `
-
-const ProduzentenAllianz = styled.img`
-  width: 100px;
-  grid-row-start: 1;
-  grid-column-start: 2;
+const LeftIconContainer = styled.div`
+  grid-row: 1;
+  grid-column: 1 / 4;
+  justify-self: center;
   @media ${({ theme }) => theme.screenSizes.desktop} {
-    width: 120px;
+    grid-column: 1;
+    justify-self: start;
+  }
+`
+const RightIconContainer = styled.div`
+  grid-row: 2;
+  grid-column: 1 / 4;
+  justify-self: center;
+
+  @media ${({ theme }) => theme.screenSizes.desktop} {
+    grid-column: 3;
+    grid-row: 1;
     justify-self: end;
-    grid-column-start: 3;
   }
 `
 
@@ -52,14 +61,18 @@ const BoringLinks = styled.div`
   }
 `
 
-const BoringLink = styled(props => <Link {...props} />)`
+const BoringLink = styled((props) => <Link {...props} />)`
   text-decoration: none;
-  font-size: ${props => props.theme.fontSizes.small};
-  color: ${props => props.theme.colors.textDimmed};
+  font-size: ${(props) => props.theme.fontSizes.small};
+  color: ${(props) => props.theme.colors.textDimmed};
+
   &:hover {
-    color: ${props => props.theme.colors.highlight};
+    color: ${(props) => props.theme.colors.highlight};
   }
 `
+
+const ICON_WIDTH = "75px"
+const ICON_HEIGHT = "40px"
 
 const ContactFooter = ({ contactInfos, locale }) => {
   const t = {
@@ -74,6 +87,13 @@ const ContactFooter = ({ contactInfos, locale }) => {
   }
   return (
     <ContactFooterContainer>
+      <LeftIconContainer>
+        <IconRow
+          iconWidth={ICON_WIDTH}
+          iconHeight={ICON_HEIGHT}
+          icons={contactInfos?.logosLinksUnten}
+        />
+      </LeftIconContainer>
       <Links>
         <BoringLinks>
           <BoringLink to="/imprint">{t.imprint[locale]}</BoringLink>
@@ -81,9 +101,13 @@ const ContactFooter = ({ contactInfos, locale }) => {
         </BoringLinks>
         <SocialMediaIcons />
       </Links>
-      <ProduzentenAllianz
-        src={contactInfos?.produzentenAllianzLogo?.fields?.file?.url}
-      ></ProduzentenAllianz>
+      <RightIconContainer>
+        <IconRow
+          iconWidth={ICON_WIDTH}
+          iconHeight={ICON_HEIGHT}
+          icons={contactInfos?.logosRechtsUnten}
+        />
+      </RightIconContainer>
     </ContactFooterContainer>
   )
 }
