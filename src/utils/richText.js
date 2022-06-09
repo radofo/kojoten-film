@@ -1,69 +1,37 @@
 import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types"
 import React from "react"
-import * as markdownStyles from "../styles/markdown.module.css"
+import {
+  MarkdownH1,
+  MarkdownH2,
+  MarkdownH3,
+  MarkdownH4,
+  MarkdownH5,
+  MarkdownH6,
+  MarkdownHighlight,
+  MarkdownHyperlink,
+  MarkdownParagraph,
+} from "../styles/markdownStyles"
 
 export const renderOptions = {
   renderMark: {
-    [MARKS.BOLD]: (text) => (
-      <span className={markdownStyles.markdownHighlight}>{text}</span>
-    ),
+    [MARKS.BOLD]: (text) => <MarkdownHighlight>{text}</MarkdownHighlight>,
   },
   renderNode: {
     [BLOCKS.PARAGRAPH]: (node, children) => (
-      <p className={markdownStyles.markdownParagraph}>{children}</p>
+      <MarkdownParagraph>{children}</MarkdownParagraph>
     ),
     [INLINES.HYPERLINK]: (node, children) => {
       return (
-        <a
-          target="_blank"
-          href={node.data.uri}
-          className={markdownStyles.markdownHyperlink}
-        >
+        <MarkdownHyperlink target="_blank" href={node.data.uri}>
           {children}
-        </a>
+        </MarkdownHyperlink>
       )
     },
-    [BLOCKS.HEADING_1]: (node, children) => (
-      <h1
-        className={`${markdownStyles.markdownHeader} ${markdownStyles.markdownH1}`}
-      >
-        {children}
-      </h1>
-    ),
-    [BLOCKS.HEADING_2]: (node, children) => (
-      <h2
-        className={`${markdownStyles.markdownHeader} ${markdownStyles.markdownH2}`}
-      >
-        {children}
-      </h2>
-    ),
-    [BLOCKS.HEADING_3]: (node, children) => (
-      <h3
-        className={`${markdownStyles.markdownHeader} ${markdownStyles.markdownH3}`}
-      >
-        {children}
-      </h3>
-    ),
-    [BLOCKS.HEADING_4]: (node, children) => (
-      <h4
-        className={`${markdownStyles.markdownHeader} ${markdownStyles.markdownH4}`}
-      >
-        {children}
-      </h4>
-    ),
-    [BLOCKS.HEADING_5]: (node, children) => (
-      <h5
-        className={`${markdownStyles.markdownHeader} ${markdownStyles.markdownH5}`}
-      >
-        {children}
-      </h5>
-    ),
-    [BLOCKS.HEADING_6]: (node, children) => (
-      <h6
-        className={`${markdownStyles.markdownHeader} ${markdownStyles.markdownH6}`}
-      >
-        {children}
-      </h6>
-    ),
+    [BLOCKS.HEADING_1]: (node, children) => <MarkdownH1>{children}</MarkdownH1>,
+    [BLOCKS.HEADING_2]: (node, children) => <MarkdownH2>{children}</MarkdownH2>,
+    [BLOCKS.HEADING_3]: (node, children) => <MarkdownH3>{children}</MarkdownH3>,
+    [BLOCKS.HEADING_4]: (node, children) => <MarkdownH4>{children}</MarkdownH4>,
+    [BLOCKS.HEADING_5]: (node, children) => <MarkdownH5>{children}</MarkdownH5>,
+    [BLOCKS.HEADING_6]: (node, children) => <MarkdownH6>{children}</MarkdownH6>,
   },
 }
