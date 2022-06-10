@@ -3,7 +3,8 @@ import Layout from "../components/layout"
 import styled from "styled-components"
 
 const ErrorPage = styled.div`
-  padding: var(--header-height) var(--padding-sides);
+  padding: ${(props) => props.theme.spacing.headerHeight}
+    ${({ theme }) => theme.spacing.pageSides};
   color: white;
   height: 100vh;
   display: grid;

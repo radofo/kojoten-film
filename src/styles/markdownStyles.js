@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export const MarkdownHighlight = styled.span`
-  color: var(--highlight-color);
+  color: ${({ theme }) => theme.colors.highlight};
 `
 
 export const MarkdownParagraph = styled.p`
@@ -12,30 +12,30 @@ export const MarkdownHyperlink = styled.a`
   color: white;
 
   &:hover {
-    color: var(--highlight-color);
+    color: ${({ theme }) => theme.colors.highlight};
   }
 `
 
 export const MarkdownHeader = styled.h1`
   margin: 20px 0 5px;
-  color: var(--text-color);
+  color: ${({ theme }) => theme.colors.normal};
 `
 
 export const MarkdownH1 = styled(MarkdownHeader)`
-  font-size: calc(var(--default-font-size) + 10px);
+  font-size: calc(${({ theme }) => theme.fontSizes.regular} + 10px);
 `
 export const MarkdownH2 = styled(MarkdownHeader)`
-  font-size: calc(var(--default-font-size) + 8px);
+  font-size: calc(${({ theme }) => theme.fontSizes.regular} + 8px);
 `
 export const MarkdownH3 = styled(MarkdownHeader)`
-  font-size: calc(var(--default-font-size) + 6px);
+  font-size: calc(${({ theme }) => theme.fontSizes.regular} + 6px);
 `
 export const MarkdownH4 = styled(MarkdownHeader)`
-  font-size: calc(var(--default-font-size) + 4px);
+  font-size: calc(${({ theme }) => theme.fontSizes.regular} + 4px);
 `
 export const MarkdownH5 = styled(MarkdownHeader)`
-  font-size: calc(var(--default-font-size) + 2px);
+  font-size: calc(${({ theme }) => theme.fontSizes.regular} + 2px);
 `
 export const MarkdownH6 = styled(MarkdownHeader)`
-  font-size: var(--default-font-size);
+  font-size: ${({ theme }) => theme.fontSizes.regular};
 `

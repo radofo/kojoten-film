@@ -15,8 +15,8 @@ const Navigation = styled.ul`
 `
 
 const NavigationItem = styled.li`
-  color: ${props =>
-    props.selected ? "var(--highlight-color)" : "var(--text-color)"};
+  color: ${(props) =>
+    props.selected ? props.theme.colors.highlight : props.theme.colors.normal};
 
   &:not(:last-child) {
     margin-bottom: 30px;

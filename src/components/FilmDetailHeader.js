@@ -4,7 +4,7 @@ import styled from "styled-components"
 const FilmBasicInfoContainer = styled.div``
 
 const FilmDetailHeading = styled.h1`
-  color: var(--highlight-color);
+  color: ${({ theme }) => theme.colors.highlight};
   line-height: 0.9;
   margin-bottom: 5px;
   font-weight: normal;
@@ -15,14 +15,14 @@ const FilmDetailHeading = styled.h1`
 `
 const FilmDetailDirector = styled.p`
   margin-bottom: 15px;
-  font-size: ${props => props.theme.fontSizes.regular};
+  font-size: ${(props) => props.theme.fontSizes.regular};
 `
 const FilmDetailGenres = styled.p`
-  font-size: ${props => props.theme.fontSizes.regular};
+  font-size: ${(props) => props.theme.fontSizes.regular};
   text-transform: uppercase;
 `
 const FilmDetailPlaytime = styled.p`
-  font-size: ${props => props.theme.fontSizes.regular};
+  font-size: ${(props) => props.theme.fontSizes.regular};
 `
 
 const FilmDetailHeader = ({ details, infosOpen }) => {

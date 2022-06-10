@@ -9,8 +9,8 @@ import { defaultLocale } from "../utils/fetch"
 import Layout from "../components/layout"
 
 const PrivacyContainer = styled.div`
-  padding: 0 var(--padding-sides);
-  margin-top: calc(var(--header-height) + 50px);
+  padding: 0 ${({ theme }) => theme.spacing.pageSides};
+  margin-top: calc(${(props) => props.theme.spacing.headerHeight} + 50px);
   z-index: 9;
   position: relative;
   color: white;
@@ -40,7 +40,7 @@ const Privacy = ({ location }) => {
         { content_type: "datenschutz", locale: locale },
         window.location.host
       )
-      .then(data => {
+      .then((data) => {
         if (data.items.length > 0) {
           const raw = data.items[0].fields.datenschutzText
           setDatenschtzContent(documentToReactComponents(raw, renderOptions))
@@ -48,7 +48,7 @@ const Privacy = ({ location }) => {
       })
   }, [locale])
 
-  const changeLocale = newLocale => {
+  const changeLocale = (newLocale) => {
     if (newLocale !== locale) {
       setLocale(newLocale)
     }

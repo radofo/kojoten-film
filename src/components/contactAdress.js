@@ -32,7 +32,7 @@ const ContactAdressTextLine = styled.p`
 const MailLink = styled.a`
   color: white;
   &:hover {
-    color: var(--highlight-color);
+    color: ${({ theme }) => theme.colors.highlight};
   }
 `
 
@@ -60,7 +60,7 @@ const ContactAdress = ({ locale }) => {
         { content_type: "adresse", locale: locale },
         window.location.host
       )
-      .then(data => {
+      .then((data) => {
         if (data.items.length > 0) {
           setAddress(data.items[0].fields)
         } else {

@@ -24,5 +24,5 @@ export const NavButton = styled.button`
   }};
   top: 50%;
   transform: translateY(-50%);
-  padding: var(--padding-sides);
+  padding: ${({ theme }) => theme.spacing.pageSides};
 `

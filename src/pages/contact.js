@@ -9,9 +9,9 @@ import ContactFooter from "../components/contact/ContactFooter"
 import ContactAddresses from "../components/contact/ContactAddresses"
 
 const ContactContainer = styled.div`
-  min-height: calc(100vh - var(--header-height));
-  padding: 0 var(--padding-sides);
-  margin-top: var(--header-height);
+  min-height: calc(100vh - ${(props) => props.theme.spacing.headerHeight});
+  padding: 0 ${({ theme }) => theme.spacing.pageSides};
+  margin-top: ${(props) => props.theme.spacing.headerHeight};
   z-index: 9;
   position: relative;
   display: flex;

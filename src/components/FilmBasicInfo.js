@@ -6,8 +6,8 @@ const FilmBasicInfoContainer = styled.div`
   position: absolute;
   left: 0;
   bottom: 10px;
-  padding: 0 calc(var(--padding-sides) + 10px) 50px;
-  opacity: ${props => {
+  padding: 0 calc(${({ theme }) => theme.spacing.pageSides} + 10px) 50px;
+  opacity: ${(props) => {
     return props.infosOpen ? "0" : "1"
   }};
 

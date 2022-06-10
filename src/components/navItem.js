@@ -5,7 +5,9 @@ import styled from "styled-components"
 const NavigationItem = styled((props) => <Link {...props} />)`
   text-decoration: none;
   color: ${(props) => {
-    return props.navcolor
+    return props.isActive
+      ? props.theme.colors.highlight
+      : props.theme.colors.normal
   }};
   display: flex;
   align-items: center;
@@ -15,7 +17,8 @@ const NavigationItem = styled((props) => <Link {...props} />)`
 `
 
 const NavItem = ({ children, link, locale }) => {
-  const [navColor, setNavColor] = useState("var(--text-color)")
+  const [isActive, setIsActive] = useState(false)
+
   useEffect(() => {
     const currentPath = window.location.pathname.split("/")[1]
     const itemPath = link.split("/")[1]
@@ -23,15 +26,18 @@ const NavItem = ({ children, link, locale }) => {
       currentPath === itemPath ||
       (itemPath === "" && currentPath === "film")
     ) {
-      setNavColor("var(--active-route)")
+      setIsActive(true)
+    } else {
+      setIsActive(false)
     }
   }, [])
+
   return (
     <NavigationItem
       state={{ modal: false, locale: locale }}
       exact="true"
       to={`${link}`}
-      navcolor={navColor}
+      isActive={isActive}
     >
       {children}
     </NavigationItem>

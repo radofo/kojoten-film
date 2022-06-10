@@ -8,9 +8,9 @@ import { BackButton } from "../styles/styled-components"
 
 // ================ Styled Components ================
 const HeaderContainer = styled.header`
-  color: var(--text-color);
-  padding: 0 var(--padding-sides);
-  height: var(--header-height);
+  color: ${({ theme }) => theme.colors.normal};
+  padding: 0 ${({ theme }) => theme.spacing.pageSides};
+  height: ${(props) => props.theme.spacing.headerHeight};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,8 +20,8 @@ const HeaderContainer = styled.header`
   z-index: 99999;
   background-color: ${(props) => {
     return props.transparentHeader
-      ? "var(--header-bgcolor-transparent)"
-      : "var(--header-bgcolor)"
+      ? props.theme.colors.transparent
+      : props.theme.colors.background
   }};
 `
 

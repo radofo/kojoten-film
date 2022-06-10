@@ -44,7 +44,7 @@ const ToggleButton = styled.button`
 const ArrowUpFeather = styled((props) => <ArrowUp {...props} />)`
   color: rgba(255, 255, 255);
   &:hover {
-    color: var(--highlight-color);
+    color: ${({ theme }) => theme.colors.highlight};
   }
 `
 

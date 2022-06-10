@@ -16,15 +16,15 @@ export const NavButton = styled.button`
   }
   z-index: 9999;
   position: absolute;
-  left: ${props => {
+  left: ${(props) => {
     return props.left ? 0 : "initial"
   }};
-  right: ${props => {
+  right: ${(props) => {
     return props.right ? 0 : "initial"
   }};
   top: 50%;
   transform: translateY(-50%);
-  padding: var(--padding-sides);
+  padding: ${({ theme }) => theme.spacing.pageSides};
 `
 
 export const ScrollButton = styled.button`

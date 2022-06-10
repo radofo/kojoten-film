@@ -21,6 +21,7 @@
     "babel-plugin-styled-components": "^2.0.7",
     "contentful": "^9.1.29",
     "gatsby": "^4.15.2",
+    "gatsby-plugin-styled-components": "^5.16.0",
     "moment": "^2.29.3",
     "react": "^18.1.0",
     "react-device-detect": "^2.2.2",

@@ -23,7 +23,7 @@ const TeamContainer = styled.div`
 
 const TeamDescription = styled.div`
   position: absolute;
-  color: var(--text-color);
+  color: ${({ theme }) => theme.colors.normal};
   background: rgba(37, 37, 37, 0.4);
   line-height: 1.3;
   border-radius: 10px;
@@ -31,11 +31,13 @@ const TeamDescription = styled.div`
   padding: 15px;
   bottom: 0;
   left: 0;
-  margin: calc(var(--header-height) * 1.5) calc(var(--padding-sides) * 1)
-    calc(var(--padding-sides) * 1);
+  margin: calc(${(props) => props.theme.spacing.headerHeight} * 1.5)
+    calc(${({ theme }) => theme.spacing.pageSides} * 1)
+    calc(${({ theme }) => theme.spacing.pageSides} * 1);
   max-width: 100%;
   @media ${({ theme }) => theme.screenSizes.desktop} {
-    margin: 0 0 calc(var(--padding-sides) * 1) calc(var(--padding-sides) * 1);
+    margin: 0 0 calc(${({ theme }) => theme.spacing.pageSides} * 1)
+      calc(${({ theme }) => theme.spacing.pageSides} * 1);
     bottom: 0;
     top: initial;
     max-width: 50%;

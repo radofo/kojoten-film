@@ -6,13 +6,14 @@ import SocialMediaIcons from "./reusable/SocialMediaIcons"
 const MobileMenuContainer = styled.div`
   background: black;
   color: white;
-  opacity: ${props => {
+  opacity: ${(props) => {
     return props.isMenuOpen ? "1" : "0"
   }};
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: var(--header-height) var(--padding-sides) 0;
+  padding: ${(props) => props.theme.spacing.headerHeight}
+    ${({ theme }) => theme.spacing.pageSides} 0;
   position: fixed;
   top: 0;
   left: 0;
@@ -20,7 +21,7 @@ const MobileMenuContainer = styled.div`
   right: 0;
   width: 100%;
   transition: opacity 0.1s ease-out;
-  z-index: ${props => {
+  z-index: ${(props) => {
     return props.isMenuOpen ? "9999" : "0"
   }};
   @media ${({ theme }) => theme.screenSizes.desktop} {
@@ -37,7 +38,7 @@ const NavigationRow = styled.div`
   padding: 0 25px;
 `
 
-const NavigationItem = styled(props => <Link {...props} />)`
+const NavigationItem = styled((props) => <Link {...props} />)`
   font-size: ${({ theme }) => theme.fontSizes.regular};
   text-decoration: none;
   color: ${({ theme, currentpath }) => {
@@ -46,7 +47,7 @@ const NavigationItem = styled(props => <Link {...props} />)`
   margin-bottom: 20px;
 `
 
-const NaviationItemSmall = styled(props => <Link {...props} />)`
+const NaviationItemSmall = styled((props) => <Link {...props} />)`
   font-size: ${({ theme }) => theme.fontSizes.small};
   text-decoration: none;
   color: ${({ theme, currentpath }) => {
@@ -71,9 +72,9 @@ const LocaleSwitcher = styled.div`
 const LocaleButton = styled.button`
   background: rgba(0, 0, 0, 0);
   border: 1px solid rgba(0, 0, 0, 0);
-  color: ${props => props.buttonColor};
+  color: ${(props) => props.buttonColor};
   padding: 0 2px;
-  font-size: ${props => props.theme.fontSizes.xSmall};
+  font-size: ${(props) => props.theme.fontSizes.xSmall};
   display: flex;
   align-items: center;
   font-family: "DarkerGrotesque", sans-serif;
@@ -88,7 +89,7 @@ const LocaleButton = styled.button`
 
 const Dash = styled.span`
   font-size: 18px;
-  color: ${props => props.theme.colors.textDimmed};
+  color: ${(props) => props.theme.colors.textDimmed};
 `
 
 const MobileMenu = ({ isMenuOpen, locale, changeLocale }) => {
@@ -130,7 +131,7 @@ const MobileMenu = ({ isMenuOpen, locale, changeLocale }) => {
     setCurrentPath(window.location.pathname.split("/")[1])
   }, [])
 
-  const setLocale = language => {
+  const setLocale = (language) => {
     if (typeof Storage !== "undefined") {
       localStorage.setItem("kojotenLanguage", language)
     }

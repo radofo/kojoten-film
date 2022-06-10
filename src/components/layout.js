@@ -6,8 +6,6 @@ import favicon from "../media/favicon.svg"
 // Children
 import Header from "./header"
 import MobileMenu from "./MobileMenu"
-// Utils
-import { headerHeight } from "../utils/window"
 // Context
 import { SocialMediaContextProvider } from "./context/SocialMedia"
 // Themes
@@ -23,17 +21,8 @@ const GlobalStyle = createGlobalStyle`
   }
   body, html {
     font-family: "DarkerGrotesque", sans-serif;
-    font-size: ${standardTheme.fontSizes.regular};
+    font-size: ${(props) => props.theme.fontSizes.regular};
     background-color: black;
-    --padding-sides: 3%;
-    --text-color: #fff;
-    --header-bgcolor: #000;
-    --header-bgcolor-transparent: rgba(0, 0, 0, 0);
-    --header-height: ${headerHeight}px;
-    --slider-speed-factor: 160;
-    --active-route: #E3BA85;
-    --highlight-color: #E3BA85;
-    --default-font-size: 20px;
   }
   img:not([src]) {
     display: none;

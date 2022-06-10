@@ -6,8 +6,9 @@ import styled, { createGlobalStyle } from "styled-components"
 import VimeoControls from "./VimeoControls"
 import { defaultLocale } from "../utils/fetch"
 import { Link } from "gatsby"
-import { headerHeight } from "../utils/window"
 import { BackButton } from "../styles/styled-components"
+import { ThemeProvider } from "styled-components"
+import { standardTheme } from "../styles/theme"
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -20,15 +21,6 @@ const GlobalStyle = createGlobalStyle`
     Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: bold;
     background-color: black;
-    --padding-sides: 3%;
-    --text-color: #fff;
-    --header-bgcolor: #000;
-    --header-bgcolor-transparent: rgba(0, 0, 0, 0);
-    --header-height: ${headerHeight}px;
-    --slider-speed-factor: 160;
-    --active-route: #ffd600;
-    --highlight-color: #ffd600;
-    --default-font-size: 16px;
   }
 `
 
@@ -36,7 +28,7 @@ const VimeoContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: ${props => {
+  height: ${(props) => {
     return props.vh
   }};
   overflow: hidden;
@@ -47,16 +39,9 @@ const VimeoAnchor = styled.div`
   position: relative;
 `
 
-// const BackButton = styled.i`
-//   color: white;
-//   &:hover {
-//     cursor: pointer;
-//   }
-// `
-
 const TopRow = styled.div`
   padding: 0 3%;
-  height: ${headerHeight}px;
+  height: ${({ theme }) => theme.spacing.headerHeight};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -86,7 +71,7 @@ const Vimeo = ({ location }) => {
         },
         window.location.host
       )
-      .then(data => {
+      .then((data) => {
         const details = data.items[0].fields
         setDetails(details)
         var options = {
@@ -104,28 +89,32 @@ const Vimeo = ({ location }) => {
   const enterFullScreen = () => {
     vimeoPlayer
       .requestFullscreen()
-      .then(function() {
+      .then(function () {
         // the player exits fullscreen
       })
-      .catch(function(error) {})
+      .catch(function (error) {})
   }
 
   return (
     <VimeoContainer vh={vh}>
-      <GlobalStyle />
-      <Helmet>
-        <title>Kojoten | {details.titel || "Media"}</title>
-        <link href="/fontawesome/css/all.css" rel="stylesheet"></link>
-        <meta name="description" content="Kojoten Film" />
-      </Helmet>
-      <VimeoAnchor id="vimeo-container">
-        <TopRow>
-          <Link to={`/${section === "film" ? `film/${details.url}` : section}`}>
-            <BackButton size={36} />
-          </Link>
-        </TopRow>
-        <VimeoControls player={vimeoPlayer} onClick={enterFullScreen} />
-      </VimeoAnchor>
+      <ThemeProvider theme={standardTheme}>
+        <GlobalStyle />
+        <Helmet>
+          <title>Kojoten | {details.titel || "Media"}</title>
+          <link href="/fontawesome/css/all.css" rel="stylesheet"></link>
+          <meta name="description" content="Kojoten Film" />
+        </Helmet>
+        <VimeoAnchor id="vimeo-container">
+          <TopRow>
+            <Link
+              to={`/${section === "film" ? `film/${details.url}` : section}`}
+            >
+              <BackButton size={36} />
+            </Link>
+          </TopRow>
+          <VimeoControls player={vimeoPlayer} onClick={enterFullScreen} />
+        </VimeoAnchor>
+      </ThemeProvider>
     </VimeoContainer>
   )
 }

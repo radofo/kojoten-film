@@ -6,7 +6,7 @@ import { createSrcSet } from "../utils/fetch"
 const PosterImage = styled.img`
   height: 100%;
   height: ${(props) => props.posterHeight}px;
-  padding-top: var(--header-height);
+  padding-top: ${(props) => props.theme.spacing.headerHeight};
 `
 
 const PosterContainer = styled((props) => <Link {...props} />)`

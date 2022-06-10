@@ -17,8 +17,8 @@ const FilmDetailInfoContainer = styled.div`
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
-  padding: 20px var(--padding-sides) 100px;
-  margin: var(--header-height) 0 0;
+  padding: 20px ${({ theme }) => theme.spacing.pageSides} 100px;
+  margin: ${(props) => props.theme.spacing.headerHeight} 0 0;
   opacity: ${(props) => {
     return props.infosOpen ? "1" : "0"
   }};

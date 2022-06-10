@@ -5,6 +5,10 @@ export const screenSizes = {
 }
 
 export const standardTheme = {
+  spacing: {
+    headerHeight: "70px",
+    pageSides: "3%",
+  },
   fontSizes: {
     xSmall: "16px",
     small: "18px",
@@ -17,6 +21,8 @@ export const standardTheme = {
   },
   colors: {
     normal: "#fff",
+    background: "#000",
+    transparent: "rgba(0, 0, 0, 0)",
     highlight: "#E3BA85",
     textDimmed: "#ababab",
   },

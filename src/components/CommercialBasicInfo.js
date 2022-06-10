@@ -5,7 +5,7 @@ const CommercialBasicInfoContainer = styled.div`
   position: absolute;
   left: 0;
   bottom: 40px;
-  padding: 0 calc(var(--padding-sides) + 10px);
+  padding: 0 calc(${({ theme }) => theme.spacing.pageSides} + 10px);
   color: white;
   @media ${({ theme }) => theme.screenSizes.desktop} {
     bottom: 60px;
@@ -22,7 +22,7 @@ const CommercialDetailHeader = styled.h1`
 `
 const CommercialMoreDetails = styled.p`
   margin-bottom: 15px;
-  font-size: ${props => props.theme.fontSizes.xxLarge};
+  font-size: ${(props) => props.theme.fontSizes.xxLarge};
 `
 
 const CommercialBasicInfo = ({ details, locale }) => {
