@@ -137,6 +137,12 @@ const FilmDetailInfo = ({ infosOpen, details, locale }) => {
             credits={details.produzentin}
           />
         )}
+        {details.koproduzentin && (
+          <FilmDetailCredit
+            category={t.credits.koproduzentin[locale]}
+            credits={details.koproduzentin}
+          />
+        )}
         {details.cinematographer && (
           <FilmDetailCredit
             category={t.credits.kamera[locale]}
@@ -186,16 +192,16 @@ const FilmDetailInfo = ({ infosOpen, details, locale }) => {
             credits={details.farbkorrektur}
           />
         )}
-        {details.cast && (
-          <FilmDetailCredit
-            category={t.credits.cast[locale]}
-            credits={details.cast}
-          />
-        )}
         {details.casting && (
           <FilmDetailCredit
             category={t.credits.casting[locale]}
             credits={details.casting}
+          />
+        )}
+        {details.cast && (
+          <FilmDetailCredit
+            category={t.credits.cast[locale]}
+            credits={details.cast}
           />
         )}
       </FilmDetailCredits>

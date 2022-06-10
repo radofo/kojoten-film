@@ -19,8 +19,12 @@ export const t = {
       en: "Director",
     },
     producer: {
-      de: "Producer",
+      de: "Producer*in",
       en: "Producer",
+    },
+    koproduzentin: {
+      de: "Koproduzent*in",
+      en: "Co-Producer",
     },
     produzent: {
       de: "Produzent*in",
