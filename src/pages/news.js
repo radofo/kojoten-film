@@ -8,7 +8,7 @@ import Pending from "../components/pending"
 import { Helmet } from "react-helmet"
 
 const NewsContainer = styled.div`
-  padding: var(--header-height) var(--padding-sides);
+  padding: 70px 3%;
   position: relative;
   z-index: 9;
 `

@@ -10,8 +10,6 @@ import MobileMenu from "./MobileMenu"
 import { headerHeight } from "../utils/window"
 // Context
 import { SocialMediaContextProvider } from "./context/SocialMedia"
-// Fonts
-import "../styles/customfonts.css"
 // Themes
 import { standardTheme } from "../styles/theme"
 
