@@ -6,7 +6,15 @@ export const t = {
     },
     koproduktion: {
       de: "Koproduktion, Förderung, Partner",
-      en: "Koproduktion, Förderung, Partner",
+      en: "Coproduction, Funding, Partner",
+    },
+    verleih: {
+      de: "Verleih, Vertrieb",
+      en: "Distribution, World Sales",
+    },
+    festivals: {
+      de: "Festivals",
+      en: "Festivals",
     },
   },
   credits: {

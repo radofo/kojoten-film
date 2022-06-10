@@ -110,6 +110,22 @@ const FilmDetailInfo = ({ infosOpen, details, locale }) => {
                 />
               </IconRowWrapper>
             )}
+          {details.verleihVertrieb && t.iconRows.verleih[locale] && (
+            <IconRowWrapper>
+              <IconRowHeadingStyle>
+                {t.iconRows.verleih[locale]}
+              </IconRowHeadingStyle>
+              <IconRow icons={details.verleihVertrieb} alignment="left" />
+            </IconRowWrapper>
+          )}
+          {details.festivals && t.iconRows.festivals[locale] && (
+            <IconRowWrapper>
+              <IconRowHeadingStyle>
+                {t.iconRows.festivals[locale]}
+              </IconRowHeadingStyle>
+              <IconRow icons={details.festivals} alignment="left" />
+            </IconRowWrapper>
+          )}
         </FilmDetailedInfos>
       </FilmDetailSynopsis>
       <FilmDetailCredits>
