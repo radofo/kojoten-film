@@ -8,6 +8,10 @@ export const MarkdownParagraph = styled.p`
   margin-bottom: 8px;
 `
 
+export const MarkdownSpacing = styled.div`
+  height: calc(${({ theme }) => theme.fontSizes.regular} - 4px);
+`
+
 export const MarkdownHyperlink = styled.a`
   color: white;
 

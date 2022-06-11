@@ -55,10 +55,14 @@ const FilmDetailOverlay = styled.div`
 `
 
 const FilmDetail = ({ location }) => {
-  // Locales ===================================
   const { state } = location
   const initialLocale = state && state.locale ? state.locale : defaultLocale
   const [locale, setLocale] = useState(initialLocale)
+  const slug = location.pathname.split("/")[2]
+  const [filmDetails, setFilmDetails] = useState({})
+  const [filmMedia, setFilmMedia] = useState({})
+  const [infosOpen, setInfosOpen] = useState(false)
+
   useEffect(() => {
     const storageLocale = localStorage.getItem("kojotenLanguage")
     if (storageLocale && initialLocale !== storageLocale) {
@@ -71,10 +75,6 @@ const FilmDetail = ({ location }) => {
       setLocale(newLocale)
     }
   }
-  const slug = location.pathname.split("/")[2]
-  const [filmDetails, setFilmDetails] = useState({})
-  const [filmMedia, setFilmMedia] = useState({})
-  const [infosOpen, setInfosOpen] = useState(false)
 
   useEffect(() => {
     fetchContentful

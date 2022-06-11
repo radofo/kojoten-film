@@ -10,6 +10,7 @@ import {
   MarkdownHighlight,
   MarkdownHyperlink,
   MarkdownParagraph,
+  MarkdownSpacing,
 } from "../styles/markdownStyles"
 
 export const renderOptions = {
@@ -20,6 +21,7 @@ export const renderOptions = {
     [BLOCKS.PARAGRAPH]: (node, children) => (
       <MarkdownParagraph>{children}</MarkdownParagraph>
     ),
+    [BLOCKS.HR]: (node, children) => <MarkdownSpacing />,
     [INLINES.HYPERLINK]: (node, children) => {
       return (
         <MarkdownHyperlink target="_blank" href={node.data.uri}>

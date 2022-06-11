@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 const FilmDetailHeader = styled.h1`
   text-transform: uppercase;
-  color: ${props =>
+  color: ${(props) =>
     props.isColoredHeader
       ? props.theme.colors.highlight
       : props.theme.colors.normal};
@@ -16,18 +16,18 @@ const FilmDetailHeader = styled.h1`
 `
 const FilmDetailDirector = styled.p`
   margin-bottom: 15px;
-  color: ${props => props.theme.colors.normal};
-  font-size: ${props => props.theme.fontSizes.regular};
+  color: ${(props) => props.theme.colors.normal};
+  font-size: ${(props) => props.theme.fontSizes.regular};
 `
 const FilmDetailGenres = styled.p`
-  color: ${props => props.theme.colors.normal};
+  color: ${(props) => props.theme.colors.normal};
 
-  font-size: ${props => props.theme.fontSizes.regular};
+  font-size: ${(props) => props.theme.fontSizes.regular};
   text-transform: uppercase;
 `
 const FilmDetailPlaytime = styled.p`
-  color: ${props => props.theme.colors.normal};
-  font-size: ${props => props.theme.fontSizes.regular};
+  color: ${(props) => props.theme.colors.normal};
+  font-size: ${(props) => props.theme.fontSizes.regular};
 `
 const FilmDetailStatus = styled.p`
   color: ${({ theme }) => theme.colors.highlight};
