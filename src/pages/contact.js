@@ -54,7 +54,10 @@ const Contact = ({ location }) => {
     <Layout locale={locale} changeLocale={changeLocale}>
       <Helmet>
         <title>Kojoten | Contact</title>
-        <meta name="description" content="Kojoten Film" />
+        <meta
+          name="description"
+          content="info@kojotenfilm.de, +49 173 7735474, Standorte in Berlin und Stuttgart."
+        />
       </Helmet>
       <ContactContainer>
         <ContactAddresses
