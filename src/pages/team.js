@@ -94,7 +94,10 @@ const Team = ({ location }) => {
     <Layout transparentHeader locale={locale} changeLocale={changeLocale}>
       <Helmet>
         <title>Kojoten | Team</title>
-        <meta name="description" content="Kojoten Film" />
+        <meta
+          name="description"
+          content="Inhabende Produzentinnen Stefanie Gödicke, Magdalena Wolff"
+        />
       </Helmet>
       {isComingSoon ? (
         <Pending emoji="🐺" subject="Team Information is" />
