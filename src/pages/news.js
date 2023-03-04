@@ -61,7 +61,7 @@ const News = ({ location }) => {
     <Layout locale={locale} changeLocale={changeLocale}>
       <Helmet>
         <title>Kojoten | News</title>
-        <meta name="description" content="Kojoten Film" />
+        <meta name="description" content="Immer geupdatet die aktuellen News" />
       </Helmet>
       {comingSoon ? (
         <Pending emoji="🗞" subject="News are" />

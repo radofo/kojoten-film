@@ -5,26 +5,17 @@ import { Helmet } from "react-helmet"
 // Components
 import Layout from "../components/layout"
 import ImageSlider from "../components/imageSlider"
-import LpCover from "../components/lpCover"
 // Utils
 import { defaultLocale } from "../utils/fetch"
 import Pending from "../components/pending"
 
-const Home = ({ location }) => {
-  const { state } = location
+const Home = () => {
   const [locale, setLocale] = useState()
   const [films, setFilms] = useState([])
-  const [overlayOpen, setOverlayOpen] = useState(true)
-  const [showOverlay, setShowOverlay] = useState(false)
   const [isComingSoon, setIsComingSoon] = useState(false)
-  const [overlayDecided, setOverlayDecided] = useState(false)
   const [windowHeight, setWindowHeight] = useState(0)
 
   useEffect(() => {
-    // Modal
-    const showModal = state?.modal === false ? false : true
-    setShowOverlay(showModal)
-    setOverlayDecided(true)
     // Locale
     const storageLocale = localStorage.getItem("kojotenLanguage")
     setLocale(storageLocale ?? defaultLocale)
@@ -35,7 +26,7 @@ const Home = ({ location }) => {
     return () => {
       window.removeEventListener("resize", handleResize)
     }
-  }, [state])
+  }, [])
 
   const handleResize = () => {
     setWindowHeight(window.innerHeight)
@@ -64,26 +55,15 @@ const Home = ({ location }) => {
     }
   }
 
-  const toggleOverlay = () => {
-    setOverlayOpen(false)
-    setTimeout(() => {
-      setShowOverlay(false)
-    }, 1000)
-  }
-
   return (
-    <Layout
-      locale={locale}
-      changeLocale={changeLocale}
-      overlayDecided={overlayDecided}
-    >
+    <Layout locale={locale} changeLocale={changeLocale}>
       <Helmet>
         <title>Kojoten | Film</title>
-        <meta name="description" content="Kojoten Film" />
+        <meta
+          name="description"
+          content="Produktionsfirma für hochwertige Werbefilme, sowie fiktionale und dokumentarische Stoffe. Gegründet von Magdalena Wolff und Stefanie Gödicke (2016)."
+        />
       </Helmet>
-      {showOverlay && (
-        <LpCover overlayOpen={overlayOpen} toggleOverlay={toggleOverlay} />
-      )}
       {isComingSoon ? (
         <Pending emoji="🎥" subject="Films are" />
       ) : (
