@@ -34,6 +34,7 @@ const Home = () => {
 
   useEffect(() => {
     if (locale) {
+      // TODO: transform to typescript types
       fetchContentful
         .getAllEntries(
           { content_type: "film", locale: locale, order: "fields.position" },
