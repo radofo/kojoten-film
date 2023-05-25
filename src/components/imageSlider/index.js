@@ -7,8 +7,25 @@ import "swiper/css/bundle"
 import "../../styles/swiper.css"
 import { ChevronRight, ChevronLeft } from "react-feather"
 
+const SLIDE_DUPES = 5
+
+function getFilmSlides(films) {
+  let slides = []
+  for (let i = 0; i < SLIDE_DUPES; i++) {
+    slides = slides.concat(
+      films.map((film) => ({
+        ...film,
+        key: `${film?.sys?.id}_${film?.fields?.url}_${i}`,
+      }))
+    )
+  }
+  return slides
+}
+
 const ImageSlider = ({ films, height, locale }) => {
-  return films.length > 0 ? (
+  const slides = getFilmSlides(films)
+
+  return slides.length > 0 ? (
     <div id="imageSlider">
       <Swiper
         modules={[Navigation, Mousewheel, Scrollbar, Autoplay, FreeMode]}
@@ -22,7 +39,6 @@ const ImageSlider = ({ films, height, locale }) => {
         autoplay={true}
         loop
         mousewheel
-        loopedSlides={films.length}
         followFinger={true}
         navigation={{
           nextEl: ".swiper-next",
@@ -30,12 +46,9 @@ const ImageSlider = ({ films, height, locale }) => {
         }}
         speed={500}
       >
-        {films.map((film) => {
+        {slides.map((film) => {
           return (
-            <SwiperSlide
-              key={`${film?.sys?.id}${film?.fields?.url}${film?.fields?.url}`}
-              style={{ width: "initial" }}
-            >
+            <SwiperSlide key={film.key} style={{ width: "initial" }}>
               <FilmPoster height={height} locale={locale} film={film} />
             </SwiperSlide>
           )
