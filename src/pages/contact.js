@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet"
 import * as fetchContentful from "../utils/fetch"
 import { defaultLocale } from "../utils/fetch"
 
-import Layout from "../components/layout"
+import Layout from "../components/Layout"
 import ContactFooter from "../components/contact/ContactFooter"
 import ContactAddresses from "../components/contact/ContactAddresses"
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Helmet } from "react-helmet"
-import Layout from "../components/layout"
+import Layout from "../components/Layout"
 import * as fetchContentful from "../utils/fetch"
 import MediaContainer from "../components/mediaContainer"
 import CommercialBasicInfo from "../components/CommercialBasicInfo"

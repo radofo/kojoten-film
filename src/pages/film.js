@@ -2,7 +2,7 @@ import React from "react"
 import { Router } from "@reach/router"
 import FilmDetail from "../components/FilmDetail"
 import styled from "styled-components"
-import Layout from "../components/layout"
+import Layout from "../components/Layout"
 
 const FilmOverviewContainer = styled.div`
   background: black;

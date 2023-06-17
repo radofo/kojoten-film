@@ -1,6 +1,9 @@
 import styled from "styled-components"
 
-export const NavButton = styled.button`
+export const SliderNavigation = styled.button<{
+  left?: boolean
+  right?: boolean
+}>`
   color: #c1c1c1;
   outline: none;
   opacity: 0.4;
@@ -14,15 +17,5 @@ export const NavButton = styled.button`
   @media ${({ theme }) => theme.screenSizes.desktop} {
     font-size: 2.5em;
   }
-  z-index: 9999;
-  position: fixed;
-  left: ${(props) => {
-    return props.left ? 0 : "initial"
-  }};
-  right: ${(props) => {
-    return props.right ? 0 : "initial"
-  }};
-  top: 50%;
-  transform: translateY(-50%);
-  padding: ${({ theme }) => theme.spacing.pageSides};
+  z-index: 8888;
 `

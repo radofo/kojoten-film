@@ -11,7 +11,7 @@ const previewHosts = [
   "kojoten-film-vorschau.netlify.app",
 ]
 
-export const getAllEntries = (params, hostname) => {
+export const getAllEntries = (params, hostname, withAllLocales = false) => {
   if (previewHosts.includes(hostname)) {
     contentfulConnection = "preview.contentful.com"
     contentfulAccessToken = process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN_PREVIEW
@@ -21,7 +21,11 @@ export const getAllEntries = (params, hostname) => {
     accessToken: contentfulAccessToken,
     host: contentfulConnection,
   })
-  return client.getEntries(params)
+  if (withAllLocales) {
+    return client.withAllLocales.getEntries(params)
+  } else {
+    return client.getEntries(params)
+  }
 }
 
 export const getEntry = (id, params, hostname) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import Layout from "../components/layout"
+import Layout from "../components/Layout"
 import * as fetchContentful from "../utils/fetch"
 import styled from "styled-components"
 import { defaultLocale } from "../utils/fetch"

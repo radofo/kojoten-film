@@ -32,3 +32,5 @@ export const standardTheme = {
     desktopL: `(min-width: ${screenSizes.desktopL}px)`,
   },
 }
+
+export type StandardTheme = typeof standardTheme

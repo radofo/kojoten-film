@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react"
 import * as fetchContentful from "../utils/fetch"
 import { Helmet } from "react-helmet"
 // Components
-import Layout from "../components/layout"
+import Layout from "../components/Layout"
 import ImageSlider from "../components/imageSlider"
 // Utils
 import { defaultLocale } from "../utils/fetch"
@@ -34,7 +34,6 @@ const Home = () => {
 
   useEffect(() => {
     if (locale) {
-      // TODO: transform to typescript types
       fetchContentful
         .getAllEntries(
           { content_type: "film", locale: locale, order: "fields.position" },

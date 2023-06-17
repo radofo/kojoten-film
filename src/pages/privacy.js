@@ -6,7 +6,7 @@ import { renderOptions } from "../utils/richText"
 import * as fetchContentful from "../utils/fetch"
 import { defaultLocale } from "../utils/fetch"
 
-import Layout from "../components/layout"
+import Layout from "../components/Layout"
 
 const PrivacyContainer = styled.div`
   padding: 0 ${({ theme }) => theme.spacing.pageSides};

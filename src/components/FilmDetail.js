@@ -3,7 +3,7 @@ import * as fetchContentful from "../utils/fetch"
 import { Helmet } from "react-helmet"
 import styled, { css } from "styled-components"
 // Components
-import Layout from "../components/layout"
+import Layout from "../components/Layout"
 import FilmBasicInfo from "./FilmBasicInfo"
 import FilmDetailInfo from "../components/FilmDetailInfo"
 // Utils & Icons
