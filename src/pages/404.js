@@ -26,7 +26,7 @@ const FourOhFour = () => {
         <ErrorContainer>
           <ErrorHeader>Page not found</ErrorHeader>
           <ErrorMessage>
-            Ooops...the page you are looking for has been removed or relocated.
+            Ooops...the page you are looking for has been removed or relocated...
           </ErrorMessage>
         </ErrorContainer>
       </ErrorPage>
