@@ -9,22 +9,6 @@ export const TeamContainer = styled.div`
   overflow-y: hidden;
   color: ${({ theme }) => theme.colors.normal};
 `
-export const SliderContainer = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: min-content 1fr min-content;
-`
-
-export const NavContainer = styled.div`
-  display: grid;
-  place-items: center;
-`
-
-export const SwiperArea = styled.div`
-  overflow: hidden;
-  border-radius: 5px;
-  position: relative;
-`
 
 export const MemberSlide = styled.div`
   display: flex;
@@ -37,19 +21,19 @@ export const MemberSlide = styled.div`
 `
 
 export const MemberImage = styled.img`
-  width: 80dvw;
-  height: calc(80dvw * 14 / 9);
+  width: 95dvw;
+  height: calc(95dvw * 14 / 9);
   max-height: 70dvh;
+  object-fit: cover;
+  border-radius: 5px;
+  background: black;
+  outline: 1px solid black;
+  border: 1px solid yellow;
 
   @media ${({ theme }) => theme.screenSizes.tablet} {
     height: 550px;
     width: calc(550px * 9 / 14);
   }
-
-  object-fit: cover;
-  border-radius: 5px;
-  background: black;
-  outline: 1px solid black;
 `
 
 export const MemberInfo = styled.div`
@@ -57,6 +41,7 @@ export const MemberInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   @media ${({ theme }) => theme.screenSizes.tablet} {
     font-size: ${({ theme }) => theme.fontSizes.small};
   }

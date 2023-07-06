@@ -2,13 +2,13 @@ import React, { ReactNode } from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { FreeMode, Mousewheel, Navigation, Scrollbar } from "swiper"
 import { ChevronLeft, ChevronRight } from "react-feather"
-import { SliderNavigation } from "./SliderStyles"
-import "swiper/css/bundle"
 import {
   NavContainer,
   SliderContainer,
+  SliderNavigation,
   SwiperArea,
-} from "../styles/pageStyles/TeamStyles"
+} from "./SliderStyles"
+import "swiper/css/bundle"
 import { duplicateSlides } from "../utils/slider"
 import { screenSizes } from "../styles/theme"
 
@@ -26,7 +26,7 @@ const Slider = ({ slidesData, contentToJsx }: SliderProps) => {
 
   return (
     <SliderContainer>
-      <NavContainer>
+      <NavContainer left={true}>
         <SliderNavigation className="swiper-prev" left>
           <ChevronLeft size={50} />
         </SliderNavigation>
@@ -64,7 +64,7 @@ const Slider = ({ slidesData, contentToJsx }: SliderProps) => {
           })}
         </Swiper>
       </SwiperArea>
-      <NavContainer>
+      <NavContainer left={false}>
         <SliderNavigation className="swiper-next" right>
           <ChevronRight size={50} />
         </SliderNavigation>
