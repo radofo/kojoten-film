@@ -28,7 +28,6 @@ export const MemberImage = styled.img`
   border-radius: 5px;
   background: black;
   outline: 1px solid black;
-  border: 1px solid yellow;
 
   @media ${({ theme }) => theme.screenSizes.tablet} {
     height: 550px;
