@@ -1,6 +1,3 @@
 .swiperCustomWrapper {
   transition-timing-function: linear !important;
 }
-.swiper-slide {
-  width: fit-content !important;
-}

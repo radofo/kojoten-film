@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react"
+import React, { ReactNode, useContext, useEffect, useState } from "react"
 import { Helmet } from "react-helmet"
 import Layout from "../components/Layout"
 import { getAllEntries, createSrcSet } from "../utils/fetch"
@@ -6,7 +6,6 @@ import {
   TeamMember,
   fromContentfulResponseToTeamMembers,
 } from "../contentful/team"
-import { useLocale } from "../hooks/useLocale"
 import {
   MemberCredit,
   MemberImage,
@@ -19,9 +18,10 @@ import {
 } from "../styles/pageStyles/TeamStyles"
 import Slider from "../components/Slider"
 import { FaEnvelope, FaInstagram, FaPhone } from "react-icons/fa"
+import { LocaleContext } from "../context/LocaleContext"
 
-const Team = ({ location }) => {
-  const { locale, changeLocale } = useLocale(location)
+const Team = () => {
+  const { locale } = useContext(LocaleContext)
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([])
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const Team = ({ location }) => {
         <MemberImage src={src} srcSet={srcSet} />
         <MemberInfo>
           <MemberName>{teamMember.name}</MemberName>
-          <MemberCredit>{teamMember.occupation[locale]}</MemberCredit>
+          <MemberCredit>{teamMember.occupation?.[locale]}</MemberCredit>
           <MemberSocialMedia>
             {teamMember?.phone && (
               <SocialLink href={`tel:${teamMember.phone}`} target="_blank">
@@ -76,7 +76,7 @@ const Team = ({ location }) => {
   }
 
   return (
-    <Layout transparentHeader locale={locale} changeLocale={changeLocale}>
+    <Layout transparentHeader>
       <Helmet>
         <title>Kojoten | Team</title>
         <meta

@@ -12,11 +12,9 @@ import {
 } from "../styles/pageStyles/LayoutStyles"
 
 type LayoutProps = {
-  transparentHeader: boolean
+  transparentHeader?: boolean
   overlayDecided?: boolean
-  locale: string
   backButton?: boolean
-  changeLocale: (newLocale: string) => void
   children: ReactNode
 }
 
@@ -25,8 +23,6 @@ const Layout = ({
   transparentHeader = false,
   backButton = false,
   overlayDecided = true,
-  locale,
-  changeLocale,
 }: LayoutProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -60,14 +56,8 @@ const Layout = ({
                 isMenuOpen={isMenuOpen}
                 transparentHeader={transparentHeader}
                 backButton={backButton}
-                changeLocale={changeLocale}
-                locale={locale}
               />
-              <MobileMenu
-                locale={locale}
-                changeLocale={changeLocale}
-                isMenuOpen={isMenuOpen}
-              />
+              <MobileMenu isMenuOpen={isMenuOpen} />
             </React.Fragment>
           )}
           <Body>{children}</Body>

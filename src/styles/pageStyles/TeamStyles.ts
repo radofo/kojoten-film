@@ -8,6 +8,10 @@ export const TeamContainer = styled.div`
   height: 100vh;
   overflow-y: hidden;
   color: ${({ theme }) => theme.colors.normal};
+
+  & .swiper-slide {
+    width: fit-content !important;
+  }
 `
 
 export const MemberSlide = styled.div`

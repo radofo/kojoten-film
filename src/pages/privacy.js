@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import styled from "styled-components"
 import { Helmet } from "react-helmet"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
@@ -7,6 +7,7 @@ import * as fetchContentful from "../utils/fetch"
 import { defaultLocale } from "../utils/fetch"
 
 import Layout from "../components/Layout"
+import { LocaleContext } from "../context/LocaleContext"
 
 const PrivacyContainer = styled.div`
   padding: 0 ${({ theme }) => theme.spacing.pageSides};
@@ -20,19 +21,9 @@ const PrivacyContainer = styled.div`
   }
 `
 
-const Privacy = ({ location }) => {
-  // State
-  const { state } = location
-  const initialLocale = state && state.locale ? state.locale : defaultLocale
-  const [locale, setLocale] = useState(initialLocale)
+const Privacy = () => {
+  const { locale } = useContext(LocaleContext)
   const [datenschtzContent, setDatenschtzContent] = useState("")
-
-  useEffect(() => {
-    const storageLocale = localStorage.getItem("kojotenLanguage")
-    if (storageLocale && initialLocale !== storageLocale) {
-      setLocale(storageLocale)
-    }
-  }, [])
 
   useEffect(() => {
     fetchContentful
@@ -48,14 +39,8 @@ const Privacy = ({ location }) => {
       })
   }, [locale])
 
-  const changeLocale = (newLocale) => {
-    if (newLocale !== locale) {
-      setLocale(newLocale)
-    }
-  }
-
   return (
-    <Layout locale={locale} changeLocale={changeLocale}>
+    <Layout>
       <Helmet>
         <title>Kojoten | Privacy</title>
         <meta name="description" content="Kojoten Film" />
