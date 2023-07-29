@@ -1,4 +1,5 @@
 import React, { useContext } from "react"
+// @ts-ignore
 import kojotenlogo from "../media/kojoten_logo_new.png"
 import Navigation from "./navigation"
 import NavItem from "./navItem"
