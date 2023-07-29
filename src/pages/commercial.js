@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Helmet } from "react-helmet"
 import Layout from "../components/Layout"
 import * as fetchContentful from "../utils/fetch"
@@ -9,8 +9,6 @@ import { ChevronRight, ChevronLeft, ChevronDown } from "react-feather"
 import { screenSizes } from "../styles/theme"
 import { NavButton, ScrollButton } from "../styles/pageStyles/commercialStyles"
 
-import { defaultLocale } from "../utils/fetch"
-
 // 3rd Party
 import { Navigation } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -19,11 +17,10 @@ import "swiper/css/navigation"
 import "../styles/swiper.css"
 import CommercialOverview from "../components/commercial/CommercialOverview"
 import { useRef } from "react"
+import { LocaleContext } from "../context/LocaleContext"
 
-const Commercial = ({ location }) => {
-  const { state } = location
-  const initialLocale = state && state.locale ? state.locale : defaultLocale
-  const [locale, setLocale] = useState(initialLocale)
+const Commercial = () => {
+  const { locale } = useContext(LocaleContext)
   const [commercials, setCommercials] = useState(null)
   const [vh, setVh] = useState("100vh")
   const [activeIndex, setActiveIndex] = useState(0)
@@ -31,11 +28,6 @@ const Commercial = ({ location }) => {
   const overviewRef = useRef(null)
 
   useEffect(() => {
-    // Locale
-    const storageLocale = localStorage.getItem("kojotenLanguage")
-    if (storageLocale && initialLocale !== storageLocale) {
-      setLocale(storageLocale)
-    }
     // Resize
     handleResize()
     window.addEventListener("resize", handleResize)
@@ -64,12 +56,6 @@ const Commercial = ({ location }) => {
     return allCommercials.filter((comm) => comm?.fields?.poster !== undefined)
   }
 
-  const changeLocale = (newLocale) => {
-    if (newLocale !== locale) {
-      setLocale(newLocale)
-    }
-  }
-
   const handleResize = () => {
     setVh(window.innerHeight || "100vh")
     setIsDesktop(window.innerWidth > screenSizes.desktop)
@@ -79,7 +65,7 @@ const Commercial = ({ location }) => {
   const showCommercials = !isCommercialsInProgress && commercials
 
   return (
-    <Layout locale={locale} changeLocale={changeLocale} transparentHeader>
+    <Layout transparentHeader>
       <Helmet>
         <title>Kojoten | Commercial</title>
         <meta name="description" content="Kojoten Film" />

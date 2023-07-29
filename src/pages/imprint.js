@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import styled from "styled-components"
 import { Helmet } from "react-helmet"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { renderOptions } from "../utils/richText"
 import * as fetchContentful from "../utils/fetch"
-import { defaultLocale } from "../utils/fetch"
 
 import Layout from "../components/Layout"
+import { LocaleContext } from "../context/LocaleContext"
 
 const ImprintContainer = styled.div`
   padding: 0 ${({ theme }) => theme.spacing.pageSides};
@@ -20,19 +20,9 @@ const ImprintContainer = styled.div`
   }
 `
 
-const Imprint = ({ location }) => {
-  // State
-  const { state } = location
-  const initialLocale = state && state.locale ? state.locale : defaultLocale
-  const [locale, setLocale] = useState(initialLocale)
+const Imprint = () => {
+  const { locale } = useContext(LocaleContext)
   const [impressumContent, setImpressumContent] = useState("")
-
-  useEffect(() => {
-    const storageLocale = localStorage.getItem("kojotenLanguage")
-    if (storageLocale && initialLocale !== storageLocale) {
-      setLocale(storageLocale)
-    }
-  }, [])
 
   useEffect(() => {
     fetchContentful
@@ -48,14 +38,8 @@ const Imprint = ({ location }) => {
       })
   }, [locale])
 
-  const changeLocale = (newLocale) => {
-    if (newLocale !== locale) {
-      setLocale(newLocale)
-    }
-  }
-
   return (
-    <Layout locale={locale} changeLocale={changeLocale}>
+    <Layout>
       <Helmet>
         <title>Kojoten | Imprint</title>
         <meta name="description" content="Kojoten Film" />

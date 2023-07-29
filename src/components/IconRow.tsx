@@ -1,36 +1,33 @@
 import React from "react"
 import { createSrcSet } from "../utils/fetch"
-import styled from "styled-components"
+import { Icon, IconContainer } from "./IconRowStyles"
+import { Image } from "../contentful/types"
 
-const Icon = styled.img`
-  width: ${({ iconWidth }) => iconWidth ?? "90px"};
-  height: ${({ iconHeight }) => iconHeight ?? "40px"};
-`
-const IconContainer = styled.div`
-  gap: 30px;
-  display: flex;
-  justify-content: ${({ alignment }) => alignment ?? "center"};
-  align-items: center;
-  flex-wrap: wrap;
-`
+type IconRowProps = {
+  icons: Image[]
+  iconWidth?: string
+  iconHeight?: string
+  alignment?: string
+}
 
-export const IconRow = ({ icons, iconWidth, iconHeight, alignment }) => {
+export const IconRow = ({
+  icons,
+  iconWidth,
+  iconHeight,
+  alignment,
+}: IconRowProps) => {
   return (
     <IconContainer alignment={alignment}>
       {icons &&
         icons.map((icon, index) => {
           const [awardSrc, awardSrcSet] = createSrcSet({
-            src: icon.fields.file.url,
+            src: icon.url,
             size: "200",
             fileFormat:
-              icon.fields.file.contentType.indexOf("svg") > -1
-                ? "svg"
-                : undefined,
+              icon.contentType?.indexOf("svg") > -1 ? "svg" : undefined,
             isTransparent: true,
           })
-          const aspectRatio =
-            icon.fields.file.details.image.width /
-            icon.fields.file.details.image.height
+          const aspectRatio = icon.width / icon.height
 
           const isWide = aspectRatio > 2
           const iconWidthStyle = isWide ? "auto" : iconWidth ?? "90px"

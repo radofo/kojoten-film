@@ -1,8 +1,9 @@
 import React from "react"
 import styled from "styled-components"
-import FilmShortDescription from "./reusable/FilmShortDescription"
+import FilmShortDescription from "./FilmShortDescription"
+import { Film } from "../contentful/film"
 
-const FilmBasicInfoContainer = styled.div`
+const FilmBasicInfoContainer = styled.div<{ infosOpen: boolean }>`
   position: absolute;
   left: 0;
   bottom: 10px;
@@ -17,7 +18,12 @@ const FilmBasicInfoContainer = styled.div`
   }
 `
 
-const FilmBasicInfo = ({ details, infosOpen }) => {
+type FilmBasicInfoProps = {
+  details: Film
+  infosOpen: boolean
+}
+
+const FilmBasicInfo = ({ details, infosOpen }: FilmBasicInfoProps) => {
   return (
     <FilmBasicInfoContainer infosOpen={infosOpen}>
       <FilmShortDescription isColoredHeader={false} details={details} />
