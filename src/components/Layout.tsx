@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FC, ReactNode } from "react"
 import { ThemeProvider } from "styled-components"
 import { Helmet } from "react-helmet"
-import Header from "./header"
+import Header from "./Header"
 import MobileMenu from "./MobileMenu"
 import { SocialMediaContextProvider } from "./context/SocialMedia"
 import { standardTheme } from "../styles/theme"
