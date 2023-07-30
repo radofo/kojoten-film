@@ -47,7 +47,7 @@ const Overlay = styled.div`
 `
 
 const MediaContainer = ({
-  children,
+  children = null,
   media,
   playbackLink,
   overlayOnHover = false,
@@ -69,7 +69,7 @@ const MediaContainer = ({
       exact="true"
       to={playbackLink}
     >
-      {media.video ? (
+      {media?.video ? (
         <Video autoPlay muted loop playsInline key={media.video}>
           <source src={media.video} type="video/mp4"></source>
         </Video>

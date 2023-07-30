@@ -1,44 +1,29 @@
-// Libraries
-import React, { useState, useEffect } from "react"
-import styled, { createGlobalStyle, ThemeProvider } from "styled-components"
+import React, { useState, useEffect, FC, ReactNode } from "react"
+import { ThemeProvider } from "styled-components"
 import { Helmet } from "react-helmet"
-import favicon from "../media/favicon.svg"
-// Children
-import Header from "./header"
+import Header from "./Header"
 import MobileMenu from "./MobileMenu"
-// Context
 import { SocialMediaContextProvider } from "./context/SocialMedia"
-// Themes
 import { standardTheme } from "../styles/theme"
+import {
+  Body,
+  GlobalStyle,
+  LayoutContainer,
+} from "../styles/pageStyles/LayoutStyles"
 
-// ============== Global Styles & Variables ==============
-const LayoutContainer = styled.div``
-const GlobalStyle = createGlobalStyle`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  body, html {
-    font-family: "DarkerGrotesque", sans-serif;
-    font-size: ${(props) => props.theme.fontSizes.regular};
-    background-color: black;
-  }
-  img:not([src]) {
-    display: none;
-  }
-`
-
-const Body = styled.main``
+type LayoutProps = {
+  transparentHeader?: boolean
+  overlayDecided?: boolean
+  backButton?: boolean
+  children: ReactNode
+}
 
 const Layout = ({
   children,
-  transparentHeader,
-  backButton,
+  transparentHeader = false,
+  backButton = false,
   overlayDecided = true,
-  locale,
-  changeLocale,
-}) => {
+}: LayoutProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -57,16 +42,13 @@ const Layout = ({
   return (
     <LayoutContainer>
       <Helmet>
-        <link rel="icon" href={favicon} />
-        <link href="/fontawesome/css/all.css" rel="stylesheet"></link>
+        <link rel="icon" href="/favicon.svg" />
+        <link href="/fontawesome/css/all.css" rel="stylesheet" />
         <title>Kojoten Filmproduktion</title>
       </Helmet>
       <ThemeProvider theme={standardTheme}>
         <SocialMediaContextProvider>
           <GlobalStyle />
-          <Body isMenuOpen={isMenuOpen} transparentHeader={transparentHeader}>
-            {children}
-          </Body>
           {overlayDecided && (
             <React.Fragment>
               <Header
@@ -74,16 +56,11 @@ const Layout = ({
                 isMenuOpen={isMenuOpen}
                 transparentHeader={transparentHeader}
                 backButton={backButton}
-                changeLocale={changeLocale}
-                locale={locale}
               />
-              <MobileMenu
-                locale={locale}
-                changeLocale={changeLocale}
-                isMenuOpen={isMenuOpen}
-              />
+              <MobileMenu isMenuOpen={isMenuOpen} />
             </React.Fragment>
           )}
+          <Body>{children}</Body>
         </SocialMediaContextProvider>
       </ThemeProvider>
     </LayoutContainer>

@@ -11,17 +11,32 @@ const previewHosts = [
   "kojoten-film-vorschau.netlify.app",
 ]
 
-export const getAllEntries = (params, hostname) => {
+export async function getAllEntriesWithAllLocales(
+  contentType: string,
+  where?: { [key: string]: string | number }
+): Promise<any> {
+  return await getAllEntries(
+    { content_type: contentType, ...(where ?? {}) },
+    window.location.host,
+    true
+  )
+}
+
+export const getAllEntries = (params, hostname, withAllLocales = false) => {
   if (previewHosts.includes(hostname)) {
     contentfulConnection = "preview.contentful.com"
     contentfulAccessToken = process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN_PREVIEW
   }
   const client = contentful.createClient({
-    space: process.env.GATSBY_CONTENTFUL_SPACE_ID,
-    accessToken: contentfulAccessToken,
+    space: process.env.GATSBY_CONTENTFUL_SPACE_ID as string,
+    accessToken: contentfulAccessToken as string,
     host: contentfulConnection,
   })
-  return client.getEntries(params)
+  if (withAllLocales) {
+    return client.withAllLocales.getEntries(params)
+  } else {
+    return client.getEntries(params)
+  }
 }
 
 export const getEntry = (id, params, hostname) => {
@@ -30,8 +45,8 @@ export const getEntry = (id, params, hostname) => {
     contentfulAccessToken = process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN_PREVIEW
   }
   const client = contentful.createClient({
-    space: process.env.GATSBY_CONTENTFUL_SPACE_ID,
-    accessToken: contentfulAccessToken,
+    space: process.env.GATSBY_CONTENTFUL_SPACE_ID as string,
+    accessToken: contentfulAccessToken as string,
     host: contentfulConnection,
   })
   return client.getEntry(id, params)

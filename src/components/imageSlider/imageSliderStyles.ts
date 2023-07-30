@@ -1,6 +1,9 @@
 import styled from "styled-components"
 
-export const NavButton = styled.button`
+export const NavButton = styled.button<{
+  left?: boolean
+  right?: boolean
+}>`
   color: #c1c1c1;
   outline: none;
   opacity: 0.4;
