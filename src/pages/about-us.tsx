@@ -50,7 +50,8 @@ const AboutUs = () => {
         />
       </Helmet>
       <AboutUsContainer>
-        <AboutUsPageContent>
+        <ContactAddresses firmensitze={aboutUsPage?.firmensitze ?? []} />
+        {/* <AboutUsPageContent>
           <WhoHeader>{aboutUsPage?.beschreibungHeader?.[locale]}</WhoHeader>
           <WhereHeader>{aboutUsPage?.firmensitzeHeader?.[locale]}</WhereHeader>
           <WhoContent>
@@ -63,7 +64,7 @@ const AboutUs = () => {
           <WhereContent>
             <ContactAddresses firmensitze={aboutUsPage?.firmensitze ?? []} />
           </WhereContent>
-        </AboutUsPageContent>
+        </AboutUsPageContent> */}
         {aboutUsPage && <ContactFooter aboutUsPage={aboutUsPage} />}
       </AboutUsContainer>
     </Layout>

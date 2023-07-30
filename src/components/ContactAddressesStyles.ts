@@ -5,15 +5,22 @@ export const ContactAddressesContainer = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
+  z-index: 9;
+  padding-top: ${(props) => props.theme.spacing.headerHeight};
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 100px;
 `
 
 export const ContactAddressContainer = styled.div`
   display: flex;
   gap: 10px;
   margin-bottom: 40px;
-  margin-right: 130px;
   flex-direction: column;
-  align-items: flex-start;
+  flex-basis: 33%;
+  min-width: 350px;
+  align-items: center;
 `
 
 export const ContactAddressHeader = styled.h1`
