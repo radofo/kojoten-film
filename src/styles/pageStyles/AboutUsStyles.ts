@@ -19,6 +19,7 @@ export const AboutUsPageContent = styled.div`
     "whoContent"
     "whereHeader"
     "whereContent";
+  color: ${({ theme }) => theme.colors.normal};
 
   @media ${({ theme }) => theme.screenSizes.desktop} {
     padding-top: ${(props) =>
@@ -29,14 +30,15 @@ export const AboutUsPageContent = styled.div`
     gap: 90px;
     grid-template-columns: max-content 1fr;
   }
-  color: ${({ theme }) => theme.colors.normal};
 `
 
 const Header = styled.h1`
   color: ${({ theme }) => theme.colors.highlight};
-  font-size: ${({ theme }) => theme.fontSizes.xxxxLarge};
-  margin-top: 60px;
-  margin-bottom: 30px;
+  /* font-size: ${({ theme }) => theme.fontSizes.xxxxLarge}; */
+  margin-top: 40px;
+  font-size: 32px;
+  margin-bottom: 20px;
+  font-weight: 300;
 
   @media ${({ theme }) => theme.screenSizes.desktop} {
     margin-block: 0px;
