@@ -53,6 +53,7 @@ export const WhoHeader = styled(Header)`
 `
 export const WhoContent = styled(Content)`
   grid-area: whoContent;
+  color: ${(props) => props.theme.colors.textDimmed};
 `
 export const WhoText = styled.div`
   max-width: 900px;

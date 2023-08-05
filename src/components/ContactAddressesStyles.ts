@@ -32,12 +32,12 @@ export const ContactAddressHeader = styled.h1`
 
 export const ContactAddressLine = styled.p`
   color: ${(props) => props.theme.colors.textDimmed};
-  font-size: ${(props) => props.theme.fontSizes.small};
+  /* font-size: ${(props) => props.theme.fontSizes.small}; */
 `
 
 export const ContactAddressLineLink = styled.a`
   color: ${(props) => props.theme.colors.textDimmed};
-  font-size: ${(props) => props.theme.fontSizes.small};
+  /* font-size: ${(props) => props.theme.fontSizes.small}; */
   text-decoration: underline;
   &:hover {
     color: ${(props) => props.theme.colors.highlight};
