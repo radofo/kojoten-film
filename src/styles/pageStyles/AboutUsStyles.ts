@@ -34,11 +34,9 @@ export const AboutUsPageContent = styled.div`
 
 const Header = styled.h1`
   color: ${({ theme }) => theme.colors.highlight};
-  /* font-size: ${({ theme }) => theme.fontSizes.xxxxLarge}; */
+  font-size: ${({ theme }) => theme.fontSizes.xxxxLarge};
   margin-top: 40px;
-  font-size: 32px;
   margin-bottom: 20px;
-  font-weight: 300;
 
   @media ${({ theme }) => theme.screenSizes.desktop} {
     margin-block: 0px;
