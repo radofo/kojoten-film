@@ -38,7 +38,7 @@ const FilmShortDescription = ({
       </FilmDetailDirector>
       <FilmDetailGenres>
         {details.genres &&
-          details.genres[locale].map((genre, index) => {
+          details.genres[locale]?.map((genre, index) => {
             return (
               <span key={index}>
                 {index > 0 ? ", " : ""}
