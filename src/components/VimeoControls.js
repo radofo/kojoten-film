@@ -38,7 +38,7 @@ const VideoBar = styled.div`
 `
 
 const VideoProgress = styled.div`
-  width: ${props => {
+  width: ${(props) => {
     return props.progress
   }}%;
   height: 4px;
@@ -96,29 +96,30 @@ const VimeoControls = ({ player }) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [volume, setVolume] = useState(0.5)
   const sliderRef = useRef(null)
+
   useEffect(() => {
     if (player) {
-      player.on("timeupdate", function(time) {
+      player.on("timeupdate", function (time) {
         const newTime = Math.round(time.percent * 100)
         setPlaytime(newTime)
       })
-      player.on("play", function(time) {
+      player.on("play", function (time) {
         setIsPlaying(true)
         player
           .getDuration()
-          .then(function(d) {
+          .then(function (d) {
             setDuration(d)
           })
-          .catch(function(error) {})
+          .catch(function (error) {})
       })
-      player.on("pause", function(time) {
+      player.on("pause", function (time) {
         setIsPlaying(false)
       })
       player.setVolume(volume)
     }
   }, [player])
 
-  const changeProgress = event => {
+  const changeProgress = (event) => {
     const sliderStart = sliderRef.current.offsetLeft
     const sliderWidth = sliderRef.current.offsetWidth
     const clickPosition = event.clientX - sliderStart
@@ -128,8 +129,8 @@ const VimeoControls = ({ player }) => {
     setPlaytime(newTime)
     player
       .setCurrentTime(newPosition)
-      .then(function(seconds) {})
-      .catch(function(error) {
+      .then(function (seconds) {})
+      .catch(function (error) {
         switch (error.name) {
           case "RangeError":
             console.log("Range error")
@@ -145,14 +146,14 @@ const VimeoControls = ({ player }) => {
   const togglePlay = () => {
     player
       .getPaused()
-      .then(function(paused) {
+      .then(function (paused) {
         if (paused) {
           player.play()
         } else {
           player.pause()
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         // an error occurred
       })
   }
@@ -160,10 +161,10 @@ const VimeoControls = ({ player }) => {
   const toggleFullscreen = () => {
     player
       .requestFullscreen()
-      .then(function() {
+      .then(function () {
         // the player entered fullscreen
       })
-      .catch(function(error) {
+      .catch(function (error) {
         // an error occurred
       })
   }

@@ -5,7 +5,7 @@ import Layout from "./Layout"
 import FilmBasicInfo from "./FilmBasicInfo"
 import FilmDetailInfo from "./FilmDetailInfo"
 
-import MediaContainer from "./mediaContainer"
+import MediaContainer from "./MediaContainer"
 import {
   FeatherChevronDown,
   FeatherX,
@@ -13,15 +13,7 @@ import {
   FilmDetailOverlay,
 } from "./FilmDetailStyles"
 import { Film, fromContentfulResponseToFilms } from "../contentful/film"
-
-type Media = {
-  image: {
-    src?: string
-    srcMobile?: string
-    filters?: string
-  }
-  video?: string
-}
+import { Media } from "../types/general"
 
 const FilmDetail = ({ location }) => {
   const slug = location.pathname.split("/")[2]
