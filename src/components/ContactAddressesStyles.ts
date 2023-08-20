@@ -22,6 +22,7 @@ export const ContactAddressContainer = styled.div`
 
 export const ContactAddressHeader = styled.h1`
   font-weight: 300;
+  color: ${({ theme }) => theme.colors.highlight};
   text-transform: uppercase;
   font-size: 29px;
   line-height: 36px;

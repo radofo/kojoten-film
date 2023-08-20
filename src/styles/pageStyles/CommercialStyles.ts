@@ -1,6 +1,22 @@
 import styled from "styled-components"
 
-export const NavButton = styled.button`
+export const CommercialContainer = styled.div`
+  position: relative;
+  height: 100dvh;
+  width: 100%;
+`
+export const CommercialHeroContainer = styled.div`
+  height: 100dvh;
+  height: 100vh;
+  width: 100%;
+`
+
+export const SlideContent = styled.div`
+  height: 100%;
+  width: 100%;
+`
+
+export const NavButton = styled.button<{ right?: boolean; left?: boolean }>`
   color: #c1c1c1;
   outline: none;
   opacity: 0.7;

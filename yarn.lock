@@ -2119,6 +2119,11 @@
   "resolved" "https://registry.npmjs.org/@types/tmp/-/tmp-0.0.33.tgz"
   "version" "0.0.33"
 
+"@types/vimeo__player@^2.18.0":
+  "integrity" "sha512-AcPX2xDSl2gRrZGXOjEg1LUyuabgCxpakHTnVr+H6EqlNS6e5I8zR7AqEtN2J2dgMLc5cVm1YvkuyIRpMOcnEg=="
+  "resolved" "https://registry.npmjs.org/@types/vimeo__player/-/vimeo__player-2.18.0.tgz"
+  "version" "2.18.0"
+
 "@types/yoga-layout@1.9.2":
   "integrity" "sha512-S9q47ByT2pPvD65IvrWp7qppVMpk9WGMbVq9wbWZOHg6tnXSD4vyhao6nOSBwwfDdV2p3Kx9evA9vI+XWTfDvw=="
   "resolved" "https://registry.npmjs.org/@types/yoga-layout/-/yoga-layout-1.9.2.tgz"

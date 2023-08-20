@@ -7,6 +7,10 @@ export function mapI18nField(obj: i18Any): i18Any {
   }
 }
 
+export function mapVideo(itemField: any): string | undefined {
+  return itemField?.de?.fields?.file?.de?.url
+}
+
 export function mapImage(imageFields: any, altText: string): Image | undefined {
   if (!imageFields) return
 
@@ -34,5 +38,7 @@ export function mapStringArray(obj: any): string[] {
 }
 
 export function mapOptionalField(contentfulValue: any, field: string): any {
-  return contentfulValue ? { [field]: contentfulValue } : {}
+  return contentfulValue || contentfulValue === 0
+    ? { [field]: contentfulValue }
+    : {}
 }

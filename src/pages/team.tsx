@@ -1,7 +1,7 @@
 import React, { ReactNode, useContext, useEffect, useState } from "react"
 import { Helmet } from "react-helmet"
 import Layout from "../components/Layout"
-import { getAllEntries, createSrcSet } from "../utils/fetch"
+import { createSrcSet, getAllEntriesWithAllLocales } from "../utils/fetch"
 import {
   TeamMember,
   fromContentfulResponseToTeamMembers,
@@ -19,6 +19,25 @@ import {
 import Slider from "../components/Slider"
 import { FaEnvelope, FaInstagram, FaPhone } from "react-icons/fa"
 import { LocaleContext } from "../context/LocaleContext"
+import { SliderConfig } from "../types/general"
+
+const sliderConfig: SliderConfig = {
+  loop: false,
+  desktop: {
+    fluid: true,
+    fullscreen: false,
+    spaceBetween: 20,
+    alignment: "left",
+    arrowSlideOverlap: false,
+  },
+  mobile: {
+    fluid: true,
+    fullscreen: false,
+    spaceBetween: 20,
+    alignment: "center",
+    arrowSlideOverlap: true,
+  },
+}
 
 const Team = () => {
   const { locale } = useContext(LocaleContext)
@@ -26,11 +45,7 @@ const Team = () => {
 
   useEffect(() => {
     ;(async () => {
-      const apidata = await getAllEntries(
-        { content_type: "teamMember" },
-        window.location.host,
-        true
-      )
+      const apidata = await getAllEntriesWithAllLocales("teamMember")
       const newTeamMembers = fromContentfulResponseToTeamMembers(apidata)
       const sortedTeamMembers = [...newTeamMembers].sort(
         (a: TeamMember, b: TeamMember) =>
@@ -85,7 +100,11 @@ const Team = () => {
         />
       </Helmet>
       <TeamContainer>
-        <Slider slidesData={teamMembers} contentToJsx={contentToJsx} />
+        <Slider
+          config={sliderConfig}
+          slidesData={teamMembers}
+          contentToJsx={contentToJsx}
+        />
       </TeamContainer>
     </Layout>
   )
