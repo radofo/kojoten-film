@@ -6,7 +6,7 @@ import {
   CommercialContainer,
   ScrollButton,
   SlideContent,
-} from "../styles/pageStyles/commercialStyles"
+} from "../styles/pageStyles/CommercialStyles"
 import { TCommercial } from "../contentful/commercial"
 import { fromCommercialToBackgroundMedia } from "../utils/media"
 import MediaDiv from "./MediaDiv"
