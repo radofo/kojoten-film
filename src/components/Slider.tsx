@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react"
+import React, { ReactNode, useCallback, useState } from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { FreeMode, Mousewheel, Navigation, Scrollbar } from "swiper"
 import { ChevronLeft, ChevronRight } from "react-feather"
@@ -22,9 +22,8 @@ interface SliderProps<T> {
   ) => ReactNode
   config: SliderConfig
   onSlideChange?: (sliderInfo: { index: number }) => void
-  onHover?: () => void
-  onHoverOut?: () => void
   playActiveVideo?: boolean
+  playActiveVideoOnHover?: boolean
   children?: ReactNode
 }
 
@@ -34,22 +33,53 @@ const Slider = <T extends {}>({
   config,
   onSlideChange,
   playActiveVideo = false,
-  onHover,
-  onHoverOut,
+  playActiveVideoOnHover = true,
   children,
 }: SliderProps<T>) => {
   if (!slidesData.length || !config) {
     return null
   }
   const [activeIndex, setActiveIndex] = useState(0)
+  const [isHovered, setIsHovered] = useState<boolean>(false)
+  const [sliderContainerEl, setSliderContainerEl] =
+    useState<HTMLElement | null>(null)
 
   const renderSlidesData = duplicateSlides(slidesData, 1)
 
+  function mouseOver(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    setIsHovered(true)
+  }
+  function mouseOut(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    const rect = sliderContainerEl?.getBoundingClientRect()
+    if (rect) {
+      const isInside =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom
+
+      if (!isInside) {
+        setIsHovered(false)
+      }
+    }
+  }
+
+  const onRefChange = useCallback((containerElement: HTMLElement | null) => {
+    if (containerElement) {
+      setSliderContainerEl(containerElement)
+    }
+  }, [])
+
   return (
     <SliderContainer
+      ref={onRefChange}
       sliderHeight={config?.sliderHeight}
-      onMouseEnter={() => onHover?.()}
-      onMouseLeave={() => onHoverOut?.()}
+      onMouseEnter={(e) => {
+        mouseOver(e)
+      }}
+      onMouseLeave={(e) => {
+        mouseOut(e)
+      }}
     >
       <NavContainer
         left={true}
@@ -98,10 +128,16 @@ const Slider = <T extends {}>({
           }}
         >
           {renderSlidesData.map((thisSlideData, index) => {
-            const playThisVideo = activeIndex === index && playActiveVideo
+            const activeCheckPassed =
+              playActiveVideo || playActiveVideoOnHover
+                ? activeIndex === index
+                : false
+            const hoverCheckPassed = playActiveVideoOnHover ? isHovered : true
+            const playSlideVideo = activeCheckPassed && hoverCheckPassed
+
             return (
               <SwiperSlide key={JSON.stringify(thisSlideData)}>
-                {contentToJsx(thisSlideData, index, playThisVideo)}
+                {contentToJsx(thisSlideData, index, playSlideVideo)}
               </SwiperSlide>
             )
           })}

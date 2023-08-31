@@ -1,7 +1,7 @@
 import "swiper/css"
 import "swiper/css/navigation"
 import "../styles/swiper.css"
-import React, { ReactNode, useContext, useRef, useState } from "react"
+import React, { ReactNode, useRef, useState } from "react"
 import {
   CommercialContainer,
   ScrollButton,
@@ -14,7 +14,6 @@ import CommercialBasicInfo from "./CommercialBasicInfo"
 import { SliderConfig } from "../types/general"
 import Slider from "./Slider"
 import CommercialOverview from "./CommercialOverview"
-import { VideoControllerContext } from "../context/VideoControllerContext"
 import { ChevronDown } from "react-feather"
 
 const sliderConfig: SliderConfig = {
@@ -43,18 +42,9 @@ type CommercialContentProps = {
 const CommercialContent = ({ commercials }: CommercialContentProps) => {
   const [activeSlide, setActiveSlide] = useState(0)
   const overviewRef = useRef<HTMLDivElement | null>(null)
-  const { playbackWinner, startSliderVideo, stopVideo } = useContext(
-    VideoControllerContext
-  )
 
   function onSlideChange({ index }: { index: number }) {
     setActiveSlide(index)
-  }
-  function onSliderHovered() {
-    startSliderVideo()
-  }
-  function onSliderHoverOut() {
-    stopVideo()
   }
 
   return (
@@ -62,11 +52,9 @@ const CommercialContent = ({ commercials }: CommercialContentProps) => {
       <Slider
         slidesData={commercials}
         contentToJsx={commercialsToSlides}
-        playActiveVideo={playbackWinner.section === "slider"}
         config={sliderConfig}
         onSlideChange={onSlideChange}
-        onHover={onSliderHovered}
-        onHoverOut={onSliderHoverOut}
+        playActiveVideoOnHover={true}
       >
         <ScrollButton
           onClick={() =>
@@ -103,7 +91,8 @@ function commercialsToSlides(
       <MediaDiv
         link={commercial.vimeoId ? `/media/c/${commercial.url}` : null}
         media={commercialMedia}
-        show={playVideo ? "video" : "image"}
+        videoMode="controlled"
+        requestedVideoPlaybackState={playVideo ? "playing" : "idle"}
       >
         <CommercialBasicInfo details={basicInfos} />
       </MediaDiv>

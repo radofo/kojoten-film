@@ -5,14 +5,14 @@ export type MediaImage = {
   srcMobile?: string
   filters?: string
 }
+export type MediaVideo = {
+  src?: string
+  filters?: string
+}
 export type BackgroundMedia = {
   image?: MediaImage
-  video?: string
+  video?: MediaVideo
   vimeoId?: number
-}
-export type Media = {
-  image: MediaImage
-  video?: string
 }
 
 type ResponsiveSliderConfig = {
@@ -31,3 +31,7 @@ export type SliderConfig = {
 }
 
 export type CommercialOverviewType = "left" | "right" | "center"
+
+export type MediaType = "video" | "image"
+
+export type PlaybackState = "playing" | "paused" | "idle"

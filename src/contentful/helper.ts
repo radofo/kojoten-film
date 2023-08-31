@@ -18,8 +18,8 @@ export function mapImage(imageFields: any, altText: string): Image | undefined {
     title: imageFields?.title?.de ?? altText,
     url: imageFields?.file?.de?.url,
     contentType: imageFields?.file?.de?.contentType,
-    width: imageFields?.file?.de?.details?.image.width,
-    height: imageFields?.file?.de?.details?.image.height,
+    width: imageFields?.file?.de?.details?.image?.width,
+    height: imageFields?.file?.de?.details?.image?.height,
   }
 
   return img

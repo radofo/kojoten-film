@@ -7,6 +7,16 @@ export const FilmDetailInfoContainer = styled.div<{ infosOpen: boolean }>`
   left: 0;
   bottom: 0;
   overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #363b44;
+    border-radius: 10px;
+  }
   display: flex;
   flex-direction: column;
   padding: 20px ${({ theme }) => theme.spacing.pageSides} 100px;

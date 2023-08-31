@@ -41,10 +41,11 @@ export const BackgroundMediaContent = styled.div<{
   z-index: ${({ layer }) => layer ?? "initial"};
 `
 
-export const Video = styled.video`
+export const Video = styled.video<{ filters?: string }>`
   object-fit: cover;
   width: 100%;
   height: 100%;
+  filter: ${(props) => props.filters};
 `
 
 export const Image = styled.img<{ filters?: string; imgOpacity?: number }>`

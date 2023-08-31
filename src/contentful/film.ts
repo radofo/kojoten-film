@@ -4,6 +4,7 @@ import {
   mapImages,
   mapOptionalField,
   mapStringArray,
+  mapVideo,
 } from "./helper"
 import { Image, i18nDocument, i18nString, i18nStrings } from "./types"
 
@@ -13,6 +14,7 @@ export type Film = {
   position: number
   poster?: Image
   hintergrundBild?: Image
+  hintergrundVideo?: string
   lngeInMinuten: number
   beschreibung: i18nDocument
   verleihVertrieb: Image[]
@@ -48,7 +50,7 @@ export function fromContentfulResponseToFilms(response: any): Film[] {
 export function parseContentfulFilm(itemFields: any): Film | undefined {
   if (!itemFields) return
 
-  return {
+  const film: Film = {
     titel: mapI18nField(itemFields.titel),
     filmstatus: mapI18nField(itemFields.filmstatus),
     position: itemFields.position?.de ?? 999,
@@ -57,6 +59,7 @@ export function parseContentfulFilm(itemFields: any): Film | undefined {
       itemFields.hintergrundBild?.de?.fields,
       "Hintergrundbild"
     ),
+    hintergrundVideo: mapVideo(itemFields.hintergrundVideo),
     beschreibung: itemFields.beschreibung,
     festivals: mapImages(itemFields.festivals, "Logo Festivals"),
     verleihVertrieb: mapImages(itemFields.verleihVertrieb, "Logo Festivals"),
@@ -85,4 +88,6 @@ export function parseContentfulFilm(itemFields: any): Film | undefined {
     ...mapOptionalField(itemFields.url?.de, "url"),
     ...mapOptionalField(itemFields.vimeoId?.de, "vimeoId"),
   }
+
+  return film
 }

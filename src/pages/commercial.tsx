@@ -7,7 +7,6 @@ import {
   TCommercial,
   fromContentfulReponseToCommercials,
 } from "../contentful/commercial"
-import { VideoControllerContextProvider } from "../context/VideoControllerContext"
 import CommercialContent from "../components/CommercialContent"
 
 const Commercial = () => {
@@ -33,9 +32,7 @@ const Commercial = () => {
         <title>Kojoten | Commercial</title>
         <meta name="description" content="Kojoten Film" />
       </Helmet>
-      <VideoControllerContextProvider>
-        <CommercialContent commercials={commercials} />
-      </VideoControllerContextProvider>
+      <CommercialContent commercials={commercials} />
     </Layout>
   )
 }
