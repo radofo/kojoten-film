@@ -104,7 +104,7 @@ const Slider = <T extends {}>({
             [screenSizes.tablet]: {
               mousewheel: config.desktop.fluid,
               centeredSlides: config.desktop.alignment === "center",
-              centerInsufficientSlides: config.desktop.alignment === "center",
+              centerInsufficientSlides: true,
               freeMode: {
                 enabled: config.desktop.fluid,
                 momentumRatio: 0.5,
@@ -115,7 +115,7 @@ const Slider = <T extends {}>({
           }}
           mousewheel={config.mobile.fluid}
           centeredSlides={config.mobile.alignment === "center"}
-          centerInsufficientSlides={config.mobile.alignment === "center"}
+          centerInsufficientSlides
           freeMode={{
             enabled: config.mobile.fluid,
             momentumRatio: 0.5,
