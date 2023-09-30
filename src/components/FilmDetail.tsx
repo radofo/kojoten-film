@@ -4,8 +4,8 @@ import { Helmet } from "react-helmet"
 import Layout from "./Layout"
 import FilmBasicInfo from "./FilmBasicInfo"
 import FilmDetailInfo from "./FilmDetailInfo"
+import MediaDiv from "./MediaDiv"
 
-import MediaContainer from "./mediaContainer"
 import {
   FeatherChevronDown,
   FeatherX,
@@ -13,20 +13,11 @@ import {
   FilmDetailOverlay,
 } from "./FilmDetailStyles"
 import { Film, fromContentfulResponseToFilms } from "../contentful/film"
-
-type Media = {
-  image: {
-    src?: string
-    srcMobile?: string
-    filters?: string
-  }
-  video?: string
-}
+import { fromFilmToBackgroundMedia } from "../utils/media"
 
 const FilmDetail = ({ location }) => {
   const slug = location.pathname.split("/")[2]
   const [filmDetails, setFilmDetails] = useState<Film>()
-  const [filmMedia, setFilmMedia] = useState<Media>()
   const [infosOpen, setInfosOpen] = useState(false)
 
   useEffect(() => {
@@ -37,26 +28,16 @@ const FilmDetail = ({ location }) => {
       )
       const film = fromContentfulResponseToFilms(response)?.[0]
       setFilmDetails(film)
-      setFilmMedia({
-        image: {
-          src: film.hintergrundBild?.url,
-          filters: infosOpen ? "blur(5px)" : "",
-        },
-      })
     })()
   }, [])
 
   const toggleInfosOpen = () => {
-    const newInfosOpen = !infosOpen
-    setFilmMedia((filmMedia) => ({
-      ...filmMedia,
-      image: {
-        ...filmMedia?.image,
-        filters: newInfosOpen ? "blur(5px)" : "",
-      },
-    }))
-    setInfosOpen(newInfosOpen)
+    setInfosOpen((currentInfosOpen) => {
+      return !currentInfosOpen
+    })
   }
+
+  const filters = infosOpen ? "blur(10px)" : ""
 
   return (
     <Layout transparentHeader backButton>
@@ -67,23 +48,25 @@ const FilmDetail = ({ location }) => {
         <meta name="description" content="Kojoten Film" />
       </Helmet>
       <FilmDetailContainer>
-        <MediaContainer
-          playbackLink={
-            filmDetails?.vimeoId ? `/media/f/${filmDetails.url}` : null
-          }
-          media={filmMedia}
-        />
-        <FilmDetailOverlay infosOpen={infosOpen} />
         {filmDetails && (
-          <FilmDetailInfo infosOpen={infosOpen} details={filmDetails} />
-        )}
-        {filmDetails && (
-          <FilmBasicInfo infosOpen={infosOpen} details={filmDetails} />
-        )}
-        {infosOpen ? (
-          <FeatherX onClick={toggleInfosOpen} size={36} />
-        ) : (
-          <FeatherChevronDown onClick={toggleInfosOpen} size={40} />
+          <MediaDiv
+            media={fromFilmToBackgroundMedia(filmDetails, filters)}
+            videoMode="controlled"
+            requestedVideoPlaybackState={!infosOpen ? "playing" : "paused"}
+          >
+            <FilmDetailOverlay infosOpen={infosOpen} />
+            {filmDetails && (
+              <FilmDetailInfo infosOpen={infosOpen} details={filmDetails} />
+            )}
+            {filmDetails && (
+              <FilmBasicInfo infosOpen={infosOpen} details={filmDetails} />
+            )}
+            {infosOpen ? (
+              <FeatherX onClick={toggleInfosOpen} size={36} />
+            ) : (
+              <FeatherChevronDown onClick={toggleInfosOpen} size={40} />
+            )}
+          </MediaDiv>
         )}
       </FilmDetailContainer>
     </Layout>

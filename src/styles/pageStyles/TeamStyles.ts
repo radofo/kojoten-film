@@ -5,7 +5,7 @@ export const TeamContainer = styled.div`
   display: flex;
   align-items: center;
   height: 100dvh;
-  height: 100vh;
+  /* height: 100vh; */
   overflow-y: hidden;
   color: ${({ theme }) => theme.colors.normal};
 

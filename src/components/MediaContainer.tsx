@@ -1,50 +1,14 @@
 import React from "react"
 import { isMobile } from "react-device-detect"
-import styled from "styled-components"
 import { createSrcSet } from "../utils/fetch"
-import { Link } from "gatsby"
 import { PlayButton } from "./icons/PlayButton"
 import { screenSizes } from "../styles/theme"
-
-const MediaContainerStyles = styled((props) => {
-  return props.islink ? <Link {...props} /> : <div {...props} />
-})`
-  display: block;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  z-index: 9;
-  cursor: ${(props) => (props.islink ? "url('/play.svg'), pointer" : "auto")};
-`
-const Video = styled.video`
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-`
-
-const Image = styled.img`
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  background: black;
-  outline: 1px solid black;
-  filter: ${(props) => props.filters};
-`
-const Overlay = styled.div`
-  position: absolute;
-  z-index: 0;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  opacity: 0;
-
-  div:hover,
-  a:hover > & {
-    opacity: 0.5;
-  }
-`
+import {
+  Image,
+  MediaContainerStyles,
+  Overlay,
+  Video,
+} from "./MediaContainerStyles"
 
 const MediaContainer = ({
   children = null,
