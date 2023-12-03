@@ -31,20 +31,8 @@ const CommercialOverviewProject = ({
     setRealVideoPlaybackState(isPlaying)
   }
 
-  const mediaWidth = commercial?.poster?.width
-  const mediaHeight = commercial?.poster?.height
-  let mediaRatio = 16 / 9
-
-  if (mediaWidth && mediaHeight) {
-    mediaRatio = mediaWidth / mediaHeight
-  }
-
   return (
-    <Container
-      overviewType={overviewType}
-      ratio={mediaRatio}
-      commercialWidth={commercialWidth}
-    >
+    <Container overviewType={overviewType} commercialWidth={commercialWidth}>
       <MediaDiv
         media={fromCommercialToBackgroundMedia(commercial)}
         link={commercial.vimeoId ? `/media/c/${commercial.url}` : null}
