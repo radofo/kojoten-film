@@ -12,6 +12,8 @@ export type TCommercial = {
   vimeoId?: number
 }
 
+export type CommercialWithWidth = { commercial: TCommercial; width: number }
+
 export function fromContentfulReponseToCommercials(
   response: any
 ): TCommercial[] {

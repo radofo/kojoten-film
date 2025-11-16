@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import CommercialColumn from "./CommercialColumn"
 import CommercialOverviewProject from "./CommercialOverviewProject"
 import {
@@ -8,6 +8,7 @@ import {
 } from "./CommercialOverviewStyles"
 import { TCommercial } from "../contentful/commercial"
 import { screenSizes } from "../styles/theme"
+import { augmentCommercials } from "../utils/commercials"
 
 type CommercialOverviewProps = {
   overviewCommercials: TCommercial[]
@@ -32,6 +33,9 @@ const CommercialOverview = ({
     (_, index) => index % 2 !== 0
   )
 
+  const [leftCommercialsWithWidth, rightCommercialsWithWidth] =
+    augmentCommercials(leftCommercials, rightCommercials)
+
   useEffect(() => {
     handleResize()
     window.addEventListener("resize", handleResize)
@@ -48,9 +52,12 @@ const CommercialOverview = ({
     <Container oneColumn={!isDesktop} ref={overviewRef}>
       {isDesktop ? (
         <ContainerDesktop>
-          <CommercialColumn commercials={leftCommercials} overviewType="left" />
           <CommercialColumn
-            commercials={rightCommercials}
+            commercialsWithWidth={leftCommercialsWithWidth}
+            overviewType="left"
+          />
+          <CommercialColumn
+            commercialsWithWidth={rightCommercialsWithWidth}
             overviewType="right"
           />
         </ContainerDesktop>

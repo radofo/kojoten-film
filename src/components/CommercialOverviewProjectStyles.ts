@@ -11,11 +11,10 @@ const fadeOutDesktop = keyframes`
 
 export const Container = styled.div<{
   commercialWidth: number
-  ratio: number
   overviewType: CommercialOverviewType
 }>`
   position: relative;
-  aspect-ratio: ${({ ratio }) => ratio};
+  aspect-ratio: 16/9;
   width: ${({ commercialWidth }) => `${commercialWidth}%`};
   ${({ overviewType }) =>
     overviewType !== "center" ? "border-radius: 14px;" : ""};
