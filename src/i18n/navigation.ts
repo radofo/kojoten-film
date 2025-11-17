@@ -9,7 +9,7 @@ export const t = {
       en: "News",
     },
     film: {
-      de: "Film & Serien",
+      de: "Film & Serie",
       en: "Film & Series",
     },
     contact: {
